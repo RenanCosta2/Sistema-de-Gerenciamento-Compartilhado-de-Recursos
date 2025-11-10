@@ -1,0 +1,1130 @@
+[
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "NT001", 
+        "nome": "Ar-condicionado", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "15/03/2025" 
+    },
+    { 
+        "id": "CD002", 
+        "nome": "Cadeira", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Ativo",
+        "data_aquisicao": "20/01/2025"
+    },
+    { 
+        "id": "PR003", 
+        "nome": "Projetor multimídia / Datashow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 01 - Bloco A",
+        "status": "Em manutenção",
+        "data_aquisicao": "10/11/2025"
+    },
+    { 
+        "id": "NT004", 
+        "nome": "Notebook Dell", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Ativo",
+        "data_aquisicao": "05/02/2025" 
+    },
+    { 
+        "id": "IM005", 
+        "nome": "Impressora Laser", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Recepção",
+        "status": "Ativo",
+        "data_aquisicao": "12/04/2024"
+    },
+    { 
+        "id": "CD006", 
+        "nome": "Mesa Escritório", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "08/03/2023"
+    },
+    { 
+        "id": "PR007", 
+        "nome": "Projetor Sala Reunião", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Reunião 02",
+        "status": "Em manutenção",
+        "data_aquisicao": "22/07/2024"
+    },
+    { 
+        "id": "AC008", 
+        "nome": "Ar-condicionado Split", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 02 - Bloco B",
+        "status": "Ativo",
+        "data_aquisicao": "15/09/2023"
+    },
+    { 
+        "id": "CD009", 
+        "nome": "Cadeira Gamer", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Aula 03 - Bloco C",
+        "status": "Ativo",
+        "data_aquisicao": "10/06/2025"
+    },
+    { 
+        "id": "PR010", 
+        "nome": "Projetor DataShow", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Auditório",
+        "status": "Ativo",
+        "data_aquisicao": "01/12/2024"
+    },
+    { 
+        "id": "NT011", 
+        "nome": "Notebook Lenovo", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "TI",
+        "status": "Em manutenção",
+        "data_aquisicao": "18/05/2024"
+    },
+    { 
+        "id": "CD012", 
+        "nome": "Mesa de Conferência", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Sala de Reunião 01",
+        "status": "Ativo",
+        "data_aquisicao": "20/10/2023"
+    },
+    { 
+        "id": "IM013", 
+        "nome": "Impressora 3D", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Laboratório de Inovação",
+        "status": "Ativo",
+        "data_aquisicao": "25/02/2025"
+    },
+    { 
+        "id": "PR014", 
+        "nome": "Projetor Multimídia Sala 04", 
+        "categoria": "Eletrônicos", 
+        "local_instalacao": "Sala de Aula 04 - Bloco D",
+        "status": "Em manutenção",
+        "data_aquisicao": "30/08/2025"
+    },
+    { 
+        "id": "CD015", 
+        "nome": "Cadeira Executiva", 
+        "categoria": "Mobiliário", 
+        "local_instalacao": "Diretoria",
+        "status": "Ativo",
+        "data_aquisicao": "12/01/2025"
+    }
+]
