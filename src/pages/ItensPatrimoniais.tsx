@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ItensTable from "../components/ItensTable";
 import ItensFilters from "../components/ItensFilters";
 import itensData from "../data/itens.json";
@@ -11,25 +11,28 @@ const ItensPatrimoniais: React.FC = () => {
     localizacoes: [] as string[],
   });
 
-  const filteredItens = itensData.filter((item) => {
+  const filteredItens = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    const matchesSearch =
-      item.id.toString().toLowerCase().includes(term) ||
-      item.nome.toLowerCase().includes(term);
 
-    const matchesCategoria =
-      filters.categorias.length === 0 ||
-      filters.categorias.includes(item.categoria);
+    return itensData.filter((item) => {
+      const matchesSearch =
+        item.id.toString().toLowerCase().includes(term) ||
+        item.nome.toLowerCase().includes(term);
 
-    const matchesStatus =
-      filters.status.length === 0 || filters.status.includes(item.status);
+      const matchesCategoria =
+        filters.categorias.length === 0 ||
+        filters.categorias.includes(item.categoria);
 
-    const matchesLocalizacao =
-      filters.localizacoes.length === 0 ||
-      filters.localizacoes.includes(item.local_instalacao);
+      const matchesStatus =
+        filters.status.length === 0 || filters.status.includes(item.status);
 
-    return matchesSearch && matchesCategoria && matchesStatus && matchesLocalizacao;
-  });
+      const matchesLocalizacao =
+        filters.localizacoes.length === 0 ||
+        filters.localizacoes.includes(item.local_instalacao);
+
+      return matchesSearch && matchesCategoria && matchesStatus && matchesLocalizacao;
+    });
+  }, [searchTerm, filters]);
 
   return (
     <section className="pt-24 px-4">
@@ -37,7 +40,6 @@ const ItensPatrimoniais: React.FC = () => {
         Gerenciamento de Itens Patrimoniais
       </h2>
 
-      {/* Card principal contendo filtros + tabela */}
       <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <ItensFilters
           searchTerm={searchTerm}
@@ -45,7 +47,8 @@ const ItensPatrimoniais: React.FC = () => {
           filters={filters}
           setFilters={setFilters}
         />
-        <ItensTable data={filteredItens} />
+        {/* Adicione uma key baseada no filteredItens para forçar resetar a página */}
+        <ItensTable key={filteredItens.length} data={filteredItens} />
       </div>
     </section>
   );

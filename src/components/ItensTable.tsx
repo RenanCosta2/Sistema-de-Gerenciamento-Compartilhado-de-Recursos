@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 interface Item {
   id: string;
@@ -23,35 +23,35 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
   }, [data]);
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentData = data.slice(startIndex, startIndex + rowsPerPage);
+
+  // Memoriza o slice da página atual para evitar re-render desnecessário
+  const currentData = useMemo(() => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    return data.slice(startIndex, startIndex + rowsPerPage);
+  }, [data, currentPage, rowsPerPage]);
 
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
   };
 
-  // Lógica de paginação com "..."
-  const getPages = () => {
-    const pages: (number | string)[] = [];
+  const pages = useMemo(() => {
     const delta = 2;
+    const result: (number | string)[] = [];
     let l: number | undefined;
 
     for (let i = 1; i <= totalPages; i++) {
       if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
-        if (l && i - l > 1) pages.push("...");
-        pages.push(i);
+        if (l && i - l > 1) result.push("...");
+        result.push(i);
         l = i;
       }
     }
-    return pages;
-  };
-
-  const pages = getPages();
+    return result;
+  }, [totalPages, currentPage]);
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Card da tabela */}
       <div className="bg-white rounded-xl border border-gray-200 shadow overflow-x-auto">
         <table className="min-w-full text-sm text-gray-800">
           <thead className="bg-gray-100 text-left">
@@ -98,7 +98,6 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
         </table>
       </div>
 
-      {/* Controles de paginação fixos */}
       <div className="flex justify-center mt-2 select-none">
         <div className="flex gap-2 justify-center min-w-[350px]">
           <button
@@ -112,7 +111,7 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
           {pages.map((p, idx) =>
             typeof p === "number" ? (
               <button
-                key={idx}
+                key={p}
                 onClick={() => goToPage(p)}
                 className={`px-3 py-1 cursor-pointer font-semibold ${
                   currentPage === p ? "text-[#1E40AF]" : "text-black"
@@ -121,7 +120,7 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
                 {p}
               </button>
             ) : (
-              <span key={idx} className="px-2 py-1 text-black">
+              <span key={`dots-${idx}`} className="px-2 py-1 text-black">
                 {p}
               </span>
             )
