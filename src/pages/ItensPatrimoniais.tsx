@@ -35,7 +35,7 @@ const ItensPatrimoniais: React.FC = () => {
   }, [searchTerm, filters]);
 
   return (
-    <section className="pt-24 px-4">
+    <section className="pt-4 px-4">
       <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
         Gerenciamento de Itens Patrimoniais
       </h2>

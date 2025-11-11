@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
+import { Edit, Trash2, Eye } from "lucide-react";
 
 interface Item {
   id: string;
@@ -11,20 +12,17 @@ interface Item {
 
 interface ItensTableProps {
   data: Item[];
-  rowsPerPage?: number; // default 10
+  rowsPerPage?: number;
+  onEdit?: (item: Item) => void;
+  onDelete?: (item: Item) => void;
+  onView?: (item: Item) => void; // callback visualização
 }
 
-const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
+const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit, onDelete, onView }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Reset page quando os dados mudam
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [data]);
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
-  // Memoriza o slice da página atual para evitar re-render desnecessário
   const currentData = useMemo(() => {
     const startIndex = (currentPage - 1) * rowsPerPage;
     return data.slice(startIndex, startIndex + rowsPerPage);
@@ -62,6 +60,7 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
               <th className="py-3 px-4 font-semibold">Local de Instalação</th>
               <th className="py-3 px-4 font-semibold">Status</th>
               <th className="py-3 px-4 font-semibold">Data de Aquisição</th>
+              <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -91,6 +90,32 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10 }) => {
                     </span>
                   </td>
                   <td className="py-3 px-4">{item.data_aquisicao}</td>
+                  <td className="py-3 px-4 flex justify-center gap-2">
+                    {/* Botão de visualização */}
+                    <button
+                      onClick={() => onView?.(item)}
+                      className="p-1 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+                      title="Visualizar histórico"
+                    >
+                      <Eye size={16} className="text-gray-700" />
+                    </button>
+                    {/* Botão de edição */}
+                    <button
+                      onClick={() => onEdit?.(item)}
+                      className="p-1 rounded hover:bg-blue-100 transition-colors cursor-pointer"
+                      title="Editar"
+                    >
+                      <Edit size={16} className="text-blue-500" />
+                    </button>
+                    {/* Botão de exclusão */}
+                    <button
+                      onClick={() => onDelete?.(item)}
+                      className="p-1 rounded hover:bg-red-100 transition-colors cursor-pointer"
+                      title="Excluir"
+                    >
+                      <Trash2 size={16} className="text-red-500" />
+                    </button>
+                  </td>
                 </tr>
               );
             })}
