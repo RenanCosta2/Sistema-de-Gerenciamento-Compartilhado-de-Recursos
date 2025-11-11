@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ItensPatrimoniais from "./pages/ItensPatrimoniais";
+import Manutencao from "./pages/Manutencao";
+import Home from "./pages/Home";
 
 const App: React.FC = () => {
   return (
@@ -14,7 +16,13 @@ const App: React.FC = () => {
         <div className="flex flex-col flex-1 ml-60">
           <main className="flex-1 px-8 py-10">
             <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+            <Routes>
               <Route path="/itens" element={<ItensPatrimoniais />} />
+            </Routes>
+            <Routes>
+              <Route path="/manutencao" element={<Manutencao />} />
             </Routes>
           </main>
 

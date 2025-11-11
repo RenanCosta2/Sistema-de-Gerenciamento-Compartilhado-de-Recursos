@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home: React.FC = () => {
+const Manutencao: React.FC = () => {
   return (
     <section className="pt-4 px-4">
       
@@ -8,4 +8,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Manutencao;
