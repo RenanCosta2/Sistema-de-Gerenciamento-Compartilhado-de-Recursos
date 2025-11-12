@@ -1,0 +1,82 @@
+[
+  {
+    "id": "MNT-001",
+    "item": "Projetor Epson EB-X41",
+    "tipo": "Preventiva",
+    "data_solicitacao": "2025-10-28",
+    "status": "Concluída",
+    "responsavel": "Carlos Mendes"
+  },
+  {
+    "id": "MNT-002",
+    "item": "Ar Condicionado LG Dual Inverter",
+    "tipo": "Corretiva",
+    "data_solicitacao": "2025-10-30",
+    "status": "Em Andamento",
+    "responsavel": "Fernanda Lima"
+  },
+  {
+    "id": "MNT-003",
+    "item": "Notebook Dell Latitude 5420",
+    "tipo": "Corretiva",
+    "data_solicitacao": "2025-11-01",
+    "status": "Pendente",
+    "responsavel": "João Ribeiro"
+  },
+  {
+    "id": "MNT-004",
+    "item": "Cadeira Ergonômica Cavaletti",
+    "tipo": "Preventiva",
+    "data_solicitacao": "2025-10-25",
+    "status": "Concluída",
+    "responsavel": "Paula Souza"
+  },
+  {
+    "id": "MNT-005",
+    "item": "Impressora HP LaserJet 107a",
+    "tipo": "Corretiva",
+    "data_solicitacao": "2025-11-03",
+    "status": "Em Andamento",
+    "responsavel": "Marcos Teixeira"
+  },
+  {
+    "id": "MNT-006",
+    "item": "Monitor Samsung 24''",
+    "tipo": "Preventiva",
+    "data_solicitacao": "2025-10-22",
+    "status": "Concluída",
+    "responsavel": "Ana Paula"
+  },
+  {
+    "id": "MNT-007",
+    "item": "Roteador TP-Link Archer AX50",
+    "tipo": "Corretiva",
+    "data_solicitacao": "2025-11-05",
+    "status": "Pendente",
+    "responsavel": "Ricardo Gomes"
+  },
+  {
+    "id": "MNT-008",
+    "item": "Projetor BenQ MW560",
+    "tipo": "Preventiva",
+    "data_solicitacao": "2025-10-29",
+    "status": "Concluída",
+    "responsavel": "Carlos Mendes"
+  },
+  {
+    "id": "MNT-009",
+    "item": "Computador Desktop HP ProDesk",
+    "tipo": "Corretiva",
+    "data_solicitacao": "2025-11-06",
+    "status": "Em Andamento",
+    "responsavel": "Fernanda Lima"
+  },
+  {
+    "id": "MNT-010",
+    "item": "Câmera de Segurança Intelbras VIP 3230",
+    "tipo": "Preventiva",
+    "data_solicitacao": "2025-10-20",
+    "status": "Concluída",
+    "responsavel": "João Ribeiro"
+  }
+]
