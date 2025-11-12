@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { Search } from "lucide-react";
 import MultiFilterDropdown from "./MultiFilterDropdown";
 import SearchBar from "./SearchBar";
 import itensData from "../data/itens.json";
@@ -43,12 +44,17 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-nowrap items-center gap-4 mb-6">
+    <div className="w-full flex flex-nowrap items-center gap-4 mb-6 relative">
+      {/* Ícone de lupa */}
+      <Search
+        size={18}
+        className="absolute left-3 text-gray-500 pointer-events-none"
+      />
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        className="flex-grow min-w-[200px]"
-        placeholder="Pesquisar por item ou ID"
+        className="min-w-[200px] flex-grow pl-9 pr-3 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        placeholder="Buscar por ID ou item..."
       />
       <MultiFilterDropdown
         label="Tipos"
