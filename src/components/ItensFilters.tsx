@@ -54,6 +54,7 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         className="flex-grow min-w-[200px]"
+        placeholder="Pesquisar por nome ou ID"
       />
       <MultiFilterDropdown
         label="Categorias"
