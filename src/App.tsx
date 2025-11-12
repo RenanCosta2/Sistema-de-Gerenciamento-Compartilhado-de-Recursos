@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ItensPatrimoniais from "./pages/ItensPatrimoniais";
 import Manutencao from "./pages/Manutencao";
 import Home from "./pages/Home";
+import Chamados from "./pages/Chamados";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const App: React.FC = () => {
             </Routes>
             <Routes>
               <Route path="/manutencao" element={<Manutencao />} />
+            </Routes>
+            <Routes>
+              <Route path="/chamados" element={<Chamados />} />
             </Routes>
           </main>
 

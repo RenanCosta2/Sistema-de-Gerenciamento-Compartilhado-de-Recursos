@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Boxes, Home, Wrench, LogOut } from "lucide-react";
+import { Boxes, Home, Wrench, MessageSquare, LogOut } from "lucide-react";
 import clsx from "clsx";
 
 const Navbar = () => {
@@ -10,6 +10,7 @@ const Navbar = () => {
     { path: "/", label: "Home", icon: Home },
     { path: "/itens", label: "Itens Patrimoniais", icon: Boxes },
     { path: "/manutencao", label: "Manutenção", icon: Wrench },
+    { path: "/chamados", label: "Chamados", icon: MessageSquare },
   ];
 
   const user = {

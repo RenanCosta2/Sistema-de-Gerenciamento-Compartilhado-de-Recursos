@@ -1,0 +1,62 @@
+[
+  {
+    "id": "CH001",
+    "titulo": "Computador não liga",
+    "data": "2025-11-10",
+    "status": "Aberto"
+  },
+  {
+    "id": "CH002",
+    "titulo": "Problema na impressora do setor financeiro",
+    "data": "2025-11-09",
+    "status": "Em andamento"
+  },
+  {
+    "id": "CH003",
+    "titulo": "Solicitação de novo mouse",
+    "data": "2025-11-08",
+    "status": "Rejeitado"
+  },
+  {
+    "id": "CH004",
+    "titulo": "Falha de conexão na rede Wi-Fi",
+    "data": "2025-11-07",
+    "status": "Concluído"
+  },
+  {
+    "id": "CH005",
+    "titulo": "Erro no sistema de ponto eletrônico",
+    "data": "2025-11-06",
+    "status": "Em andamento"
+  },
+  {
+    "id": "CH006",
+    "titulo": "Troca de monitor na recepção",
+    "data": "2025-11-05",
+    "status": "Rejeitado"
+  },
+  {
+    "id": "CH007",
+    "titulo": "Instalação de software antivírus",
+    "data": "2025-11-04",
+    "status": "Aberto"
+  },
+  {
+    "id": "CH008",
+    "titulo": "Atualização de sistema operacional",
+    "data": "2025-11-03",
+    "status": "Em andamento"
+  },
+  {
+    "id": "CH009",
+    "titulo": "Configuração de e-mail corporativo",
+    "data": "2025-11-02",
+    "status": "Rejeitado"
+  },
+  {
+    "id": "CH010",
+    "titulo": "Solicitação de acesso à VPN",
+    "data": "2025-11-01",
+    "status": "Aberto"
+  }
+]
