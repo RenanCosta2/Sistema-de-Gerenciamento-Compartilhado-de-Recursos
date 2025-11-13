@@ -1,8 +1,13 @@
 import React from "react";
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface MultiFilterDropdownProps {
   label: string;
-  options: string[];
+  options: (string | Option)[];
   selected: string[];
   onChange: (values: string[]) => void;
 }
@@ -13,11 +18,14 @@ const MultiFilterDropdown: React.FC<MultiFilterDropdownProps> = ({
   selected,
   onChange,
 }) => {
-  const toggleOption = (option: string) => {
-    if (selected.includes(option)) {
-      onChange(selected.filter((v) => v !== option));
+  const normalize = (option: string | Option): Option =>
+    typeof option === "string" ? { value: option, label: option } : option;
+
+  const toggleOption = (value: string) => {
+    if (selected.includes(value)) {
+      onChange(selected.filter((v) => v !== value));
     } else {
-      onChange([...selected, option]);
+      onChange([...selected, value]);
     }
   };
 
@@ -31,20 +39,23 @@ const MultiFilterDropdown: React.FC<MultiFilterDropdownProps> = ({
           </span>
         </summary>
         <div className="absolute mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 w-full max-h-56 overflow-y-auto">
-          {options.map((option) => (
-            <label
-              key={option}
-              className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
-            >
-              <input
-                type="checkbox"
-                checked={selected.includes(option)}
-                onChange={() => toggleOption(option)}
-                className="mr-2 accent-indigo-600"
-              />
-              {option}
-            </label>
-          ))}
+          {options.map((opt) => {
+            const { value, label } = normalize(opt);
+            return (
+              <label
+                key={value}
+                className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+              >
+                <input
+                  type="checkbox"
+                  checked={selected.includes(value)}
+                  onChange={() => toggleOption(value)}
+                  className="mr-2 accent-indigo-600"
+                />
+                {label}
+              </label>
+            );
+          })}
         </div>
       </details>
     </div>

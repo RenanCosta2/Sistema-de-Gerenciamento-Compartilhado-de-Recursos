@@ -1,24 +1,22 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-
-interface Item {
-  id: string;
-  nome: string;
-  categoria: string;
-  local_instalacao: string;
-  status: string;
-  data_aquisicao: string;
-}
+import type { Item } from "../services/itens";
 
 interface ItensTableProps {
   data: Item[];
   rowsPerPage?: number;
   onEdit?: (item: Item) => void;
   onDelete?: (item: Item) => void;
-  onView?: (item: Item) => void; // callback visualização
+  onView?: (item: Item) => void;
 }
 
-const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit, onDelete, onView }) => {
+const ItensTable: React.FC<ItensTableProps> = ({
+  data,
+  rowsPerPage = 10,
+  onEdit,
+  onDelete,
+  onView,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -48,6 +46,14 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
     return result;
   }, [totalPages, currentPage]);
 
+  if (data.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-10 text-gray-500">
+        Nenhum item encontrado.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="bg-white rounded-xl border border-gray-200 shadow overflow-x-auto">
@@ -65,13 +71,32 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
           </thead>
           <tbody>
             {currentData.map((item) => {
-              const status = item.status.toLowerCase();
+              const rawStatus = item.status?.toLowerCase() || "";
+              const status =
+                rawStatus === "em_manutencao" ? "em manutenção" : rawStatus;
+
               const statusClasses =
                 status === "ativo"
                   ? "text-green-700 border border-green-400 bg-green-50"
                   : status === "em manutenção"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
+                  : status === "inativo"
+                  ? "text-red-700 border border-red-400 bg-red-50"
                   : "text-gray-700 border border-gray-300 bg-gray-50";
+
+              // Converte todas as palavras para Title Case
+              const formatTitleCase = (text: string) =>
+                text
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+
+              const formatDate = (dateString: string) => {
+                if (!dateString) return "";
+                const [ano, mes, dia] = dateString.split("-");
+                return `${dia}/${mes}/${ano}`;
+              };
+
 
               return (
                 <tr
@@ -81,17 +106,16 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
                   <td className="py-3 px-4">{item.id}</td>
                   <td className="py-3 px-4">{item.nome}</td>
                   <td className="py-3 px-4">{item.categoria}</td>
-                  <td className="py-3 px-4">{item.local_instalacao}</td>
+                  <td className="py-3 px-4">{item.localizacao}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}
                     >
-                      {item.status}
+                      {formatTitleCase(status)}
                     </span>
                   </td>
-                  <td className="py-3 px-4">{item.data_aquisicao}</td>
+                  <td className="py-3 px-4">{formatDate(item.data_aquisicao)}</td>
                   <td className="py-3 px-4 flex justify-center gap-2">
-                    {/* Botão de visualização */}
                     <button
                       onClick={() => onView?.(item)}
                       className="p-1 rounded hover:bg-gray-100 transition-colors cursor-pointer"
@@ -99,7 +123,6 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
                     >
                       <Eye size={16} className="text-gray-700" />
                     </button>
-                    {/* Botão de edição */}
                     <button
                       onClick={() => onEdit?.(item)}
                       className="p-1 rounded hover:bg-blue-100 transition-colors cursor-pointer"
@@ -107,7 +130,6 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
                     >
                       <Edit size={16} className="text-blue-500" />
                     </button>
-                    {/* Botão de exclusão */}
                     <button
                       onClick={() => onDelete?.(item)}
                       className="p-1 rounded hover:bg-red-100 transition-colors cursor-pointer"
@@ -123,6 +145,7 @@ const ItensTable: React.FC<ItensTableProps> = ({ data, rowsPerPage = 10, onEdit,
         </table>
       </div>
 
+      {/* Paginação */}
       <div className="flex justify-center mt-2 select-none">
         <div className="flex gap-2 justify-center min-w-[350px]">
           <button

@@ -2,9 +2,10 @@ import React, { useMemo } from "react";
 import { Search } from "lucide-react";
 import MultiFilterDropdown from "./MultiFilterDropdown";
 import SearchBar from "./SearchBar";
-import itensData from "../data/itens.json";
+import type { Item } from "../services/itens";
 
 interface ItensFiltersProps {
+  data: Item[];
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filters: {
@@ -22,22 +23,34 @@ interface ItensFiltersProps {
 }
 
 const ItensFilters: React.FC<ItensFiltersProps> = ({
+  data,
   searchTerm,
   setSearchTerm,
   filters,
   setFilters,
 }) => {
   const categorias = useMemo(
-    () => Array.from(new Set(itensData.map((i) => i.categoria))),
-    []
+    () => Array.from(new Set(data.map((i) => i.categoria))),
+    [data]
   );
-  const statusList = useMemo(
-    () => Array.from(new Set(itensData.map((i) => i.status))),
-    []
-  );
+
+  const statusMap: Record<string, string> = {
+    em_manutencao: "Em Manutenção",
+    ativo: "Ativo",
+    inativo: "Inativo",
+  };
+
+  const statusList = useMemo(() => {
+    const unique = Array.from(new Set(data.map((i) => i.status)));
+    return unique.map((status) => ({
+      value: status,
+      label: statusMap[status] || status,
+    }));
+  }, [data]);
+
   const localizacoes = useMemo(
-    () => Array.from(new Set(itensData.map((i) => i.local_instalacao))),
-    []
+    () => Array.from(new Set(data.map((i) => i.localizacao))),
+    [data]
   );
 
   const updateFilter = (key: keyof typeof filters, values: string[]) => {
@@ -51,7 +64,6 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
 
   return (
     <div className="w-full flex flex-nowrap items-center gap-4 mb-6 relative">
-      {/* Ícone de lupa */}
       <Search
         size={18}
         className="absolute left-3 text-gray-500 pointer-events-none"
@@ -64,7 +76,7 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
       />
       <MultiFilterDropdown
         label="Categorias"
-        options={categorias}
+        options={categorias.map((c) => ({ value: c, label: c }))}
         selected={filters.categorias}
         onChange={(v) => updateFilter("categorias", v)}
       />
@@ -76,7 +88,7 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
       />
       <MultiFilterDropdown
         label="Localizações"
-        options={localizacoes}
+        options={localizacoes.map((l) => ({ value: l, label: l }))}
         selected={filters.localizacoes}
         onChange={(v) => updateFilter("localizacoes", v)}
       />
