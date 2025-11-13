@@ -1,12 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-
-interface Chamado {
-  id: string;
-  titulo: string;
-  data: string;
-  status: string;
-}
+import type { Chamado } from "../services/chamados";
 
 interface ChamadosTableProps {
   data: Chamado[];
@@ -56,6 +50,14 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
     return result;
   }, [totalPages, currentPage]);
 
+  if (data.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-10 text-gray-500">
+        Nenhum item encontrado.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="bg-white rounded-xl border border-gray-200 shadow overflow-x-auto">
@@ -64,6 +66,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
             <tr className="text-[#2E3A59]">
               <th className="py-3 px-4 font-semibold">Código</th>
               <th className="py-3 px-4 font-semibold">Título</th>
+              <th className="py-3 px-4 font-semibold">Item Patrimonial</th>
               <th className="py-3 px-4 font-semibold">Data de Abertura</th>
               <th className="py-3 px-4 font-semibold">Status</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
@@ -88,8 +91,9 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
                   <td className="py-3 px-4">{chamado.id}</td>
-                  <td className="py-3 px-4">{chamado.titulo}</td>
-                  <td className="py-3 px-4">{chamado.data}</td>
+                  <td className="py-3 px-4">{chamado.descricao}</td>
+                  <td className="py-3 px-4">{chamado.patrimonio}</td>
+                  <td className="py-3 px-4">{chamado.data_criacao}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}

@@ -49,6 +49,14 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
     return result;
   }, [totalPages, currentPage]);
 
+  if (data.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-10 text-gray-500">
+        Nenhum item encontrado.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="bg-white rounded-xl border border-gray-200 shadow overflow-x-auto">
