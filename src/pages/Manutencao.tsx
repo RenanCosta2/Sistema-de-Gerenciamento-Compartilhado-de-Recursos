@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import ManutencaoTable from "../components/ManutencaoTable";
-import manutencaoData from "../data/manutencao.json";
 import ManutencaoFilters from "../components/ManutencaoFilters";
+import { getManutencoes } from "../services/manutencoes";
+import type { Manutencao } from "../services/manutencoes";
 
 const Manutencao: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,24 +11,55 @@ const Manutencao: React.FC = () => {
       status: [] as string[],
     });
 
-  const filteredManutencao = useMemo(() => {
-    const term = searchTerm.toLowerCase();
+    const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+    const [loading, setLoading] = useState(true); // controle de carregamento
 
-    return manutencaoData.filter((item) => {
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const data = await getManutencoes();
+            setManutencoes(data);
+          } catch (error) {
+            console.error("Erro ao carregar manutenções:", error);
+          } finally {
+            setLoading(false);
+          }
+        }
+        fetchData();
+      }, []);
+
+    const filteredManutencao = useMemo(() => {
+      const term = searchTerm.toLowerCase();
+
+    return manutencoes.filter((manutencao) => {
       const matchesSearch =
-        item.id.toString().toLowerCase().includes(term) ||
-        item.item.toLowerCase().includes(term);
+        manutencao.id.toString().toLowerCase().includes(term) ||
+        manutencao.patrimonio_nome.toLowerCase().includes(term);
 
       const matchesTipo =
-        filters.tipos.length === 0 ||
-        filters.tipos.includes(item.tipo);
+        filters.tipos.length === 0 
+        || filters.tipos.includes(manutencao.tipo);
 
       const matchesStatus =
-        filters.status.length === 0 || filters.status.includes(item.status);
+        filters.status.length === 0 
+        || filters.status.includes(manutencao.status);
 
       return matchesSearch && matchesTipo && matchesStatus;
     });
-  }, [searchTerm, filters]);
+  }, [searchTerm, filters, manutencoes]);
+
+  if (loading) {
+    return (
+      <section className="pt-4 px-4">
+        <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
+          Gerenciamento de Manutenções
+        </h2>
+        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+          <p>Carregando dados...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="pt-4 px-4">
@@ -37,12 +69,12 @@ const Manutencao: React.FC = () => {
       
       <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <ManutencaoFilters
+          data={manutencoes}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           filters={filters}
           setFilters={setFilters}
         />
-        {/* Adicione uma key baseada no filteredManutencao para forçar resetar a página */}
         <ManutencaoTable key={filteredManutencao.length} data={filteredManutencao} />
       </div>
     </section>

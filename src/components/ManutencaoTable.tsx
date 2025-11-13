@@ -1,21 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-
-interface Manutencao {
-  id: string;
-  item: string;
-  tipo: string;
-  data_solicitacao: string;
-  status: string;
-  responsavel: string;
-}
+import type Manutencao from "../pages/Manutencao";
 
 interface ManutencaoTableProps {
   data: Manutencao[];
   rowsPerPage?: number;
-  onEdit?: (item: Manutencao) => void;
-  onDelete?: (item: Manutencao) => void;
-  onView?: (item: Manutencao) => void;
+  onEdit?: (data: Manutencao) => void;
+  onDelete?: (data: Manutencao) => void;
+  onView?: (data: Manutencao) => void;
 }
 
 const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
@@ -73,8 +65,15 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {currentData.map((item) => {
-              const status = item.status.toLowerCase();
+            {currentData.map((manutencao) => {
+              const rawStatus = manutencao.status?.toLowerCase() || "";
+              const status =
+                rawStatus === "em_andamento"
+                  ? "em andamento"
+                  : rawStatus === "concluida"
+                  ? "concluída"
+                  : rawStatus;
+
               const statusClasses =
                 status === "concluída"
                   ? "text-green-700 border border-green-400 bg-green-50"
@@ -84,40 +83,53 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
                   ? "text-red-700 border border-red-400 bg-red-50"
                   : "text-gray-700 border border-gray-300 bg-gray-50";
 
+              // Converte todas as palavras para Title Case
+              const formatTitleCase = (text: string) =>
+                text
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+
+              const formatDate = (dateString: string) => {
+                if (!dateString) return "";
+                const [ano, mes, dia] = dateString.split("-");
+                return `${dia}/${mes}/${ano}`;
+              };
+
               return (
                 <tr
-                  key={item.id}
+                  key={manutencao.id}
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
-                  <td className="py-3 px-4">{item.id}</td>
-                  <td className="py-3 px-4">{item.item}</td>
-                  <td className="py-3 px-4">{item.tipo}</td>
-                  <td className="py-3 px-4">{item.data_solicitacao}</td>
-                  <td className="py-3 px-4">{item.responsavel}</td>
+                  <td className="py-3 px-4">{manutencao.id}</td>
+                  <td className="py-3 px-4">{manutencao.patrimonio_nome}</td>
+                  <td className="py-3 px-4">{manutencao.tipo}</td>
+                  <td className="py-3 px-4">{formatDate(manutencao.data_inicio)}</td>
+                  <td className="py-3 px-4">{manutencao.usuario}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}
                     >
-                      {item.status}
+                      {formatTitleCase(status)}
                     </span>
                   </td>
                   <td className="py-3 px-4 flex justify-center gap-2">
                     <button
-                      onClick={() => onView?.(item)}
+                      onClick={() => onView?.(manutencao)}
                       className="p-1.5 rounded hover:bg-indigo-100 transition-colors cursor-pointer"
                       title="Visualizar histórico"
                     >
                       <Eye size={17} className="text-indigo-600" />
                     </button>
                     <button
-                      onClick={() => onEdit?.(item)}
+                      onClick={() => onEdit?.(manutencao)}
                       className="p-1.5 rounded hover:bg-blue-100 transition-colors cursor-pointer"
                       title="Editar"
                     >
                       <Edit size={17} className="text-blue-600" />
                     </button>
                     <button
-                      onClick={() => onDelete?.(item)}
+                      onClick={() => onDelete?.(manutencao)}
                       className="p-1.5 rounded hover:bg-red-100 transition-colors cursor-pointer"
                       title="Excluir"
                     >

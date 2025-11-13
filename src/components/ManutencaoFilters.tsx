@@ -2,9 +2,10 @@ import React, { useMemo } from "react";
 import { Search } from "lucide-react";
 import MultiFilterDropdown from "./MultiFilterDropdown";
 import SearchBar from "./SearchBar";
-import itensData from "../data/itens.json";
+import type { Manutencao } from "../services/manutencoes";
 
 interface ManutencaoFiltersProps {
+  data: Manutencao[];
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filters: {
@@ -20,19 +21,30 @@ interface ManutencaoFiltersProps {
 }
 
 const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
+  data,
   searchTerm,
   setSearchTerm,
   filters,
   setFilters,
 }) => {
   const tipos = useMemo(
-    () => Array.from(new Set(itensData.map((i) => i.categoria))),
-    []
+    () => Array.from(new Set(data.map((i) => i.tipo))),
+    [data]
   );
-  const statusList = useMemo(
-    () => Array.from(new Set(itensData.map((i) => i.status))),
-    []
-  );
+
+  const statusMap: Record<string, string> = {
+    pendente: "Pendente",
+    em_andamento: "Em Andamento",
+    concluida: "Concluída",
+  };
+
+  const statusList = useMemo(() => {
+      const unique = Array.from(new Set(data.map((i) => i.status)));
+      return unique.map((status) => ({
+        value: status,
+        label: statusMap[status] || status,
+      }));
+    }, [data]);
 
   const updateFilter = (key: keyof typeof filters, values: string[]) => {
     setFilters((prev) => ({ ...prev, [key]: values }));
@@ -58,7 +70,7 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
       />
       <MultiFilterDropdown
         label="Tipos"
-        options={tipos}
+        options={tipos.map((c) => ({ value: c, label: c }))}
         selected={filters.tipos}
         onChange={(v) => updateFilter("tipos", v)}
       />
