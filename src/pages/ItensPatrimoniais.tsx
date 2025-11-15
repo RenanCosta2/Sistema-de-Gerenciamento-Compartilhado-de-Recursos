@@ -1,8 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ItensTable from "../components/ItensTable";
 import ItensFilters from "../components/ItensFilters";
-import { getItens } from "../services/itens";
+import DeleteItemModal from "../components/DeleteItemModal";
+import CreateItensForm, { type ItemFormValues } from "../components/CreateItensForm";
+import EditItensForm from "../components/EditItensForm";
+import { getItens, createItem, updateItem, deleteItem } from "../services/itens";
 import type { Item } from "../services/itens";
+import ViewItemModal from "../components/ViewItemModal";
+
 
 const ItensPatrimoniais: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,9 +16,13 @@ const ItensPatrimoniais: React.FC = () => {
     status: [] as string[],
     localizacoes: [] as string[],
   });
-
   const [itens, setItens] = useState<Item[]>([]);
-  const [loading, setLoading] = useState(true); // controle de carregamento
+  const [loading, setLoading] = useState(true);
+
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
+  const [deletingItem, setDeletingItem] = useState<Item | null>(null);
+  const [viewingItem, setViewingItem] = useState<Item | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,46 +38,51 @@ const ItensPatrimoniais: React.FC = () => {
     fetchData();
   }, []);
 
+  // Criar item
+  const handleCreateItem = async (dados: ItemFormValues) => {
+    try {
+      const newItem = await createItem(dados);
+      setItens((prev) => [...prev, newItem]);
+      setShowCreateModal(false);
+    } catch (error) {
+      console.error("Erro ao criar item:", error);
+      alert("Erro ao criar item.");
+    }
+  };
+
+  // Atualizar item
+  const handleEditItem = async (dados: ItemFormValues) => {
+    if (!editingItem) return;
+
+    try {
+      const updated = await updateItem(editingItem.id, dados);
+      setItens((prev) =>
+        prev.map((item) => (item.id === updated.id ? updated : item))
+      );
+      setEditingItem(null);
+    } catch (error) {
+      console.error("Erro ao atualizar item:", error);
+      alert("Erro ao atualizar item.");
+    }
+  };
+
+  // Filtragem
   const filteredItens = useMemo(() => {
     const term = searchTerm.toLowerCase();
-
     return itens.filter((item) => {
       const matchesSearch =
         item.id.toString().toLowerCase().includes(term) ||
         item.nome.toLowerCase().includes(term);
-
-      const matchesCategoria =
-        filters.categorias.length === 0 ||
-        filters.categorias.includes(item.categoria);
-
       const matchesStatus =
         filters.status.length === 0 || filters.status.includes(item.status);
-
       const matchesLocalizacao =
         filters.localizacoes.length === 0 ||
         filters.localizacoes.includes(item.localizacao);
-
-      return (
-        matchesSearch &&
-        matchesCategoria &&
-        matchesStatus &&
-        matchesLocalizacao
-      );
+      return matchesSearch && matchesStatus && matchesLocalizacao;
     });
   }, [searchTerm, filters, itens]);
 
-  if (loading) {
-    return (
-      <section className="pt-4 px-4">
-        <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
-          Gerenciamento de Itens Patrimoniais
-        </h2>
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-          <p>Carregando dados...</p>
-        </div>
-      </section>
-    );
-  }
+  if (loading) return <p>Carregando...</p>;
 
   return (
     <section className="pt-4 px-4">
@@ -85,7 +99,98 @@ const ItensPatrimoniais: React.FC = () => {
           setFilters={setFilters}
         />
 
-        <ItensTable key={filteredItens.length} data={filteredItens} />
+        <div className="mt-6 flex justify-start">
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+          >
+            Adicionar Novo Item
+          </button>
+        </div>
+
+        {/* Modal de Criar */}
+        {showCreateModal && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
+              <button
+                onClick={() => setShowCreateModal(false)}
+                className="absolute top-2 right-2 text-gray-600"
+              >
+                ✕
+              </button>
+              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
+                Adicionar Novo Item
+              </h3>
+              <CreateItensForm onSubmit={handleCreateItem} />
+            </div>
+          </div>
+        )}
+
+        {/* Modal de Edição */}
+        {editingItem && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
+              <button
+                onClick={() => setEditingItem(null)}
+                className="absolute top-2 right-2 text-gray-600"
+              >
+                ✕
+              </button>
+              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
+                Editar Item
+              </h3>
+              <EditItensForm
+                initialValues={{
+                  nome: editingItem.nome,
+                  descricao: editingItem.descricao,
+                  numero_tombo: editingItem.numeroTombo,
+                  localizacao: editingItem.localizacao,
+                  status: editingItem.status,
+                  data_aquisicao: editingItem.data_aquisicao,
+                }}
+                onSubmit={handleEditItem}
+                onCancel={() => setEditingItem(null)}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Modal de Exclusão */}
+        {deletingItem && (
+          <DeleteItemModal
+            itemName={deletingItem.nome}
+            onCancel={() => setDeletingItem(null)}
+            onConfirm={async () => {
+              try {
+                await deleteItem(deletingItem.id);
+                setItens((prev) =>
+                  prev.filter((item) => item.id !== deletingItem.id)
+                );
+                setDeletingItem(null);
+              } catch (error) {
+                console.error("Erro ao excluir item:", error);
+                alert("Erro ao excluir item.");
+              }
+            }}
+          />
+        )}
+
+        {viewingItem && (
+          <ViewItemModal
+            item={viewingItem}
+            onClose={() => setViewingItem(null)}
+          />
+        )}
+
+        <div className="mt-6"></div>
+
+        <ItensTable
+          key={filteredItens.length}
+          data={filteredItens}
+          onEdit={(item) => setEditingItem(item)}
+          onDelete={(item) => setDeletingItem(item)}
+          onView={(item) => setViewingItem(item)}
+        />
       </div>
     </section>
   );
