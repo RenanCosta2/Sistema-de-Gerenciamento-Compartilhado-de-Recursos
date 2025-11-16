@@ -5,7 +5,7 @@ export interface Chamado {
   tipo: string;
   descricao: string;
   data_registro?: Date;
-  status?: string;
+  status: string;
   data_criacao?: string;
   usuario?: number;
   patrimonio: number;
@@ -21,7 +21,7 @@ export async function getChamados() {
   }
 }
 
-export async function createChamado(payload: Omit<Chamado, "id" | "data_registro">) {
+export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status">) {
   try {
     const response = await api.post("solicitacoes/", payload);
     return response.data;
