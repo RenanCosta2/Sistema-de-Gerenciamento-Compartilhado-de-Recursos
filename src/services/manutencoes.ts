@@ -8,8 +8,8 @@ export interface Manutencao {
   data_inicio: string;
   data_fim: string;
   status: string;
-  patrimonio: Int16Array;
-  usuario: Int16Array;
+  patrimonio: number;
+  usuario: number;
 }
 
 export async function getManutencoes() {
