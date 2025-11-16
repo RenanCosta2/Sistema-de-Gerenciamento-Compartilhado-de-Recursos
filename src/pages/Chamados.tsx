@@ -8,14 +8,14 @@ import type { Chamado } from "../services/chamados";
 const Chamados: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
-    const [chamados, setItens] = useState<Chamado[]>([]);
+    const [chamados, setChamados] = useState<Chamado[]>([]);
     const [loading, setLoading] = useState(true); // controle de carregamento
 
     useEffect(() => {
         async function fetchData() {
           try {
             const data = await getChamados();
-            setItens(data);
+            setChamados(data);
           } catch (error) {
             console.error("Erro ao carregar chamados:", error);
           } finally {
@@ -25,13 +25,22 @@ const Chamados: React.FC = () => {
         fetchData();
       }, []);
 
+    useEffect(() => {
+      fetchChamados();
+    }, []);
+
+    async function fetchChamados() {
+      const data = await getChamados();
+      setChamados(data);
+    }
+
     const filteredChamados = useMemo(() => {
     const term = searchTerm.toLowerCase();
 
-    return chamados.filter((item) => {
+    return chamados.filter((chamado) => {
       const matchesSearch =
-        item.id.toString().toLowerCase().includes(term) ||
-        item.descricao.toLowerCase().includes(term);
+        chamado.id.toString().toLowerCase().includes(term) ||
+        chamado.descricao.toLowerCase().includes(term);
 
         return matchesSearch
     });
@@ -68,7 +77,7 @@ const Chamados: React.FC = () => {
             <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">
                 Abrir um Novo Chamado
             </h2>
-            <ChamadosForm />
+            <ChamadosForm onCreated={fetchChamados} />
         </div>
         
         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">

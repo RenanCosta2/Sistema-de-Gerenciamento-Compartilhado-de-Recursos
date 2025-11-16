@@ -1,7 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Upload } from "lucide-react";
+import { getItens } from "../services/itens";
+import type { Item } from "../services/itens";
+import { createChamado } from "../services/chamados";
 
-const ChamadosForm: React.FC = () => {
+const ChamadosForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
   const [tipoChamado, setTipoChamado] = useState("");
   const [itemPrimordial, setItemPrimordial] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -9,6 +12,20 @@ const ChamadosForm: React.FC = () => {
   const [anexos, setAnexos] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [inputKey, setInputKey] = useState(0); // 🔑 força recriação do input
+
+  const [itens, setItens] = useState<Item[]>([]);
+  
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const data = await getItens();
+          setItens(data);
+        } catch (error) {
+          console.error("Erro ao carregar itens:", error);
+        }
+      }
+      fetchData();
+    }, []);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -45,27 +62,32 @@ const ChamadosForm: React.FC = () => {
     setInputKey((prev) => prev + 1); // recria input para permitir novo upload
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const dadosChamado = {
-      tipoChamado,
-      itemPrimordial,
-      titulo,
-      descricao,
-      anexos: anexos.map((f) => ({ name: f.name, size: f.size, type: f.type })),
-    };
-    console.log("Chamado enviado:", dadosChamado);
+    try {
+      const payload = {
+        tipo: tipoChamado,
+        descricao,
+        patrimonio: Number(itemPrimordial),
+      };
 
-    // 🔹 Resetar os campos
-    setTipoChamado("");
-    setItemPrimordial("");
-    setTitulo("");
-    setDescricao("");
-    setAnexos([]);
+      console.log(payload)
 
-    // Garantir que o input de arquivos também seja resetado
-    if (inputRef.current) {
-        inputRef.current.value = "";
+      const response = await createChamado(payload);
+
+      if (onCreated) onCreated();
+
+      // reset
+      setTipoChamado("");
+      setItemPrimordial("");
+      setTitulo("");
+      setDescricao("");
+      setAnexos([]);
+
+      if (inputRef.current) inputRef.current.value = "";
+
+    } catch (error) {
+      console.error("Erro ao enviar chamado:", error);
     }
   };
 
@@ -83,9 +105,10 @@ const ChamadosForm: React.FC = () => {
           required
         >
           <option value="">Selecione...</option>
+          <option value="falta">Falta</option>
+          <option value="dano">Dano</option>
           <option value="manutencao">Manutenção</option>
-          <option value="suporte">Suporte</option>
-          <option value="instalacao">Instalação</option>
+          <option value="substituicao">Substituição</option>
         </select>
       </div>
 
@@ -101,9 +124,11 @@ const ChamadosForm: React.FC = () => {
           required
         >
           <option value="">Selecione...</option>
-          <option value="computador">Computador</option>
-          <option value="projetor">Projetor</option>
-          <option value="impressora">Impressora</option>
+          {itens.map((item) =>{
+            return (
+              <option value={item.id}>{item.nome}</option>
+            )
+          })}
         </select>
       </div>
 
@@ -138,7 +163,7 @@ const ChamadosForm: React.FC = () => {
       </div>
 
       {/* Anexos */}
-      <div>
+      {/* <div>
         <label className="block text-sm font-semibold text-gray-700 mb-1">
           Anexos
         </label>
@@ -197,13 +222,13 @@ const ChamadosForm: React.FC = () => {
             ))}
           </ul>
         )}
-      </div>
+      </div> */}
 
       {/* Botão Enviar */}
       <div className="pt-4">
         <button
           type="submit"
-          className="w-full bg-[#415085] hover:bg-[#303a63] text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+          className="w-full bg-[#415085] hover:bg-[#303a63] text-white font-semibold py-2 px-4 rounded-lg transition-colors cursor-pointer"
         >
           Enviar Chamado
         </button>
