@@ -61,10 +61,11 @@ const ItensTable: React.FC<ItensTableProps> = ({
           <thead className="bg-gray-100 text-left">
             <tr className="text-[#2E3A59]">
               <th className="py-3 px-4 font-semibold">Código</th>
-              <th className="py-3 px-4 font-semibold">Nome do Item</th>
-              <th className="py-3 px-4 font-semibold">Categoria</th>
-              <th className="py-3 px-4 font-semibold">Local de Instalação</th>
+              <th className="py-3 px-4 font-semibold">Nome</th>
+              <th className="py-3 px-4 font-semibold">Número do Tombo</th>
+              <th className="py-3 px-4 font-semibold">Localização</th>
               <th className="py-3 px-4 font-semibold">Status</th>
+              <th className="py-3 px-4 font-semibold">Responsável</th>
               <th className="py-3 px-4 font-semibold">Data de Aquisição</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
@@ -97,24 +98,24 @@ const ItensTable: React.FC<ItensTableProps> = ({
                 return `${dia}/${mes}/${ano}`;
               };
 
-
               return (
                 <tr
                   key={item.id}
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
-                  <td className="py-3 px-4">{item.id}</td>
-                  <td className="py-3 px-4">{item.nome}</td>
-                  <td className="py-3 px-4">{item.categoria}</td>
-                  <td className="py-3 px-4">{item.localizacao}</td>
+                  <td className="py-3 px-4">{item.id || '-'}</td>
+                  <td className="py-3 px-4">{item.nome ? item.nome : '-'}</td>
+                  <td className="py-3 px-4">{item.numero_tombo ? item.numero_tombo : '-'}</td>
+                  <td className="py-3 px-4">{item.localizacao ? item.localizacao : '-'}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}
                     >
-                      {formatTitleCase(status)}
+                      {status ? formatTitleCase(status) : '-'}
                     </span>
                   </td>
-                  <td className="py-3 px-4">{formatDate(item.data_aquisicao)}</td>
+                  <td className="py-3 px-4">{item.responsavel !== undefined && item.responsavel !== null ? item.responsavel : '-'}</td>
+                  <td className="py-3 px-4">{item.data_aquisicao ? formatDate(item.data_aquisicao) : '-'}</td>
                   <td className="py-3 px-4 flex justify-center gap-2">
                     <button
                       onClick={() => onView?.(item)}
