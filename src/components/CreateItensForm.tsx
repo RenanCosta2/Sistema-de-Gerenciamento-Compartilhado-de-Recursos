@@ -7,7 +7,7 @@ export interface ItemFormValues {
   localizacao: string;
   status: string;
   data_aquisicao?: string;
-  responsavel?: number; // ID do usuário, opcional
+  responsavel?: number;
 }
 
 interface CreateItensFormProps {
@@ -21,6 +21,7 @@ const CreateItensForm: React.FC<CreateItensFormProps> = ({ onSubmit }) => {
   const [localizacao, setLocalizacao] = useState("");
   const [status, setStatus] = useState("");
   const [dataAquisicao, setDataAquisicao] = useState("");
+  const [responsavel, setResponsavel] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ const CreateItensForm: React.FC<CreateItensFormProps> = ({ onSubmit }) => {
       localizacao,
       status,
       data_aquisicao: dataAquisicao || undefined,
+      responsavel: responsavel ? Number(responsavel) : undefined,
     };
 
     onSubmit?.(dadosItem);
@@ -43,10 +45,19 @@ const CreateItensForm: React.FC<CreateItensFormProps> = ({ onSubmit }) => {
     setLocalizacao("");
     setStatus("");
     setDataAquisicao("");
+    setResponsavel("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4"
+      style={{
+        maxHeight: '80vh',
+        overflowY: 'auto',
+        paddingRight: '8px',
+      }}
+    >
       {/* Nome */}
       <div>
         <label>Nome</label>
@@ -152,6 +163,19 @@ const CreateItensForm: React.FC<CreateItensFormProps> = ({ onSubmit }) => {
           <option value="em_manutencao">Em Manutenção</option>
           <option value="inativo">Inativo</option>
         </select>
+      </div>
+
+
+      {/* Responsável */}
+      <div>
+        <label>Responsável (ID do usuário)</label>
+        <input
+          type="number"
+          value={responsavel}
+          onChange={(e) => setResponsavel(e.target.value)}
+          placeholder="ID do usuário (opcional)"
+          className="w-full border rounded px-3 py-2"
+        />
       </div>
 
       {/* Data de Aquisição */}

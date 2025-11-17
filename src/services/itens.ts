@@ -4,10 +4,11 @@ export interface Item {
   id: string;
   nome: string;
   descricao: string;
-  numeroTombo: string;
+  numero_tombo: string;
   localizacao: string;
   status: string;
   data_aquisicao: string;
+  responsavel?: number;
 }
 
 export interface CreateItemPayload {
@@ -16,8 +17,8 @@ export interface CreateItemPayload {
   numero_tombo: string;
   localizacao: string;
   status: string;
-  data_aquisicao?: string; // opcional
-  responsavel?: number; // opcional
+  data_aquisicao?: string;
+  responsavel?: number;
 }
 
 // GET - Lista de itens

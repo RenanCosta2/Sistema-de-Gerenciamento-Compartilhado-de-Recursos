@@ -39,13 +39,16 @@ const ViewItemModal: React.FC<ViewItemModalProps> = ({ item, onClose }) => {
             <strong>Descrição:</strong> {item.descricao || "-"}
           </p>
           <p>
-            <strong>Número do Tombo:</strong> {item.numeroTombo}
+            <strong>Número do Tombo:</strong> {item.numero_tombo}
           </p>
           <p>
             <strong>Localização:</strong> {item.localizacao}
           </p>
           <p>
             <strong>Status:</strong> {item.status}
+          </p>
+          <p>
+            <strong>Responsável (ID do usuário):</strong> {item.responsavel !== undefined ? item.responsavel : "-"}
           </p>
           <p>
             <strong>Data de Aquisição:</strong> {formatDate(item.data_aquisicao)}

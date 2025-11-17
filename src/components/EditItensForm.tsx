@@ -14,6 +14,7 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
   const [localizacao, setLocalizacao] = useState(initialValues.localizacao);
   const [status, setStatus] = useState(initialValues.status);
   const [dataAquisicao, setDataAquisicao] = useState(initialValues.data_aquisicao || "");
+  const [responsavel, setResponsavel] = useState(initialValues.responsavel ? String(initialValues.responsavel) : "");
 
   useEffect(() => {
     setNome(initialValues.nome);
@@ -22,6 +23,7 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
     setLocalizacao(initialValues.localizacao);
     setStatus(initialValues.status);
     setDataAquisicao(initialValues.data_aquisicao || "");
+    setResponsavel(initialValues.responsavel ? String(initialValues.responsavel) : "");
   }, [initialValues]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,13 +36,14 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
       localizacao,
       status,
       data_aquisicao: dataAquisicao || undefined,
+      responsavel: responsavel ? Number(responsavel) : undefined,
     };
 
     onSubmit(dadosItem);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" style={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '8px' }}>
       <div>
         <label>Nome</label>
         <input
@@ -74,12 +77,23 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
       </div>
 
       <div>
-        <label>Localização</label>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Localização</label>
         <input
           type="text"
           value={localizacao}
           onChange={(e) => setLocalizacao(e.target.value)}
           required
+          className="w-full border rounded px-3 py-2"
+        />
+      </div>
+      {/* Responsável */}
+      <div>
+        <label>Responsável (ID do usuário)</label>
+        <input
+          type="number"
+          value={responsavel}
+          onChange={(e) => setResponsavel(e.target.value)}
+          placeholder="ID do usuário (opcional)"
           className="w-full border rounded px-3 py-2"
         />
       </div>
