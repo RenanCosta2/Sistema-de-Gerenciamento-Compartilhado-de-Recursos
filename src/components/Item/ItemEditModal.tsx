@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import type { ItemFormValues } from "./ItemAddModal";
 
-interface EditItensFormProps {
+interface EditItensModalProps {
+  open: boolean;
+  onClose: () => void;
   initialValues: ItemFormValues;
   onSubmit: (dados: ItemFormValues) => void;
-  onCancel: () => void;
 }
 
-const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, onCancel }) => {
+export default function EditItensModal({
+  open,
+  onClose,
+  initialValues,
+  onSubmit,
+}: EditItensModalProps) {
   const [nome, setNome] = useState(initialValues.nome);
   const [descricao, setDescricao] = useState(initialValues.descricao);
   const [numeroTombo, setNumeroTombo] = useState(initialValues.numero_tombo || "");
   const [localizacao, setLocalizacao] = useState(initialValues.localizacao);
   const [status, setStatus] = useState(initialValues.status);
   const [dataAquisicao, setDataAquisicao] = useState(initialValues.data_aquisicao || "");
-  const [responsavel, setResponsavel] = useState(initialValues.responsavel ? String(initialValues.responsavel) : "");
+  const [responsavel, setResponsavel] = useState(
+    initialValues.responsavel ? String(initialValues.responsavel) : ""
+  );
 
   useEffect(() => {
     setNome(initialValues.nome);
@@ -23,7 +31,9 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
     setLocalizacao(initialValues.localizacao);
     setStatus(initialValues.status);
     setDataAquisicao(initialValues.data_aquisicao || "");
-    setResponsavel(initialValues.responsavel ? String(initialValues.responsavel) : "");
+    setResponsavel(
+      initialValues.responsavel ? String(initialValues.responsavel) : ""
+    );
   }, [initialValues]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -42,101 +52,115 @@ const EditItensForm: React.FC<EditItensFormProps> = ({ initialValues, onSubmit, 
     onSubmit(dadosItem);
   };
 
+  if (!open) return null;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" style={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '8px' }}>
-      <div>
-        <label>Nome</label>
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          required
-          className="w-full border rounded px-3 py-2"
-        />
-      </div>
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] overflow-y-auto max-h-[90vh]">
+        {/* TÍTULO PADRÃO */}
+        <h2 className="text-lg font-semibold mb-4">Editar Item</h2>
 
-      <div>
-        <label>Descrição</label>
-        <textarea
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
-          className="w-full border rounded px-3 py-2"
-          rows={3}
-        />
-      </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-      <div>
-        <label>Número do Tombo</label>
-        <input
-          type="text"
-          value={numeroTombo}
-          onChange={(e) => setNumeroTombo(e.target.value)}
-          required
-          className="w-full border rounded px-3 py-2"
-        />
-      </div>
+          <div>
+            <label className="block text-sm font-medium">Nome*</label>
+            <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              required
+              className="w-full border p-2 rounded"
+            />
+          </div>
 
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">Localização</label>
-        <input
-          type="text"
-          value={localizacao}
-          onChange={(e) => setLocalizacao(e.target.value)}
-          required
-          className="w-full border rounded px-3 py-2"
-        />
-      </div>
-      {/* Responsável */}
-      <div>
-        <label>Responsável (ID do usuário)</label>
-        <input
-          type="number"
-          value={responsavel}
-          onChange={(e) => setResponsavel(e.target.value)}
-          placeholder="ID do usuário (opcional)"
-          className="w-full border rounded px-3 py-2"
-        />
-      </div>
+          <div>
+            <label className="block text-sm font-medium">Descrição*</label>
+            <textarea
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              className="w-full border p-2 rounded"
+              rows={3}
+            />
+          </div>
 
-      <div>
-        <label>Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          required
-          className="w-full border rounded px-3 py-2"
-        >
-          <option value="">Selecione...</option>
-          <option value="ativo">Ativo</option>
-          <option value="em_manutencao">Em Manutenção</option>
-          <option value="inativo">Inativo</option>
-        </select>
-      </div>
+          <div>
+            <label className="block text-sm font-medium">Número do Tombo*</label>
+            <input
+              type="text"
+              value={numeroTombo}
+              onChange={(e) => setNumeroTombo(e.target.value)}
+              required
+              className="w-full border p-2 rounded"
+            />
+          </div>
 
-      <div>
-        <label>Data de Aquisição</label>
-        <input
-          type="date"
-          value={dataAquisicao}
-          onChange={(e) => setDataAquisicao(e.target.value)}
-          className="w-full border rounded px-3 py-2"
-        />
-      </div>
+          <div>
+            <label className="block text-sm font-medium">Localização*</label>
+            <input
+              type="text"
+              value={localizacao}
+              onChange={(e) => setLocalizacao(e.target.value)}
+              required
+              className="w-full border p-2 rounded"
+            />
+          </div>
 
-      <div className="flex gap-2">
-        <button type="submit" className="flex-1 bg-blue-600 text-white py-2 rounded">
-          Salvar Alterações
-        </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="flex-1 bg-gray-300 text-gray-700 py-2 rounded"
-        >
-          Cancelar
-        </button>
+          <div>
+            <label className="block text-sm font-medium">Responsável (ID)</label>
+            <input
+              type="number"
+              value={responsavel}
+              onChange={(e) => setResponsavel(e.target.value)}
+              placeholder="Opcional"
+              className="w-full border p-2 rounded"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Status*</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+              className="w-full border p-2 rounded"
+            >
+              <option value="">Selecione...</option>
+              <option value="ativo">Ativo</option>
+              <option value="em_manutencao">Em Manutenção</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Data de Aquisição</label>
+            <input
+              type="date"
+              value={dataAquisicao}
+              onChange={(e) => setDataAquisicao(e.target.value)}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+
+          {/* BOTÕES PADRÃO DO MODAL DE MANUTENÇÃO */}
+          <div className="flex justify-end gap-2 mt-4">
+            <button
+              type="button"
+              className="px-4 py-2 border rounded cursor-pointer"
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+            >
+              Salvar alterações
+            </button>
+          </div>
+
+        </form>
       </div>
-    </form>
+    </div>
   );
-};
-
-export default EditItensForm;
+}

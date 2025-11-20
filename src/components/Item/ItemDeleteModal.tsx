@@ -1,8 +1,7 @@
-// DeleteItemModal.tsx
 import React from "react";
 
 interface DeleteItemModalProps {
-  itemName: string; // nome do item a ser exibido no modal
+  itemName: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -13,33 +12,29 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   onCancel,
 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-[400px] relative">
-        <button
-          onClick={onCancel}
-          className="absolute top-2 right-2 text-gray-600"
-        >
-          ✕
-        </button>
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-white p-6 w-[400px] rounded-xl shadow-xl">
 
-        <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
+        <h2 className="text-lg font-semibold text-red-600 mb-4">
           Confirmar Exclusão
-        </h3>
+        </h2>
 
         <p className="mb-6">
-          Tem certeza que deseja excluir <strong>{itemName}</strong>?
+          Tem certeza de que deseja excluir o item{" "}
+          <strong>{itemName}</strong>?
         </p>
 
-        <div className="flex justify-end gap-3">
+        <div className="flex justify-end gap-2">
           <button
+            className="px-4 py-2 border rounded cursor-pointer"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
           >
             Cancelar
           </button>
+
           <button
             onClick={onConfirm}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
           >
             Excluir
           </button>

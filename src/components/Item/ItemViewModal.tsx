@@ -1,68 +1,74 @@
-// ViewItemModal.tsx
 import React from "react";
 import type { Item } from "../../services/itens";
 
-interface ViewItemModalProps {
-  item: Item;
+interface Props {
+  open: boolean;
   onClose: () => void;
+  data: Item | null;
 }
 
-const ViewItemModal: React.FC<ViewItemModalProps> = ({ item, onClose }) => {
-  const formatDate = (dateString: string) => {
-    if (!dateString) return "";
-    const [ano, mes, dia] = dateString.split("-");
+const ViewItemModal: React.FC<Props> = ({ open, onClose, data }) => {
+  if (!open || !data) return null;
+
+  const formatDate = (date: string | null | undefined) => {
+    if (!date) return "-";
+    const [ano, mes, dia] = date.split("-");
     return `${dia}/${mes}/${ano}`;
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
-        <button
-          onClick={onClose} 
-          className="absolute top-2 right-2 text-gray-600"
-        >
-          ✕
-        </button>
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-white w-full max-w-lg p-6 rounded-xl shadow-xl relative">
 
-        <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
+        <h2 className="text-xl font-bold text-[#2E3A59] mb-4">
           Detalhes do Item
-        </h3>
+        </h2>
 
-        <div className="space-y-2">
-          <p>
-            <strong>Código:</strong> {item.id}
-          </p>
-          <p>
-            <strong>Nome:</strong> {item.nome}
-          </p>
-          <p>
-            <strong>Descrição:</strong> {item.descricao || "-"}
-          </p>
-          <p>
-            <strong>Número do Tombo:</strong> {item.numero_tombo}
-          </p>
-          <p>
-            <strong>Localização:</strong> {item.localizacao}
-          </p>
-          <p>
-            <strong>Status:</strong> {item.status}
-          </p>
-          <p>
-            <strong>Responsável (ID do usuário):</strong> {item.responsavel !== undefined ? item.responsavel : "-"}
-          </p>
-          <p>
-            <strong>Data de Aquisição:</strong> {formatDate(item.data_aquisicao)}
-          </p>
+        <div className="space-y-3 text-sm">
+
+          <div>
+            <strong>ID:</strong> {data.id}
+          </div>
+
+          <div>
+            <strong>Nome:</strong> {data.nome}
+          </div>
+
+          <div>
+            <strong>Descrição:</strong> {data.descricao || "-"}
+          </div>
+
+          <div>
+            <strong>Número do Tombo:</strong> {data.numero_tombo}
+          </div>
+
+          <div>
+            <strong>Localização:</strong> {data.localizacao}
+          </div>
+
+          <div>
+            <strong>Status:</strong> {data.status}
+          </div>
+
+          <div>
+            <strong>Responsável:</strong> {data.responsavel ?? "-"}
+          </div>
+
+          <div>
+            <strong>Data de Aquisição:</strong> {formatDate(data.data_aquisicao)}
+          </div>
+
         </div>
 
         <div className="flex justify-end mt-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
           >
             Fechar
           </button>
         </div>
+
       </div>
     </div>
   );

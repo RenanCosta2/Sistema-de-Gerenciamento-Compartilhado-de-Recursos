@@ -2,8 +2,8 @@ import React, { useState, useMemo, useEffect } from "react";
 import ItensTable from "../components/Item/ItensTable";
 import ItensFilters from "../components/Item/ItensFilters";
 import DeleteItemModal from "../components/Item/ItemDeleteModal";
-import CreateItensForm, { type ItemFormValues } from "../components/Item/ItemAddModal";
-import EditItensForm from "../components/Item/ItemEditModal";
+import ItemAddModal, { type ItemFormValues } from "../components/Item/ItemAddModal";
+import EditItensModal from "../components/Item/ItemEditModal";
 import { getItens, createItem, updateItem, deleteItem } from "../services/itens";
 import type { Item } from "../services/itens";
 import ViewItemModal from "../components/Item/ItemViewModal";
@@ -110,50 +110,30 @@ const ItensPatrimoniais: React.FC = () => {
 
         {/* Modal de Criar */}
         {showCreateModal && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="absolute top-2 right-2 text-gray-600"
-              >
-                ✕
-              </button>
-              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
-                Adicionar Novo Item
-              </h3>
-              <CreateItensForm onSubmit={handleCreateItem} />
-            </div>
-          </div>
+          <ItemAddModal
+            open={showCreateModal}
+            onClose={() => setShowCreateModal(false)}
+            onSubmit={handleCreateItem}
+          />
         )}
 
-        {/* Modal de Edição */}
-        {editingItem && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
-              <button
-                onClick={() => setEditingItem(null)}
-                className="absolute top-2 right-2 text-gray-600"
-              >
-                ✕
-              </button>
-              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
-                Editar Item
-              </h3>
-              <EditItensForm
-                initialValues={{
-                  nome: editingItem.nome,
-                  descricao: editingItem.descricao,
-                  numero_tombo: editingItem.numero_tombo,
-                  localizacao: editingItem.localizacao,
-                  status: editingItem.status,
-                  data_aquisicao: editingItem.data_aquisicao,
-                }}
-                onSubmit={handleEditItem}
-                onCancel={() => setEditingItem(null)}
-              />
-            </div>
-          </div>
-        )}
+       {/* Modal de Edição */}
+      {editingItem && (
+        <EditItensModal
+          open={!!editingItem}
+          onClose={() => setEditingItem(null)}
+          initialValues={{
+            nome: editingItem.nome,
+            descricao: editingItem.descricao,
+            numero_tombo: editingItem.numero_tombo,
+            localizacao: editingItem.localizacao,
+            status: editingItem.status,
+            data_aquisicao: editingItem.data_aquisicao,
+            responsavel: editingItem.responsavel,
+          }}
+          onSubmit={handleEditItem}
+        />
+      )}
 
         {/* Modal de Exclusão */}
         {deletingItem && (
@@ -175,12 +155,11 @@ const ItensPatrimoniais: React.FC = () => {
           />
         )}
 
-        {viewingItem && (
-          <ViewItemModal
-            item={viewingItem}
-            onClose={() => setViewingItem(null)}
-          />
-        )}
+        <ViewItemModal
+          open={!!viewingItem}
+          data={viewingItem}
+          onClose={() => setViewingItem(null)}
+        />
 
         <div className="mt-6"></div>
 
