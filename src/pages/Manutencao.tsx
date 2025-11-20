@@ -1,85 +1,72 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ManutencaoTable from "../components/ManutencaoTable";
 import ManutencaoFilters from "../components/ManutencaoFilters";
+import ManutencaoAddModal from "../components/ManutencaoAddModal";
 import { getManutencoes } from "../services/manutencoes";
 import type { Manutencao } from "../services/manutencoes";
-import CreateManutencaoForms, { type ManutencaoFormValues } from "../components/CreateManutencaoForms";
-import EditManutencaoForms from "../components/EditManutencaoForms";
-import DeleteManutencaoModal from "../components/DeleteManutencaoModal";
-import ViewManutencaoModal from "../components/ViewManutencaoModal";
+import { getItens } from "../services/itens";
+import type { Item } from "../services/itens";
 
 const Manutencao: React.FC = () => {
-      // Funções de manipulação
-      const handleCreateManutencao = async (dados: ManutencaoFormValues) => {
-        try {
-          // Substitua pela chamada de criação na API
-          // const newManutencao = await createManutencao(dados);
-          // setManutencoes((prev) => [...prev, newManutencao]);
-          setShowCreateModal(false);
-        } catch (error) {
-          console.error("Erro ao criar manutenção:", error);
-          alert("Erro ao criar manutenção.");
-        }
-      };
-
-      const handleEditManutencao = async (dados: ManutencaoFormValues) => {
-        if (!editingManutencao) return;
-        try {
-          // Substitua pela chamada de edição na API
-          // const updated = await updateManutencao(editingManutencao.id, dados);
-          // setManutencoes((prev) => prev.map((m) => (m.id === updated.id ? updated : m)));
-          setEditingManutencao(null);
-        } catch (error) {
-          console.error("Erro ao editar manutenção:", error);
-          alert("Erro ao editar manutenção.");
-        }
-      };
   const [searchTerm, setSearchTerm] = useState("");
-    const [filters, setFilters] = useState({
-      tipos: [] as string[],
-      status: [] as string[],
-    });
+  const [filters, setFilters] = useState({
+    status: [] as string[],
+  });
+  const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    // Estados para modais
-    const [showCreateModal, setShowCreateModal] = useState(false);
-    const [editingManutencao, setEditingManutencao] = useState<Manutencao | null>(null);
-    const [deletingManutencao, setDeletingManutencao] = useState<Manutencao | null>(null);
-    const [viewingManutencao, setViewingManutencao] = useState<Manutencao | null>(null);
-
+  const [itens, setItens] = useState<Item[]>([]);
+    
     useEffect(() => {
-        async function fetchData() {
-          try {
-            const data = await getManutencoes();
-            setManutencoes(data);
-          } catch (error) {
-            console.error("Erro ao carregar manutenções:", error);
-          } finally {
-            setLoading(false);
-          }
+    async function fetchData() {
+        try {
+        const data = await getItens();
+        setItens(data);
+        } catch (error) {
+        console.error("Erro ao carregar itens:", error);
         }
-        fetchData();
-      }, []);
+    }
+    fetchData();
+    }, []);
 
-    const filteredManutencao = useMemo(() => {
-      const term = searchTerm.toLowerCase();
+  useEffect(() => {
+    fetchManutencoes();
+  }, []);
 
-    return manutencoes.filter((manutencao) => {
+  async function fetchManutencoes() {
+    const data = await getManutencoes();
+    setManutencoes(data);
+  }
+
+  // controle modal
+  const [openAddModal, setOpenAddModal] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getManutencoes();
+        setManutencoes(data);
+      } catch (error) {
+        console.error("Erro ao carregar manutenções:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const filteredManutencao = useMemo(() => {
+    const term = searchTerm.toLowerCase();
+
+    return manutencoes.filter((m) => {
       const matchesSearch =
-        manutencao.id.toString().toLowerCase().includes(term) ||
-        manutencao.patrimonio_nome.toLowerCase().includes(term);
-
-      const matchesTipo =
-        filters.tipos.length === 0 
-        || filters.tipos.includes(manutencao.tipo);
+        m.id.toString().includes(term) ||
+        m.patrimonio_nome.toLowerCase().includes(term);
 
       const matchesStatus =
-        filters.status.length === 0 
-        || filters.status.includes(manutencao.status);
+        filters.status.length === 0 || filters.status.includes(m.status);
 
-      return matchesSearch && matchesTipo && matchesStatus;
+      return matchesSearch && matchesStatus;
     });
   }, [searchTerm, filters, manutencoes]);
 
@@ -103,6 +90,8 @@ const Manutencao: React.FC = () => {
       </h2>
 
       <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+
+        {/* filtros */}
         <ManutencaoFilters
           data={manutencoes}
           searchTerm={searchTerm}
@@ -111,92 +100,29 @@ const Manutencao: React.FC = () => {
           setFilters={setFilters}
         />
 
-        <div className="mt-6 flex justify-start">
+        {/* botão */}
+        <div className="mt-4 mb-4">
           <button
-            onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+            onClick={() => setOpenAddModal(true)}
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition cursor-pointer"
           >
-            Adicionar Nova Manutenção
+            Adicionar nova manutenção
           </button>
         </div>
-
-        {/* Modal de Criar */}
-        {showCreateModal && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="absolute top-2 right-2 text-gray-600"
-              >
-                ✕
-              </button>
-              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
-                Adicionar Nova Manutenção
-              </h3>
-              <CreateManutencaoForms onSubmit={handleCreateManutencao} />
-            </div>
-          </div>
-        )}
-
-        {/* Modal de Edição */}
-        {editingManutencao && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] relative">
-              <button
-                onClick={() => setEditingManutencao(null)}
-                className="absolute top-2 right-2 text-gray-600"
-              >
-                ✕
-              </button>
-              <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
-                Editar Manutenção
-              </h3>
-              <EditManutencaoForms
-                initialValues={{
-                  patrimonio: editingManutencao.patrimonio,
-                  usuario: editingManutencao.usuario,
-                  descricao: editingManutencao.descricao,
-                  data_inicio: editingManutencao.data_inicio,
-                  data_fim: editingManutencao.data_fim,
-                  status: editingManutencao.status,
-                }}
-                onSubmit={handleEditManutencao}
-                onCancel={() => setEditingManutencao(null)}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Modal de Exclusão */}
-        {deletingManutencao && (
-          <DeleteManutencaoModal
-            manutencaoDescricao={deletingManutencao.descricao}
-            onCancel={() => setDeletingManutencao(null)}
-            onConfirm={async () => {
-              // Substitua pela lógica de exclusão
-              setDeletingManutencao(null);
-            }}
-          />
-        )}
-
-        {/* Modal de Visualização */}
-        {viewingManutencao && (
-          <ViewManutencaoModal
-            manutencao={viewingManutencao}
-            onClose={() => setViewingManutencao(null)}
-          />
-        )}
-
-        <div className="mt-6"></div>
 
         <ManutencaoTable
           key={filteredManutencao.length}
           data={filteredManutencao}
-          onEdit={(manutencao) => setEditingManutencao(manutencao)}
-          onDelete={(manutencao) => setDeletingManutencao(manutencao)}
-          onView={(manutencao) => setViewingManutencao(manutencao)}
         />
       </div>
+
+      {/* modal */}
+      <ManutencaoAddModal
+        open={openAddModal}
+        onClose={() => setOpenAddModal(false)}
+        itens={itens}
+        onCreated={fetchManutencoes}
+      />
     </section>
   );
 };

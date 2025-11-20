@@ -3,10 +3,9 @@ import api from "./api";
 export interface Manutencao {
   id: string;
   patrimonio_nome: string;
-  tipo: string;
   descricao: string;
   data_inicio: string;
-  data_fim: string;
+  data_fim: string | null;
   status: string;
   patrimonio: number;
   usuario: number;
@@ -18,6 +17,16 @@ export async function getManutencoes() {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar manutenções:", error);
+    throw error;
+  }
+}
+
+export async function createManutencao(payload: Omit<Manutencao, "id" | "patrimonio_nome">) {
+  try {
+    const response = await api.post("manutencoes/", payload);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar manutenção:", error);
     throw error;
   }
 }

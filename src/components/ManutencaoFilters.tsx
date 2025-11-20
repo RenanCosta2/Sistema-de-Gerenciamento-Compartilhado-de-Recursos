@@ -9,12 +9,10 @@ interface ManutencaoFiltersProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filters: {
-    tipos: string[];
     status: string[];
   };
   setFilters: React.Dispatch<
     React.SetStateAction<{
-      tipos: string[];
       status: string[];
     }>
   >;
@@ -27,11 +25,6 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
   filters,
   setFilters,
 }) => {
-  const tipos = useMemo(
-    () => Array.from(new Set(data.map((i) => i.tipo))),
-    [data]
-  );
-
   const statusMap: Record<string, string> = {
     pendente: "Pendente",
     em_andamento: "Em Andamento",
@@ -51,7 +44,7 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
   };
 
   const clearFilters = () => {
-    setFilters({ tipos: [], status: []});
+    setFilters({ status: []});
     setSearchTerm("");
   };
 
@@ -67,12 +60,6 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
         setSearchTerm={setSearchTerm}
         className="min-w-[200px] flex-grow pl-9 pr-3 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
         placeholder="Buscar por ID ou item..."
-      />
-      <MultiFilterDropdown
-        label="Tipos"
-        options={tipos.map((c) => ({ value: c, label: c }))}
-        selected={filters.tipos}
-        onChange={(v) => updateFilter("tipos", v)}
       />
       <MultiFilterDropdown
         label="Status"
