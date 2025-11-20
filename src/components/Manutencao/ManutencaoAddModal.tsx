@@ -22,7 +22,7 @@ const ManutencaoAddModal: React.FC<Props> = ({
   const [status, setStatus] = useState("Pendente");
   const [itemPrimordial, setItemPrimordial] = useState("");
 
-  const mapStatus = (value: string) => {
+  const mapStatus = (value: string): "pendente" | "em_andamento" | "concluida" => {
     switch (value) {
         case "Pendente":
         return "pendente";
@@ -81,6 +81,24 @@ const ManutencaoAddModal: React.FC<Props> = ({
         {/* form */}
         <form className="space-y-4" onSubmit={handleSubmit}>
 
+          {/* patrimônio */}
+          <div>
+            <label className="block font-medium text-sm mb-1">Patrimônio *</label>
+            <select
+              required
+              value={itemPrimordial}
+              onChange={(e) => setItemPrimordial(e.target.value)}
+              className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-200"
+            >
+              <option value="">Selecione...</option>
+              {itens.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.nome}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* descrição */}
           <div>
             <label className="block font-medium text-sm mb-1">Descrição *</label>
@@ -128,24 +146,6 @@ const ManutencaoAddModal: React.FC<Props> = ({
               <option value="Pendente">Pendente</option>
               <option value="Em andamento">Em andamento</option>
               <option value="Concluída">Concluída</option>
-            </select>
-          </div>
-
-          {/* patrimônio */}
-          <div>
-            <label className="block font-medium text-sm mb-1">Patrimônio *</label>
-            <select
-              required
-              value={itemPrimordial}
-              onChange={(e) => setItemPrimordial(e.target.value)}
-              className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-200"
-            >
-              <option value="">Selecione...</option>
-              {itens.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.nome}
-                </option>
-              ))}
             </select>
           </div>
 
