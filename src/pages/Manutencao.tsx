@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
-import ManutencaoTable from "../components/ManutencaoTable";
-import ManutencaoFilters from "../components/ManutencaoFilters";
-import ManutencaoAddModal from "../components/ManutencaoAddModal";
+import ManutencaoTable from "../components/Manutencao/ManutencaoTable";
+import ManutencaoFilters from "../components/Manutencao/ManutencaoFilters";
+import ManutencaoAddModal from "../components/Manutencao/ManutencaoAddModal";
 import { getManutencoes } from "../services/manutencoes";
 import type { Manutencao } from "../services/manutencoes";
 import { getItens } from "../services/itens";

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
-import ChamadosFilters from "../components/ChamadosFilters";
-import ChamadosTable from "../components/ChamadosTable";
-import ChamadosForm from "../components/ChamadosForm";
+import ChamadosFilters from "../components/Chamados/ChamadosFilters";
+import ChamadosTable from "../components/Chamados/ChamadosTable";
+import ChamadosForm from "../components/Chamados/ChamadosForm";
 import { getChamados } from "../services/chamados";
 import type { Chamado } from "../services/chamados";
 

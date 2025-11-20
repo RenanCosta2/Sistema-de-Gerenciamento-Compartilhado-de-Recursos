@@ -1,24 +1,23 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-import type { Chamado } from "../services/chamados";
+import type Manutencao from "../../pages/Manutencao";
 
-interface ChamadosTableProps {
-  data: Chamado[];
+interface ManutencaoTableProps {
+  data: Manutencao[];
   rowsPerPage?: number;
-  onEdit?: (chamado: Chamado) => void;
-  onDelete?: (chamado: Chamado) => void;
-  onView?: (chamado: Chamado) => void;
+  onEdit?: (data: Manutencao) => void;
+  onDelete?: (data: Manutencao) => void;
+  onView?: (data: Manutencao) => void;
 }
 
-const ChamadosTable: React.FC<ChamadosTableProps> = ({
+const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
   data,
-  rowsPerPage = 5,
+  rowsPerPage = 10,
   onEdit,
   onDelete,
   onView,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const currentData = useMemo(() => {
@@ -65,63 +64,84 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
           <thead className="bg-gray-100 text-left">
             <tr className="text-[#2E3A59]">
               <th className="py-3 px-4 font-semibold">Código</th>
-              <th className="py-3 px-4 font-semibold">Título</th>
-              <th className="py-3 px-4 font-semibold">Item Patrimonial</th>
-              <th className="py-3 px-4 font-semibold">Data de Abertura</th>
+              <th className="py-3 px-4 font-semibold">Item</th>
+              <th className="py-3 px-4 font-semibold">Tipo de Manutenção</th>
+              <th className="py-3 px-4 font-semibold">Data de Solicitação</th>
+              <th className="py-3 px-4 font-semibold">Responsável</th>
               <th className="py-3 px-4 font-semibold">Status</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            {currentData.map((chamado) => {
-              const status = chamado.status.toLowerCase();
+            {currentData.map((manutencao) => {
+              const rawStatus = manutencao.status?.toLowerCase() || "";
+              const status =
+                rawStatus === "em_andamento"
+                  ? "em andamento"
+                  : rawStatus === "concluida"
+                  ? "concluída"
+                  : rawStatus;
 
               const statusClasses =
-                status === "aberto"
-                  ? "text-blue-700 border border-blue-400 bg-blue-50"
+                status === "concluída"
+                  ? "text-green-700 border border-green-400 bg-green-50"
                   : status === "em andamento"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
-                  : status === "concluído"
-                  ? "text-green-700 border border-green-400 bg-green-50"
-                  : "text-red-700 border border-red-300 bg-red-50";
+                  : status === "pendente"
+                  ? "text-red-700 border border-red-400 bg-red-50"
+                  : "text-gray-700 border border-gray-300 bg-gray-50";
+
+              // Converte todas as palavras para Title Case
+              const formatTitleCase = (text: string) =>
+                text
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+
+              const formatDate = (dateString: string) => {
+                if (!dateString) return "";
+                const [ano, mes, dia] = dateString.split("-");
+                return `${dia}/${mes}/${ano}`;
+              };
 
               return (
                 <tr
-                  key={chamado.id}
+                  key={manutencao.id}
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
-                  <td className="py-3 px-4">{chamado.id}</td>
-                  <td className="py-3 px-4">{chamado.descricao}</td>
-                  <td className="py-3 px-4">{chamado.patrimonio}</td>
-                  <td className="py-3 px-4">{chamado.data_criacao}</td>
+                  <td className="py-3 px-4">{manutencao.id}</td>
+                  <td className="py-3 px-4">{manutencao.patrimonio_nome}</td>
+                  <td className="py-3 px-4">{manutencao.tipo}</td>
+                  <td className="py-3 px-4">{formatDate(manutencao.data_inicio)}</td>
+                  <td className="py-3 px-4">{manutencao.usuario}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}
                     >
-                      {chamado.status}
+                      {formatTitleCase(status)}
                     </span>
                   </td>
                   <td className="py-3 px-4 flex justify-center gap-2">
                     <button
-                      onClick={() => onView?.(chamado)}
-                      className="p-1 rounded hover:bg-gray-100 transition-colors cursor-pointer"
-                      title="Visualizar"
+                      onClick={() => onView?.(manutencao)}
+                      className="p-1.5 rounded hover:bg-indigo-100 transition-colors cursor-pointer"
+                      title="Visualizar histórico"
                     >
-                      <Eye size={16} className="text-gray-700" />
+                      <Eye size={17} className="text-indigo-600" />
                     </button>
                     <button
-                      onClick={() => onEdit?.(chamado)}
-                      className="p-1 rounded hover:bg-blue-100 transition-colors cursor-pointer"
+                      onClick={() => onEdit?.(manutencao)}
+                      className="p-1.5 rounded hover:bg-blue-100 transition-colors cursor-pointer"
                       title="Editar"
                     >
-                      <Edit size={16} className="text-blue-500" />
+                      <Edit size={17} className="text-blue-600" />
                     </button>
                     <button
-                      onClick={() => onDelete?.(chamado)}
-                      className="p-1 rounded hover:bg-red-100 transition-colors cursor-pointer"
+                      onClick={() => onDelete?.(manutencao)}
+                      className="p-1.5 rounded hover:bg-red-100 transition-colors cursor-pointer"
                       title="Excluir"
                     >
-                      <Trash2 size={16} className="text-red-500" />
+                      <Trash2 size={17} className="text-red-600" />
                     </button>
                   </td>
                 </tr>
@@ -131,7 +151,6 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
         </table>
       </div>
 
-      {/* Paginação */}
       <div className="flex justify-center mt-2 select-none">
         <div className="flex gap-2 justify-center min-w-[350px]">
           <button
@@ -173,4 +192,4 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
   );
 };
 
-export default ChamadosTable;
+export default ManutencaoTable;

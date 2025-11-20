@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import type { Item } from "../services/itens";
-import { createManutencao } from "../services/manutencoes";
+import type { Item } from "../../services/itens";
+import { createManutencao } from "../../services/manutencoes";
 
 type Props = {
   open: boolean;

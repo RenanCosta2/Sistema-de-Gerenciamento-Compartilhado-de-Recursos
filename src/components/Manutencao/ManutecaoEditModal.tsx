@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { ManutencaoFormValues } from "./CreateManutencaoForms";
+import type { ManutencaoFormValues } from "./ManutencaoAddModal";
 
 interface EditManutencaoFormsProps {
   initialValues: ManutencaoFormValues;

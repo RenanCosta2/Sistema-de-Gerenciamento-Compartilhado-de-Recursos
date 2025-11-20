@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { Search } from "lucide-react";
-import MultiFilterDropdown from "./MultiFilterDropdown";
-import SearchBar from "./SearchBar";
-import type { Item } from "../services/itens";
+import MultiFilterDropdown from "../Utils/MultiFilterDropdown";
+import SearchBar from "../Utils/SearchBar";
+import type { Item } from "../../services/itens";
 
 interface ItensFiltersProps {
   data: Item[];

@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Upload } from "lucide-react";
-import { getItens } from "../services/itens";
-import type { Item } from "../services/itens";
-import { createChamado } from "../services/chamados";
+import { getItens } from "../../services/itens";
+import type { Item } from "../../services/itens";
+import { createChamado } from "../../services/chamados";
 
 const ChamadosForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
   const [tipoChamado, setTipoChamado] = useState("");

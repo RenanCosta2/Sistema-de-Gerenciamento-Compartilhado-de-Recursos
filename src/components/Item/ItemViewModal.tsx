@@ -1,6 +1,6 @@
 // ViewItemModal.tsx
 import React from "react";
-import type { Item } from "../services/itens";
+import type { Item } from "../../services/itens";
 
 interface ViewItemModalProps {
   item: Item;

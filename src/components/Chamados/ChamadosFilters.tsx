@@ -1,6 +1,6 @@
 import React from "react";
 import { Search } from "lucide-react";
-import SearchBar from "./SearchBar";
+import SearchBar from "../Utils/SearchBar";
 
 interface ChamadosFiltersProps {
   searchTerm: string;

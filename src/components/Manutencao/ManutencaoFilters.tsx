@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { Search } from "lucide-react";
-import MultiFilterDropdown from "./MultiFilterDropdown";
-import SearchBar from "./SearchBar";
-import type { Manutencao } from "../services/manutencoes";
+import MultiFilterDropdown from "../Utils/MultiFilterDropdown";
+import SearchBar from "../Utils/SearchBar";
+import type { Manutencao } from "../../services/manutencoes";
 
 interface ManutencaoFiltersProps {
   data: Manutencao[];

@@ -1,12 +1,12 @@
 import React, { useState, useMemo, useEffect } from "react";
-import ItensTable from "../components/ItensTable";
-import ItensFilters from "../components/ItensFilters";
-import DeleteItemModal from "../components/DeleteItemModal";
-import CreateItensForm, { type ItemFormValues } from "../components/CreateItensForm";
-import EditItensForm from "../components/EditItensForm";
+import ItensTable from "../components/Item/ItensTable";
+import ItensFilters from "../components/Item/ItensFilters";
+import DeleteItemModal from "../components/Item/ItemDeleteModal";
+import CreateItensForm, { type ItemFormValues } from "../components/Item/ItemAddModal";
+import EditItensForm from "../components/Item/ItemEditModal";
 import { getItens, createItem, updateItem, deleteItem } from "../services/itens";
 import type { Item } from "../services/itens";
-import ViewItemModal from "../components/ViewItemModal";
+import ViewItemModal from "../components/Item/ItemViewModal";
 
 
 const ItensPatrimoniais: React.FC = () => {

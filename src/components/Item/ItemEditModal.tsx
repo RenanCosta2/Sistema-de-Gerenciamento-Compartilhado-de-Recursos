@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { ItemFormValues } from "./CreateItensForm";
+import type { ItemFormValues } from "./ItemAddModal";
 
 interface EditItensFormProps {
   initialValues: ItemFormValues;
