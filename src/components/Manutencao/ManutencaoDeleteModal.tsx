@@ -1,52 +1,62 @@
-// DeleteManutencaoModal.tsx
-import React from "react";
+import { deleteManutencao } from "../../services/manutencoes";
+import type { Manutencao } from "../../services/manutencoes";
 
-interface DeleteManutencaoModalProps {
-  manutencaoDescricao: string; // descrição da manutenção a ser exibida no modal
-  onConfirm: () => void;
-  onCancel: () => void;
+interface ManutencaoDeleteModalProps {
+  open: boolean;
+  onClose: () => void;
+  manutencao: Manutencao | null;
+  onDeleted?: () => void;
 }
 
-const DeleteManutencaoModal: React.FC<DeleteManutencaoModalProps> = ({
-  manutencaoDescricao,
-  onConfirm,
-  onCancel,
-}) => {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-[400px] relative">
-        <button
-          onClick={onCancel}
-          className="absolute top-2 right-2 text-gray-600"
-        >
-          ✕
-        </button>
+export default function ManutencaoDeleteModal({
+  open,
+  onClose,
+  manutencao,
+  onDeleted,
+}: ManutencaoDeleteModalProps) {
+  if (!open || !manutencao) return null;
 
-        <h3 className="text-xl font-semibold mb-4 text-[#2E3A59]">
+  const handleDelete = async () => {
+    try {
+      await deleteManutencao(manutencao.id);
+
+      if (onDeleted) onDeleted();
+      onClose();
+    } catch (err) {
+      console.error("Erro ao excluir manutenção:", err);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div className="bg-white p-6 w-[400px] rounded-xl shadow-xl">
+
+        <h2 className="text-lg font-semibold text-red-600 mb-4">
           Confirmar Exclusão
-        </h3>
+        </h2>
 
         <p className="mb-6">
-          Tem certeza que deseja excluir a manutenção: <strong>{manutencaoDescricao}</strong>?
+          Tem certeza de que deseja excluir a manutenção{" "}
+          <strong>#{manutencao.id}</strong> referente ao patrimônio{" "}
+          <strong>{manutencao.patrimonio_nome}</strong>?
         </p>
 
-        <div className="flex justify-end gap-3">
+        <div className="flex justify-end gap-2">
           <button
-            onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+            className="px-4 py-2 border rounded cursor-pointer"
+            onClick={onClose}
           >
             Cancelar
           </button>
+
           <button
-            onClick={onConfirm}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
           >
-            Excluir
+            Deletar
           </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default DeleteManutencaoModal;
+}

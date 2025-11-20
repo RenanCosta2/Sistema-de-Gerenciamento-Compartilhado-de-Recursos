@@ -2,59 +2,79 @@ import React, { useState, useMemo, useEffect } from "react";
 import ManutencaoTable from "../components/Manutencao/ManutencaoTable";
 import ManutencaoFilters from "../components/Manutencao/ManutencaoFilters";
 import ManutencaoAddModal from "../components/Manutencao/ManutencaoAddModal";
+import ManutencaoViewModal from "../components/Manutencao/ManutencaoViewModal";
+import ManutencaoEditModal from "../components/Manutencao/ManutencaoEditModal";
+import ManutencaoDeleteModal from "../components/Manutencao/ManutencaoDeleteModal";
+
 import { getManutencoes } from "../services/manutencoes";
 import type { Manutencao } from "../services/manutencoes";
+
 import { getItens } from "../services/itens";
 import type { Item } from "../services/itens";
 
 const Manutencao: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
-    status: [] as string[],
-  });
+  const [filters, setFilters] = useState({ status: [] as string[] });
+
   const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [itens, setItens] = useState<Item[]>([]);
-    
-    useEffect(() => {
-    async function fetchData() {
-        try {
-        const data = await getItens();
-        setItens(data);
-        } catch (error) {
-        console.error("Erro ao carregar itens:", error);
-        }
-    }
-    fetchData();
-    }, []);
 
-  useEffect(() => {
-    fetchManutencoes();
-  }, []);
-
-  async function fetchManutencoes() {
+  const fetchManutencoes = async () => {
     const data = await getManutencoes();
     setManutencoes(data);
-  }
-
-  // controle modal
-  const [openAddModal, setOpenAddModal] = useState(false);
+  };
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getManutencoes();
-        setManutencoes(data);
-      } catch (error) {
-        console.error("Erro ao carregar manutenções:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
+    getItens().then(setItens).catch(console.error);
+    fetchManutencoes().finally(() => setLoading(false));
   }, []);
 
+  // --------------------------
+  // Modal States
+  // --------------------------
+  const [openAddModal, setOpenAddModal] = useState(false);
+
+  const [viewOpen, setViewOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const [selected, setSelected] = useState<Manutencao | null>(null);
+
+  // --------------------------
+  // Handlers
+  // --------------------------
+  const handleView = (registro: Manutencao) => {
+    setSelected(registro);
+    setViewOpen(true);
+  };
+
+  const handleEdit = (registro: Manutencao) => {
+    setSelected(registro);
+    setEditOpen(true);
+  };
+
+  const handleDelete = (registro: Manutencao) => {
+    setSelected(registro);
+    setDeleteOpen(true);
+  };
+
+  const handleUpdated = async () => {
+    setEditOpen(false);
+    setSelected(null);
+    await fetchManutencoes();
+  };
+
+  const handleDeleted = async () => {
+    setDeleteOpen(false);
+    setSelected(null);
+    await fetchManutencoes();
+  };
+
+  // --------------------------
+  // Filtro e busca
+  // --------------------------
   const filteredManutencao = useMemo(() => {
     const term = searchTerm.toLowerCase();
 
@@ -70,6 +90,9 @@ const Manutencao: React.FC = () => {
     });
   }, [searchTerm, filters, manutencoes]);
 
+  // --------------------------
+  // Loading
+  // --------------------------
   if (loading) {
     return (
       <section className="pt-4 px-4">
@@ -83,6 +106,9 @@ const Manutencao: React.FC = () => {
     );
   }
 
+  // --------------------------
+  // Render
+  // --------------------------
   return (
     <section className="pt-4 px-4">
       <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
@@ -111,17 +137,43 @@ const Manutencao: React.FC = () => {
         </div>
 
         <ManutencaoTable
-          key={filteredManutencao.length}
           data={filteredManutencao}
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </div>
 
-      {/* modal */}
+      {/* ADD */}
       <ManutencaoAddModal
         open={openAddModal}
         onClose={() => setOpenAddModal(false)}
         itens={itens}
         onCreated={fetchManutencoes}
+      />
+
+      {/* VIEW */}
+      <ManutencaoViewModal
+        open={viewOpen}
+        data={selected}
+        onClose={() => setViewOpen(false)}
+      />
+
+      {/* EDIT */}
+      <ManutencaoEditModal
+        open={editOpen}
+        manutencao={selected}
+        patrimonios={itens}
+        onClose={() => setEditOpen(false)}
+        onUpdated={handleUpdated}
+      />
+
+      {/* DELETE */}
+      <ManutencaoDeleteModal
+        open={deleteOpen}
+        manutencao={selected}
+        onClose={() => setDeleteOpen(false)}
+        onDeleted={handleDeleted}
       />
     </section>
   );
