@@ -1,7 +1,7 @@
 import api from "./api";
 
 export interface Chamado {
-  id: string;
+  id: number;
   tipo: string;
   descricao: string;
   data_registro?: Date;
@@ -27,6 +27,16 @@ export async function createChamado(payload: Omit<Chamado, "id" | "data_registro
     return response.data;
   } catch (error) {
     console.error("Erro ao criar solicitação:", error);
+    throw error;
+  }
+}
+
+export async function deleteChamado(id: number) {
+  try {
+    const response = await api.delete(`solicitacoes/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar solicitação:", error);
     throw error;
   }
 }

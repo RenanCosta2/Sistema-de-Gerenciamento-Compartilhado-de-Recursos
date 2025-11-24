@@ -4,6 +4,7 @@ import ChamadosTable from "../components/Chamados/ChamadosTable";
 import ChamadosForm from "../components/Chamados/ChamadosForm";
 import { getChamados } from "../services/chamados";
 import type { Chamado } from "../services/chamados";
+import ChamadoDeleteModal from "../components/Chamados/ChamadoDeleteModal";
 
 const Chamados: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -33,6 +34,21 @@ const Chamados: React.FC = () => {
       const data = await getChamados();
       setChamados(data);
     }
+
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    
+    const [selected, setSelected] = useState<Chamado | null>(null);
+
+    const handleDelete = (registro: Chamado) => {
+        setSelected(registro);
+        setDeleteOpen(true);
+      };
+
+    const handleDeleted = async () => {
+      setDeleteOpen(false);
+      setSelected(null);
+      await fetchChamados();
+    };
 
     const filteredChamados = useMemo(() => {
     const term = searchTerm.toLowerCase();
@@ -91,7 +107,18 @@ const Chamados: React.FC = () => {
                 />
             </div>
 
-            <ChamadosTable key={filteredChamados.length} data={filteredChamados} />
+            <ChamadosTable 
+            key={filteredChamados.length} 
+            data={filteredChamados}
+            onDelete={handleDelete} />
+
+            {/* DELETE */}
+            <ChamadoDeleteModal
+              open={deleteOpen}
+              chamado={selected}
+              onClose={() => setDeleteOpen(false)}
+              onDeleted={handleDeleted}
+            />
       </div>
     </section>
   );
