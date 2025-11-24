@@ -7,7 +7,7 @@ import ManutencaoEditModal from "../components/Manutencao/ManutencaoEditModal";
 import ManutencaoDeleteModal from "../components/Manutencao/ManutencaoDeleteModal";
 
 import { getManutencoes } from "../services/manutencoes";
-import type { Manutencao } from "../services/manutencoes";
+import type { Manutencao as ManutencaoModel } from "../services/manutencoes";
 
 import { getItens } from "../services/itens";
 import type { Item } from "../services/itens";
@@ -16,7 +16,7 @@ const Manutencao: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({ status: [] as string[] });
 
-  const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+  const [manutencoes, setManutencoes] = useState<ManutencaoModel[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [itens, setItens] = useState<Item[]>([]);
@@ -40,22 +40,22 @@ const Manutencao: React.FC = () => {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const [selected, setSelected] = useState<Manutencao | null>(null);
+  const [selected, setSelected] = useState<ManutencaoModel | null>(null);
 
   // --------------------------
   // Handlers
   // --------------------------
-  const handleView = (registro: Manutencao) => {
+  const handleView = (registro: ManutencaoModel) => {
     setSelected(registro);
     setViewOpen(true);
   };
 
-  const handleEdit = (registro: Manutencao) => {
+  const handleEdit = (registro: ManutencaoModel) => {
     setSelected(registro);
     setEditOpen(true);
   };
 
-  const handleDelete = (registro: Manutencao) => {
+  const handleDelete = (registro: ManutencaoModel) => {
     setSelected(registro);
     setDeleteOpen(true);
   };
