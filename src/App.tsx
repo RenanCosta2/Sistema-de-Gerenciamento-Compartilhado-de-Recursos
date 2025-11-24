@@ -9,7 +9,7 @@ import ItensPatrimoniais from "./pages/ItensPatrimoniais";
 import Manutencao from "./pages/Manutencao";
 import Chamados from "./pages/Chamados";
 import Espacos from "./pages/Espacos";
-import Login from "./pages/Login";
+import Login from "./pages/AuthPage";
 
 import RequireAuth from "./components/Auth/RequireAuth";
 
