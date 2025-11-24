@@ -5,6 +5,7 @@ import ItensPatrimoniais from "./pages/ItensPatrimoniais";
 import Manutencao from "./pages/Manutencao";
 import Home from "./pages/Home";
 import Chamados from "./pages/Chamados";
+import Espacos from "./pages/Espacos";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,9 @@ const App: React.FC = () => {
             </Routes>
             <Routes>
               <Route path="/chamados" element={<Chamados />} />
+            </Routes>
+            <Routes>
+              <Route path="/espacos" element={<Espacos />} />
             </Routes>
           </main>
 
