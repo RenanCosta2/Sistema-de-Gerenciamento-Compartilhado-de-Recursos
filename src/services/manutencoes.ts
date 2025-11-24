@@ -36,7 +36,7 @@ export async function updateManutencao(id: number, payload: Omit<Manutencao, "id
     const response = await api.patch(`manutencoes/${id}/`, payload);
     return response.data;
   } catch (error) {
-    console.error("Erro ao criar manutenção:", error);
+    console.error("Erro ao atualizar manutenção:", error);
     throw error;
   }
 }
@@ -46,7 +46,7 @@ export async function deleteManutencao(id: number) {
     const response = await api.delete(`manutencoes/${id}/`);
     return response.data;
   } catch (error) {
-    console.error("Erro ao criar manutenção:", error);
+    console.error("Erro ao deletar manutenção:", error);
     throw error;
   }
 }
