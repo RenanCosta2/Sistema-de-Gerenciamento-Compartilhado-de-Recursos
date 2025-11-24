@@ -30,7 +30,7 @@ const MultiFilterDropdown: React.FC<MultiFilterDropdownProps> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-0">
       <details className="group">
         <summary className="cursor-pointer bg-[#E6E9F2] select-none border border-gray-300 rounded-lg px-3 py-2 text-gray-700 hover:border-gray-400 flex items-center justify-between min-w-[180px]">
           <span>{label}</span>
@@ -38,7 +38,7 @@ const MultiFilterDropdown: React.FC<MultiFilterDropdownProps> = ({
             ▼
           </span>
         </summary>
-        <div className="absolute mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 w-full max-h-56 overflow-y-auto">
+        <div className="absolute mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-0 w-full max-h-56 overflow-y-auto">
           {options.map((opt) => {
             const { value, label } = normalize(opt);
             return (
