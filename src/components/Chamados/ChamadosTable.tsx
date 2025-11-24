@@ -74,16 +74,31 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
           </thead>
           <tbody>
             {currentData.map((chamado) => {
-              const status = chamado.status.toLowerCase();
+              const rawStatus = chamado.status?.toLowerCase() || "";
+              const status =
+                rawStatus === "em_analise" ? "em análise" : rawStatus;
 
               const statusClasses =
                 status === "aberto"
                   ? "text-blue-700 border border-blue-400 bg-blue-50"
-                  : status === "em andamento"
+                  : status === "em análise"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
-                  : status === "concluído"
+                  : status === "resolvido"
                   ? "text-green-700 border border-green-400 bg-green-50"
-                  : "text-red-700 border border-red-300 bg-red-50";
+                  : status === "cancelado"
+                  ? "text-red-700 border border-red-400 bg-red-50"
+                  : "text-gray-700 border border-gray-300 bg-gray-50";
+
+              const data = chamado.data_criacao
+                ? new Date(chamado.data_criacao).toLocaleDateString("pt-BR")
+                : "-";
+
+                  // Converte todas as palavras para Title Case
+              const formatTitleCase = (text: string) =>
+                text
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
 
               return (
                 <tr
@@ -93,12 +108,12 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                   <td className="py-3 px-4">{chamado.id}</td>
                   <td className="py-3 px-4">{chamado.descricao}</td>
                   <td className="py-3 px-4">{chamado.patrimonio}</td>
-                  <td className="py-3 px-4">{chamado.data_criacao}</td>
+                  <td className="py-3 px-4">{data}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}
                     >
-                      {chamado.status}
+                      {formatTitleCase(status)}
                     </span>
                   </td>
                   <td className="py-3 px-4 flex justify-center gap-2">
