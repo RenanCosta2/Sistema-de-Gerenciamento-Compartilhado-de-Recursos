@@ -41,7 +41,7 @@ export default function AuthPage() {
           />
         )}
 
-        {view === "register" && <RegisterForm />}
+        {view === "register" && <RegisterForm onSuccess={() => setView("login")} />}
 
         {view === "forgot" && (
           <ForgotPasswordForm

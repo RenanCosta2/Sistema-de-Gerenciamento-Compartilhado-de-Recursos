@@ -9,7 +9,8 @@ import ItensPatrimoniais from "./pages/ItensPatrimoniais";
 import Manutencao from "./pages/Manutencao";
 import Chamados from "./pages/Chamados";
 import Espacos from "./pages/Espacos";
-import Login from "./pages/AuthPage";
+import AuthPage from "./pages/AuthPage";
+import { GlobalToast } from "./components/Utils/GlobalToast";
 
 import RequireAuth from "./components/Auth/RequireAuth";
 
@@ -20,6 +21,8 @@ const AppLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen text-gray-900 bg-[#E6E9F2]">
 
+      <GlobalToast />
+
       {!hideNavbar && <Navbar />}
 
       <div className={`flex flex-col flex-1 ${!hideNavbar ? "ml-60 px-8 py-10" : ""}`}>
@@ -27,7 +30,7 @@ const AppLayout: React.FC = () => {
 
           <Routes>
             {/* Rotas públicas */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<AuthPage />} />
 
             {/* Rotas privadas */}
             <Route path="/" element={

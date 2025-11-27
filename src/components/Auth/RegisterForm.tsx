@@ -3,7 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { createUser } from "../../services/auth";
 import type { RegisterPayload } from "../../services/auth";
 
-export default function RegisterForm() {
+export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   const [showSenha, setShowSenha] = useState(false);
   const [showConfirma, setShowConfirma] = useState(false);
 
@@ -40,7 +40,13 @@ export default function RegisterForm() {
     };
 
     try {
-      createUser(payload)
+      await createUser(payload);
+
+      window.dispatchEvent(new CustomEvent("toast", {
+        detail: { type: "success", message: "Conta criada com sucesso!" }
+      }));
+
+      onSuccess();
     } catch (err) {
       alert("Erro ao registrar usuário.");
       console.error(err);
