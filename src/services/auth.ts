@@ -10,6 +10,16 @@ export interface LoginResponse {
   refresh: string;
 }
 
+export interface RegisterPayload {
+  nome: string;
+  email: string;
+  username: string;
+  siape?: string | "";
+  password: string;
+  departamento: string;
+  cargo: string;
+}
+
 export function isAuthenticated() {
   return Boolean(localStorage.getItem("access"));
 }
@@ -25,6 +35,16 @@ export async function login(user: UserLoginRequest): Promise<LoginResponse> {
     return response.data;
   } catch (error) {
     console.error("Erro no login:", error);
+    throw error;
+  }
+}
+
+export async function createUser(payload: Omit<RegisterPayload, "nome" | "siape" | "departamento" | "cargo">) {
+  try {
+    const response = await api.post("users/register/", payload);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar um usuário:", error);
     throw error;
   }
 }

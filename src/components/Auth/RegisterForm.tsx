@@ -1,12 +1,54 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { createUser } from "../../services/auth";
+import type { RegisterPayload } from "../../services/auth";
 
 export default function RegisterForm() {
   const [showSenha, setShowSenha] = useState(false);
   const [showConfirma, setShowConfirma] = useState(false);
 
+  const [form, setForm] = useState<RegisterPayload & { confirmar: string }>({
+    nome: "",
+    email: "",
+    username: "",
+    siape: "",
+    password: "",
+    departamento: "",
+    cargo: "",
+    confirmar: ""
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (form.password !== form.confirmar) {
+      alert("As senhas não coincidem.");
+      return;
+    }
+
+    const payload = {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+      tipo_usuario: "aluno"
+    };
+
+    try {
+      createUser(payload)
+    } catch (err) {
+      alert("Erro ao registrar usuário.");
+      console.error(err);
+    }
+  };
+
   return (
-    <div>
+    <form  onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
         Cadastro de Usuário
       </h1>
@@ -24,9 +66,13 @@ export default function RegisterForm() {
             Nome Completo *
           </label>
           <input
+            name="nome"
             type="text"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            placeholder="Digite seu nome completo"
+            onChange={handleChange}
+            value={form.nome}
           />
         </div>
 
@@ -36,9 +82,13 @@ export default function RegisterForm() {
             Email Institucional *
           </label>
           <input
+            name="email"
             type="email"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            placeholder="seu.email@universidade.edu"
+            onChange={handleChange}
+            value={form.email}
           />
         </div>
 
@@ -48,9 +98,13 @@ export default function RegisterForm() {
             Usuário SIGAA / SIAPE *
           </label>
           <input
+            name="username"
             type="text"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            placeholder="Digite seu usuário"
+            onChange={handleChange}
+            value={form.username}
           />
         </div>
 
@@ -60,9 +114,13 @@ export default function RegisterForm() {
             SIAPE (Opcional)
           </label>
           <input
+            name="siape"
             type="text"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            placeholder="Número SIAPE"
+            onChange={handleChange}
+            value={form.siape}
           />
         </div>
 
@@ -72,9 +130,13 @@ export default function RegisterForm() {
             Senha *
           </label>
           <input
+            name="password"
             type={showSenha ? "text" : "password"}
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 pr-10"
+            placeholder="Digite a senha"
+            onChange={handleChange}
+            value={form.password}
           />
           <button
             type="button"
@@ -91,9 +153,13 @@ export default function RegisterForm() {
             Confirmar Senha *
           </label>
           <input
+            name="confirmar"
             type={showConfirma ? "text" : "password"}
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 pr-10"
+            placeholder="Digite a senha novamente"
+            onChange={handleChange}
+            value={form.confirmar}
           />
           <button
             type="button"
@@ -110,8 +176,11 @@ export default function RegisterForm() {
             Departamento *
           </label>
           <select
+            name="departamento"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            onChange={handleChange}
+            value={form.departamento}
           >
             <option value="">Selecione...</option>
             <option>Departamento de Computação</option>
@@ -126,8 +195,11 @@ export default function RegisterForm() {
             Cargo *
           </label>
           <select
+            name="cargo"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
+            onChange={handleChange}
+            value={form.cargo}
           >
             <option value="">Selecione...</option>
             <option>Servidor</option>
@@ -150,6 +222,6 @@ export default function RegisterForm() {
         <span className="font-semibold">Nota:</span> Sua conta será criada com permissões
         básicas. Para permissões administrativas, entre em contato com o suporte.
       </div>
-    </div>
+    </form>
   );
 }

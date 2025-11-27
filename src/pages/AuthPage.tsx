@@ -14,7 +14,7 @@ export default function AuthPage() {
       <div className={`
         relative bg-white w-full p-10 rounded-2xl shadow-xl border border-gray-200
         ${view === "login" ? "max-w-lg" : ""}
-        ${view === "register" ? "max-w-2xl" : ""}
+        ${view === "register" ? "max-w-3xl" : ""}
         ${view === "forgot" ? "max-w-md" : ""}
       `}>
 
