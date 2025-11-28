@@ -16,10 +16,7 @@ const Navbar = () => {
     { path: "/espacos", label: "Espaços Físicos", icon: Building },
   ];
 
-  const user = {
-    nome: "Renan Costa",
-    email: "renan.costa@example.com",
-  };
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -36,12 +33,14 @@ const Navbar = () => {
     setConfirmOpen(false);
   };
 
-  const getInitials = (name: string) =>
+  const getInitials = (name: string = "") =>
     name
+      .trim()
       .split(" ")
+      .filter(Boolean)
       .map((n) => n[0])
       .join("")
-      .toUpperCase();
+      .toUpperCase() || "?";
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-60 bg-[#E6E9F2] border-r border-gray-300 shadow-lg flex flex-col justify-between z-40">
@@ -49,11 +48,11 @@ const Navbar = () => {
         {/* Avatar e dados do usuário */}
         <div className="flex items-center gap-3 h-24 border-b border-gray-300 px-4">
           <div className="w-12 h-12 rounded-full bg-indigo-400 flex items-center justify-center text-white font-bold text-lg">
-            {getInitials(user.nome)}
+            {getInitials(user?.username ?? "")}
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-[#2E3A59]">{user.nome}</span>
-            <span className="text-xs text-gray-600">{user.email}</span>
+            <span className="font-semibold text-[#2E3A59]">{user?.username ?? "Usuário"}</span>
+            <span className="text-xs text-gray-600">{user?.email ?? ""}</span>
           </div>
         </div>
 

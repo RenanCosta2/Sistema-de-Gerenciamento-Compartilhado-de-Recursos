@@ -8,6 +8,7 @@ export interface UserLoginRequest {
 export interface LoginResponse {
   access: string;
   refresh: string;
+  user: JSON;
 }
 
 export interface RegisterPayload {
@@ -32,6 +33,8 @@ export async function login(user: UserLoginRequest): Promise<LoginResponse> {
     localStorage.setItem("access", response.data.access);
     localStorage.setItem("refresh", response.data.refresh);
 
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+
     return response.data;
   } catch (error) {
     console.error("Erro no login:", error);
@@ -52,6 +55,7 @@ export async function createUser(payload: Omit<RegisterPayload, "nome" | "siape"
 export function logout() {
   localStorage.removeItem("access");
   localStorage.removeItem("refresh");
+  localStorage.removeItem("user");
 
   window.location.href = "/login";
 }
