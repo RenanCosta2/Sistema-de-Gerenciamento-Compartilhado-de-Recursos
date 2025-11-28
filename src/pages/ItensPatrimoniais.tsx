@@ -102,7 +102,7 @@ const ItensPatrimoniais: React.FC = () => {
         <div className="mt-6 flex justify-start">
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer"
           >
             Adicionar Novo Item
           </button>

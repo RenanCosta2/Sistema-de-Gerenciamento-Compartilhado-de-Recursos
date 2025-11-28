@@ -73,7 +73,7 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
               type="text"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              placeholder="Ex: Monitor Samsung 24'"
+              placeholder="Ex: Projetor Epson"
               required
               className="w-full border rounded-lg p-2"
             />
