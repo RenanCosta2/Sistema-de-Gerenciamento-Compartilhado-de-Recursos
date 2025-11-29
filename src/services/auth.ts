@@ -1,5 +1,15 @@
 import api from "./api";
 
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  tipo_usuario: string;
+  is_staff: boolean;
+  is_superuser: boolean;
+}
+
+
 export interface UserLoginRequest {
   username: string;
   password: string;
@@ -8,7 +18,7 @@ export interface UserLoginRequest {
 export interface LoginResponse {
   access: string;
   refresh: string;
-  user: JSON;
+  user: User;
 }
 
 export interface RegisterPayload {

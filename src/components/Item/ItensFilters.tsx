@@ -29,11 +29,6 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
   filters,
   setFilters,
 }) => {
-  const categorias = useMemo(
-    () => Array.from(new Set(data.map((i) => i.categoria))),
-    [data]
-  );
-
   const statusMap: Record<string, string> = {
     em_manutencao: "Em Manutenção",
     ativo: "Ativo",
@@ -73,12 +68,6 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
         setSearchTerm={setSearchTerm}
         className="flex-grow min-w-[200px] pl-9 pr-3 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
         placeholder="Buscar por ID ou nome..."
-      />
-      <MultiFilterDropdown
-        label="Categorias"
-        options={categorias.map((c) => ({ value: c, label: c }))}
-        selected={filters.categorias}
-        onChange={(v) => updateFilter("categorias", v)}
       />
       <MultiFilterDropdown
         label="Status"

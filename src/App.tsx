@@ -13,6 +13,7 @@ import AuthPage from "./pages/AuthPage";
 import { GlobalToast } from "./components/Utils/GlobalToast";
 
 import RequireAuth from "./components/Auth/RequireAuth";
+import { AuthProvider } from "./components/Auth/AuthContext";
 
 const AppLayout: React.FC = () => {
   const location = useLocation();
@@ -63,9 +64,11 @@ const AppLayout: React.FC = () => {
 };
 
 const App = () => (
-  <Router>
-    <AppLayout />
-  </Router>
+  <AuthProvider>
+    <Router>
+      <AppLayout />
+    </Router>
+  </AuthProvider>
 );
 
 export default App;

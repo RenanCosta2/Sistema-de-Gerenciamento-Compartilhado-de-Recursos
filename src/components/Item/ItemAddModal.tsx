@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import type { Espaco } from "../../services/espaco"
+import { getEspacos } from "../../services/espaco"
+import { useAuth } from "../Auth/AuthContext";
 
 export interface ItemFormValues {
   nome: string;
@@ -17,13 +20,26 @@ type Props = {
 };
 
 const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
+  const { user } = useAuth();
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [numeroTombo, setNumeroTombo] = useState("");
-  const [localizacao, setLocalizacao] = useState("");
+  const [espacos, setEspacos] = useState<Espaco[]>([]);
+  const [espaco, setEspaco] = useState("");
   const [status, setStatus] = useState("");
   const [dataAquisicao, setDataAquisicao] = useState("");
-  const [responsavel, setResponsavel] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getEspacos();
+        setEspacos(data);
+      } catch (error) {
+        console.error("Erro ao carregar itens:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   if (!open) return null;
 
@@ -34,10 +50,10 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
       nome,
       descricao,
       numero_tombo: numeroTombo,
-      localizacao,
+      localizacao: espaco,
       status,
       data_aquisicao: dataAquisicao || undefined,
-      responsavel: responsavel ? Number(responsavel) : undefined,
+      responsavel: user?.id,
     };
     
     onSubmit?.(dadosItem);
@@ -46,10 +62,9 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
     setNome("");
     setDescricao("");
     setNumeroTombo("");
-    setLocalizacao("");
+    setEspaco("");
     setStatus("");
     setDataAquisicao("");
-    setResponsavel("");
   };
 
   return (
@@ -110,78 +125,18 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
           <div>
             <label className="block font-medium text-sm mb-1">Localização *</label>
             <select
-              value={localizacao}
-              onChange={(e) => setLocalizacao(e.target.value)}
+              value={espaco}
+              onChange={(e) => setEspaco(e.target.value)}
               required
               className="w-full border rounded-lg p-2"
             >
               <option value="">Selecione...</option>
 
-              {/* opções mantidas */}
-              <option value="Sala de Aula 01 - Central de Aulas I">Sala de Aula 01 - Central de Aulas I</option>
-              <option value="Sala de Aula 02 - Central de Aulas I">Sala de Aula 02 - Central de Aulas I</option>
-              <option value="Sala de Aula 03 - Central de Aulas I">Sala de Aula 03 - Central de Aulas I</option>
-              <option value="Sala de Aula 04 - Central de Aulas I">Sala de Aula 04 - Central de Aulas I</option>
-              <option value="Sala de Aula 05 - Central de Aulas I">Sala de Aula 05 - Central de Aulas I</option>
-              <option value="Sala de Aula 06 - Central de Aulas I">Sala de Aula 06 - Central de Aulas I</option>
-              <option value="Sala de Aula 07 - Central de Aulas I">Sala de Aula 07 - Central de Aulas I</option>
-              <option value="Sala de Aula 08 - Central de Aulas I">Sala de Aula 08 - Central de Aulas I</option>
-              <option value="Sala de Aula 09 - Central de Aulas I">Sala de Aula 09 - Central de Aulas I</option>
-              <option value="Sala de Aula 10 - Central de Aulas I">Sala de Aula 10 - Central de Aulas I</option>
-
-              <option value="Sala de Aula 01 - Central de Aulas II">Sala de Aula 01 - Central de Aulas II</option>
-              <option value="Sala de Aula 02 - Central de Aulas II">Sala de Aula 02 - Central de Aulas II</option>
-              <option value="Sala de Aula 03 - Central de Aulas II">Sala de Aula 03 - Central de Aulas II</option>
-              <option value="Sala de Aula 04 - Central de Aulas II">Sala de Aula 04 - Central de Aulas II</option>
-              <option value="Sala de Aula 05 - Central de Aulas II">Sala de Aula 05 - Central de Aulas II</option>
-              <option value="Sala de Aula 06 - Central de Aulas II">Sala de Aula 06 - Central de Aulas II</option>
-              <option value="Sala de Aula 07 - Central de Aulas II">Sala de Aula 07 - Central de Aulas II</option>
-              <option value="Sala de Aula 08 - Central de Aulas II">Sala de Aula 08 - Central de Aulas II</option>
-              <option value="Sala de Aula 11 - Central de Aulas II">Sala de Aula 11 - Central de Aulas II</option>
-              <option value="Sala de Aula 12 - Central de Aulas II">Sala de Aula 12 - Central de Aulas II</option>
-              <option value="Sala de Aula 14 - Central de Aulas II">Sala de Aula 14 - Central de Aulas II</option>
-              <option value="Sala de Aula 15 - Central de Aulas II">Sala de Aula 15 - Central de Aulas II</option>
-              <option value="Sala de Aula 16 - Central de Aulas II">Sala de Aula 16 - Central de Aulas II</option>
-
-              <option value="Ateliê de Desenho I - Central de Aulas II">Ateliê de Desenho I - Central de Aulas II</option>
-              <option value="Ateliê de Desenho II - Central de Aulas II">Ateliê de Desenho II - Central de Aulas II</option>
-
-              <option value="Laboratório de Informática 01 (IMD) - Central de Aulas II">Laboratório de Informática 01 (IMD) - Central de Aulas II</option>
-              <option value="Laboratório de Informática 02 (IMD) - Central de Aulas II">Laboratório de Informática 02 (IMD) - Central de Aulas II</option>
-
-              <option value="Sala de Aula 01 - Laboratório de Tecnologia da Informação">
-                Sala de Aula 01 - Laboratório de Tecnologia da Informação
-              </option>
-              <option value="Sala de Aula 02 - Laboratório de Tecnologia da Informação">
-                Sala de Aula 02 - Laboratório de Tecnologia da Informação
-              </option>
-              <option value="Sala de Aula 03 - Laboratório de Tecnologia da Informação">
-                Sala de Aula 03 - Laboratório de Tecnologia da Informação
-              </option>
-              <option value="Sala de Aula 04 - Laboratório de Tecnologia da Informação">
-                Sala de Aula 04 - Laboratório de Tecnologia da Informação
-              </option>
-
-              <option value="Auditório - Laboratório de Tecnologia da Informação">
-                Auditório - Laboratório de Tecnologia da Informação
-              </option>
-
-              <option value="Laboratório de Eletrônica - Laboratório de Tecnologia da Informação">
-                Laboratório de Eletrônica - Laboratório de Tecnologia da Informação
-              </option>
-              <option value="Laboratório de Automação - Laboratório de Tecnologia da Informação">
-                Laboratório de Automação - Laboratório de Tecnologia da Informação
-              </option>
-
-              <option value="Auditório Administrativo - Administrativo">
-                Auditório Administrativo - Administrativo
-              </option>
-              <option value="Sala de Reuniões - Administrativo">Sala de Reuniões - Administrativo</option>
-
-              <option value="Ginásio - Ginásio">Ginásio - Ginásio</option>
-              <option value="Sala de Lutas / Atividades Físicas - Centro de Convivência">
-                Sala de Lutas / Atividades Físicas - Centro de Convivência
-              </option>
+              {espacos.map((loc) => (
+                <option key={loc.id} value={loc.id}>
+                  {loc.nome}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -199,20 +154,6 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
               <option value="em_manutencao">Em Manutenção</option>
               <option value="inativo">Inativo</option>
             </select>
-          </div>
-
-          {/* Responsável */}
-          <div>
-            <label className="block font-medium text-sm mb-1">
-              Responsável (ID do usuário)
-            </label>
-            <input
-              type="number"
-              value={responsavel}
-              onChange={(e) => setResponsavel(e.target.value)}
-              placeholder="ID do usuário (opcional)"
-              className="w-full border rounded-lg p-2"
-            />
           </div>
 
           {/* Data de Aquisição */}

@@ -103,7 +103,7 @@ const ItensTable: React.FC<ItensTableProps> = ({
                   key={item.id}
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
-                  <td className="py-3 px-4">{item.id || '-'}</td>
+                  <td className="py-3 px-4">{item.id ? item.id : '-'}</td>
                   <td className="py-3 px-4">{item.nome ? item.nome : '-'}</td>
                   <td className="py-3 px-4">{item.numero_tombo ? item.numero_tombo : '-'}</td>
                   <td className="py-3 px-4">{item.localizacao ? item.localizacao : '-'}</td>

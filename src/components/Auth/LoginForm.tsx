@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "./AuthContext";
 
 export default function LoginForm({ onForgot, onRegister }: { onForgot: () => void, onRegister: () => void }) {
   const navigate = useNavigate();
@@ -10,12 +11,15 @@ export default function LoginForm({ onForgot, onRegister }: { onForgot: () => vo
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
 
+  const { setUser } = useAuth();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
-     await login({ username: usuario, password: senha });
+      const { user } = await login({ username: usuario, password: senha });
+      setUser(user);
       navigate("/", { replace: true });
     } catch {
      setError("Usuário e/ou senha incorreto(s)");

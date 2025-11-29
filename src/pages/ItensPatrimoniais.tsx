@@ -69,18 +69,25 @@ const ItensPatrimoniais: React.FC = () => {
   // Filtragem
   const filteredItens = useMemo(() => {
     const term = searchTerm.toLowerCase();
+
     return itens.filter((item) => {
+      const idStr = item.id?.toString().toLowerCase() ?? "";
+      const nomeStr = item.nome?.toLowerCase() ?? "";
+
       const matchesSearch =
-        item.id.toString().toLowerCase().includes(term) ||
-        item.nome.toLowerCase().includes(term);
+        idStr.includes(term) || nomeStr.includes(term);
+
       const matchesStatus =
         filters.status.length === 0 || filters.status.includes(item.status);
+
       const matchesLocalizacao =
         filters.localizacoes.length === 0 ||
         filters.localizacoes.includes(item.localizacao);
+
       return matchesSearch && matchesStatus && matchesLocalizacao;
     });
   }, [searchTerm, filters, itens]);
+
 
   if (loading) return <p>Carregando...</p>;
 
