@@ -24,8 +24,7 @@ const ItensPatrimoniais: React.FC = () => {
   const [deletingItem, setDeletingItem] = useState<Item | null>(null);
   const [viewingItem, setViewingItem] = useState<Item | null>(null);
 
-  useEffect(() => {
-    async function fetchData() {
+  async function fetchData() {
       try {
         const data = await getItens();
         setItens(data);
@@ -35,14 +34,16 @@ const ItensPatrimoniais: React.FC = () => {
         setLoading(false);
       }
     }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
   // Criar item
   const handleCreateItem = async (dados: ItemFormValues) => {
     try {
-      const newItem = await createItem(dados);
-      setItens((prev) => [...prev, newItem]);
+      await createItem(dados);
+      await fetchData();
       setShowCreateModal(false);
     } catch (error) {
       console.error("Erro ao criar item:", error);
@@ -55,10 +56,8 @@ const ItensPatrimoniais: React.FC = () => {
     if (!editingItem) return;
 
     try {
-      const updated = await updateItem(editingItem.id, dados);
-      setItens((prev) =>
-        prev.map((item) => (item.id === updated.id ? updated : item))
-      );
+      await updateItem(editingItem.id, dados);
+      await fetchData();
       setEditingItem(null);
     } catch (error) {
       console.error("Erro ao atualizar item:", error);
