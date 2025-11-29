@@ -52,7 +52,12 @@ const Navbar = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-[#2E3A59]">{user?.username ?? "Usuário"}</span>
-            <span className="text-xs text-gray-600">{user?.email ?? ""}</span>
+            <span 
+            className="text-xs text-gray-600 max-w-[120px] truncate block"
+            title={user?.email ?? ""}
+            >
+              {user?.email ?? ""}
+            </span>
           </div>
         </div>
 
