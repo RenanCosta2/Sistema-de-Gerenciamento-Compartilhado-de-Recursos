@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Item } from "../../services/itens";
 import { createManutencao } from "../../services/manutencoes";
+import { useAuth } from "../Auth/AuthContext";
 
 type Props = {
   open: boolean;
@@ -15,7 +16,7 @@ const ManutencaoAddModal: React.FC<Props> = ({
   itens,
   onCreated,
 }) => {
-
+  const { user } = useAuth();
   const [descricao, setDescricao] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -42,28 +43,28 @@ const ManutencaoAddModal: React.FC<Props> = ({
     e.preventDefault();
 
     try {
-      const payload = {
-      descricao,
-      data_inicio: dataInicio,
-      data_fim: dataFim || null,
-      status: mapStatus(status),
-      patrimonio: Number(itemPrimordial),
-      usuario: 1
-    };
+      if (!user) {
+        throw new Error("Usuário não autenticado.");
+      }
 
-      console.log("Payload:", payload);
+      const payload = {
+        descricao,
+        data_inicio: dataInicio,
+        data_fim: dataFim || null,
+        status: mapStatus(status),
+        patrimonio: Number(itemPrimordial),
+        usuario: user.id,
+      };
 
       await createManutencao(payload);
+      onCreated?.();
 
-      if (onCreated) onCreated();
-
-      // reset
+      // reset...
       setDescricao("");
       setDataInicio("");
       setDataFim("");
       setStatus("Pendente");
       setItemPrimordial("");
-
       onClose();
     } catch (err) {
       console.error("Erro ao criar manutenção:", err);
