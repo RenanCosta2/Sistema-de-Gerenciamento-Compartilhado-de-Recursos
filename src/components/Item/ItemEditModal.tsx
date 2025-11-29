@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import type { ItemFormValues } from "./ItemAddModal";
+import type { Espaco } from "../../services/espaco";
+import { getEspacos } from "../../services/espaco";
 
 interface EditItensModalProps {
   open: boolean;
@@ -16,24 +18,33 @@ export default function EditItensModal({
 }: EditItensModalProps) {
   const [nome, setNome] = useState(initialValues.nome);
   const [descricao, setDescricao] = useState(initialValues.descricao);
-  const [numeroTombo, setNumeroTombo] = useState(initialValues.numero_tombo || "");
-  const [localizacao, setLocalizacao] = useState(initialValues.localizacao);
+  const [numeroTombo, setNumeroTombo] = useState(initialValues.numero_tombo);
+  const [localizacao, setLocalizacao] = useState(initialValues.localizacao); // agora é ID
   const [status, setStatus] = useState(initialValues.status);
   const [dataAquisicao, setDataAquisicao] = useState(initialValues.data_aquisicao || "");
-  const [responsavel, setResponsavel] = useState(
-    initialValues.responsavel ? String(initialValues.responsavel) : ""
-  );
 
+  const [espacos, setEspacos] = useState<Espaco[]>([]);
+
+  useEffect(() => {
+    async function fetchEspacos() {
+      try {
+        const data = await getEspacos();
+        setEspacos(data);
+      } catch (err) {
+        console.error("Erro ao carregar espaços:", err);
+      }
+    }
+    fetchEspacos();
+  }, []);
+
+  // Atualiza o formulário quando initialValues mudar
   useEffect(() => {
     setNome(initialValues.nome);
     setDescricao(initialValues.descricao);
     setNumeroTombo(initialValues.numero_tombo);
-    setLocalizacao(initialValues.localizacao);
+    setLocalizacao(initialValues.localizacao); // ID atual já selecionado
     setStatus(initialValues.status);
     setDataAquisicao(initialValues.data_aquisicao || "");
-    setResponsavel(
-      initialValues.responsavel ? String(initialValues.responsavel) : ""
-    );
   }, [initialValues]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,10 +54,9 @@ export default function EditItensModal({
       nome,
       descricao,
       numero_tombo: numeroTombo,
-      localizacao,
+      localizacao, // ID enviado
       status,
       data_aquisicao: dataAquisicao || undefined,
-      responsavel: responsavel ? Number(responsavel) : undefined,
     };
 
     onSubmit(dadosItem);
@@ -56,12 +66,12 @@ export default function EditItensModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] overflow-y-auto max-h-[90vh]">
-        {/* TÍTULO PADRÃO */}
+      <div className="bg-white p-6 rounded-xl shadow-xl w-[450px] max-h-[90vh] overflow-y-auto">
+        
         <h2 className="text-lg font-semibold mb-4">Editar Item</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
+          
           <div>
             <label className="block text-sm font-medium">Nome*</label>
             <input
@@ -94,26 +104,23 @@ export default function EditItensModal({
             />
           </div>
 
+          {/* LOCALIZAÇÃO (agora com select vindo da API) */}
           <div>
             <label className="block text-sm font-medium">Localização*</label>
-            <input
-              type="text"
+            <select
               value={localizacao}
               onChange={(e) => setLocalizacao(e.target.value)}
               required
               className="w-full border p-2 rounded"
-            />
-          </div>
+            >
+              <option value="">Selecione...</option>
 
-          <div>
-            <label className="block text-sm font-medium">Responsável (ID)</label>
-            <input
-              type="number"
-              value={responsavel}
-              onChange={(e) => setResponsavel(e.target.value)}
-              placeholder="Opcional"
-              className="w-full border p-2 rounded"
-            />
+              {espacos.map((loc) => (
+                <option key={loc.id} value={loc.id}>
+                  {loc.nome}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
@@ -141,7 +148,6 @@ export default function EditItensModal({
             />
           </div>
 
-          {/* BOTÕES PADRÃO DO MODAL DE MANUTENÇÃO */}
           <div className="flex justify-end gap-2 mt-4">
             <button
               type="button"

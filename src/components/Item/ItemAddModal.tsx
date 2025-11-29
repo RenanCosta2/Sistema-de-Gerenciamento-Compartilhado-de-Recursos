@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import type { Espaco } from "../../services/espaco"
-import { getEspacos } from "../../services/espaco"
+import type { Espaco } from "../../services/espaco";
+import { getEspacos } from "../../services/espaco";
 import { useAuth } from "../Auth/AuthContext";
 
 export interface ItemFormValues {
@@ -35,7 +35,7 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
         const data = await getEspacos();
         setEspacos(data);
       } catch (error) {
-        console.error("Erro ao carregar itens:", error);
+        console.error("Erro ao carregar espaços:", error);
       }
     }
     fetchData();
