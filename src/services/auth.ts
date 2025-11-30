@@ -31,8 +31,18 @@ export interface RegisterPayload {
   cargo: string;
 }
 
+export function getUser() {
+  const raw = localStorage.getItem("user");
+  return raw ? JSON.parse(raw) : null;
+}
+
 export function isAuthenticated() {
-  return Boolean(localStorage.getItem("access"));
+  return !!getUser();
+}
+
+export function hasRole(role: string) {
+  const user = getUser();
+  return user?.tipo_usuario === role;
 }
 
 export async function login(user: UserLoginRequest): Promise<LoginResponse> {

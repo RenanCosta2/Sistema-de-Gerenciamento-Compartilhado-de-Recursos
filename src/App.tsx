@@ -1,4 +1,3 @@
-// App.tsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
@@ -38,16 +37,16 @@ const AppLayout: React.FC = () => {
               <RequireAuth><Home /></RequireAuth>
             } />
             <Route path="/itens" element={
-              <RequireAuth><ItensPatrimoniais /></RequireAuth>
+              <RequireAuth roles={["admin", "servidor"]}><ItensPatrimoniais /></RequireAuth>
             } />
             <Route path="/manutencao" element={
-              <RequireAuth><Manutencao /></RequireAuth>
+              <RequireAuth roles={["admin", "servidor"]}><Manutencao /></RequireAuth>
             } />
             <Route path="/chamados" element={
               <RequireAuth><Chamados /></RequireAuth>
             } />
             <Route path="/espacos" element={
-              <RequireAuth><Espacos /></RequireAuth>
+              <RequireAuth roles={["admin", "servidor"]}><Espacos /></RequireAuth>
             } />
           </Routes>
 
