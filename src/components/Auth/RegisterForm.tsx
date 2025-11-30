@@ -175,44 +175,6 @@ export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
             {showConfirma ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
-
-        {/* Departamento */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Departamento *
-          </label>
-          <select
-            name="departamento"
-            className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
-            focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
-            onChange={handleChange}
-            value={form.departamento}
-          >
-            <option value="">Selecione...</option>
-            <option>Departamento de Computação</option>
-            <option>Departamento de Engenharia</option>
-            <option>Departamento Administrativo</option>
-          </select>
-        </div>
-
-        {/* Cargo */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Cargo *
-          </label>
-          <select
-            name="cargo"
-            className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
-            focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
-            onChange={handleChange}
-            value={form.cargo}
-          >
-            <option value="">Selecione...</option>
-            <option>Servidor</option>
-            <option>Professor</option>
-            <option>Técnico</option>
-          </select>
-        </div>
       </div>
 
       {/* Botão Criar Conta */}
