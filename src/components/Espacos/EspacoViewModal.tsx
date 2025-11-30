@@ -1,16 +1,14 @@
 import React from "react";
-import type { EspacoFormValues } from "./EspacoAddModal";
+import type { Espaco } from "../../services/espaco";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  data: (EspacoFormValues & { id: number }) | null;
+  data: (Espaco & { id: number }) | null;
 }
 
 const EspacoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
   if (!open || !data) return null;
-
-  const formatAreaExterna = (area: boolean) => (area ? "Sim" : "Não");
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
@@ -35,10 +33,6 @@ const EspacoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
 
           <div>
             <strong>Bloco:</strong> {data.bloco || "-"}
-          </div>
-
-          <div>
-            <strong>Área Externa:</strong> {formatAreaExterna(data.areaExterna)}
           </div>
         </div>
 

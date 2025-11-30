@@ -26,3 +26,13 @@ export async function createEspaco(payload: Omit<Espaco, "id">) {
     throw error;
   }
 }
+
+export async function updateEspaco(id: number, payload: Omit<Espaco, "id">) {
+  try {
+    const response = await api.patch(`localizacoes/${id}/`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar espaço físico:", error);
+    throw error;
+  }
+}

@@ -1,6 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react";
 
 import EspacoAddModal from "../components/Espacos/EspacoAddModal";
+import EspacoViewModal from "../components/Espacos/EspacoViewModal";
+import EspacoEditModal from "../components/Espacos/EspacoEditModal";
+import EspacoDeleteModal from "../components/Espacos/EspacoDeleteModal";
+
 import EspacoFilters from "../components/Espacos/EspacoFilters";
 import EspacoTable from "../components/Espacos/EspacoTable";
 
@@ -32,6 +36,42 @@ const Espacos: React.FC = () => {
   // Modal States
   // --------------------------
   const [openAddModal, setOpenAddModal] = useState(false);
+
+  const [viewOpen, setViewOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const [selected, setSelected] = useState<Espaco | null>(null);
+
+  // --------------------------
+  // Handlers (iguais manutenção)
+  // --------------------------
+  const handleView = (registro: Espaco) => {
+    setSelected(registro);
+    setViewOpen(true);
+  };
+
+  const handleEdit = (registro: Espaco) => {
+    setSelected(registro);
+    setEditOpen(true);
+  };
+
+  const handleDelete = (registro: Espaco) => {
+    setSelected(registro);
+    setDeleteOpen(true);
+  };
+
+  const handleUpdated = async () => {
+    setEditOpen(false);
+    setSelected(null);
+    await fetchEspacos();
+  };
+
+  const handleDeleted = async () => {
+    setDeleteOpen(false);
+    setSelected(null);
+    await fetchEspacos();
+  };
 
   // --------------------------
   // Filtragem
@@ -101,15 +141,43 @@ const Espacos: React.FC = () => {
         </div>
 
         {/* Tabela */}
-        <EspacoTable data={filteredEspacos} />
+        <EspacoTable
+          data={filteredEspacos}
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </div>
 
-      {/* Modal criar */}
+      {/* ADD */}
       <EspacoAddModal
         open={openAddModal}
         onClose={() => setOpenAddModal(false)}
         onCreated={fetchEspacos}
       />
+
+      {/* VIEW */}
+      <EspacoViewModal
+        open={viewOpen}
+        data={selected}
+        onClose={() => setViewOpen(false)}
+      />
+
+      {/* EDIT */}
+      <EspacoEditModal
+        open={editOpen}
+        espaco={selected}
+        onClose={() => setEditOpen(false)}
+        onUpdated={handleUpdated}
+      />
+
+      {/* DELETE */}
+      {/* <EspacoDeleteModal
+        open={deleteOpen}
+        espaco={selected}
+        onClose={() => setDeleteOpen(false)}
+        onDeleted={handleDeleted}
+      /> */}
     </section>
   );
 };

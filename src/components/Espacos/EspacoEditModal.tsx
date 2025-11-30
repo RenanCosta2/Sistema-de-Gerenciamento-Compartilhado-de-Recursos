@@ -1,116 +1,102 @@
-import React, { useState, useEffect } from "react";
-import type { EspacoFormValues } from "./EspacoAddModal";
+import { useEffect, useState } from "react";
+import { updateEspaco } from "../../services/espaco";
+import type { Espaco } from "../../services/espaco";
 
 interface EditEspacoModalProps {
   open: boolean;
   onClose: () => void;
-  initialValues: EspacoFormValues;
-  onSubmit: (dados: EspacoFormValues) => void;
+  espaco: Espaco | null;
+  onUpdated?: () => void;
 }
 
-const EditEspacoModal: React.FC<EditEspacoModalProps> = ({
+export default function EditEspacoModal({
   open,
   onClose,
-  initialValues,
-  onSubmit,
-}) => {
-  const [nome, setNome] = useState(initialValues.nome);
-  const [tipo, setTipo] = useState(initialValues.tipo);
-  const [bloco, setBloco] = useState(initialValues.bloco || "");
-  const [areaExterna, setAreaExterna] = useState(initialValues.areaExterna);
+  espaco,
+  onUpdated,
+}: EditEspacoModalProps) {
+  const [nome, setNome] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [bloco, setBloco] = useState("");
 
-  // Atualiza os estados se initialValues mudarem
+  // Preenche campos quando abrir
   useEffect(() => {
-    setNome(initialValues.nome);
-    setTipo(initialValues.tipo);
-    setBloco(initialValues.bloco || "");
-    setAreaExterna(initialValues.areaExterna);
-  }, [initialValues]);
+    if (!espaco) return;
 
-  const handleSubmit = (e: React.FormEvent) => {
+    setNome(espaco.nome);
+    setTipo(espaco.tipo);
+    setBloco(espaco.bloco ?? "");
+  }, [espaco]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const dadosEspaco: EspacoFormValues = {
-      nome,
-      tipo,
-      bloco: areaExterna ? undefined : bloco,
-      areaExterna,
-    };
+    try {
+      const payload = {
+        nome,
+        tipo,
+        bloco,
+      };
 
-    onSubmit(dadosEspaco);
+      await updateEspaco(espaco!.id, payload);
+
+      if (onUpdated) onUpdated();
+      onClose();
+    } catch (err) {
+      console.error("Erro ao atualizar espaço:", err);
+    }
   };
 
-  if (!open) return null;
+  if (!open || !espaco) return null;
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md overflow-y-auto max-h-[90vh]">
+      <div className="bg-white p-6 rounded-xl shadow-xl w-[450px]">
         <h2 className="text-lg font-semibold mb-4">Editar Espaço</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nome */}
+
           <div>
             <label className="block text-sm font-medium">Nome *</label>
             <input
               type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
               required
               className="w-full border p-2 rounded"
-              placeholder="Ex: Sala de Aula 01"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
             />
           </div>
 
-          {/* Tipo */}
           <div>
             <label className="block text-sm font-medium">Tipo *</label>
             <select
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
               required
               className="w-full border p-2 rounded"
+              value={tipo}
+              onChange={(e) => setTipo(e.target.value)}
             >
               <option value="">Selecione...</option>
-              <option value="sala_aula">Sala de Aula</option>
-              <option value="laboratorio">Laboratório</option>
-              <option value="auditorio">Auditório</option>
-              <option value="professores">Sala de Professor / Projeto</option>
-              <option value="ginásio">Ginásio / Quadra</option>
-              <option value="administrativo">Sala Administrativa / Reunião</option>
-              <option value="externo">Área Externa</option>
+              <option value="Sala de Aula">Sala de Aula</option>
+              <option value="Laboratório">Laboratório</option>
+              <option value="Auditório">Auditório</option>
+              <option value="Sala Professor / Projeto">Sala Professor / Projeto</option>
+              <option value="Ginásio">Ginásio / Quadra</option>
+              <option value="Sala Administrativa">Administrativo / Reunião</option>
+              <option value="Área Externa">Área Externa</option>
             </select>
           </div>
 
-          {/* Bloco (só se não for área externa) */}
-          {!areaExterna && (
-            <div>
-              <label className="block text-sm font-medium">Bloco</label>
-              <input
-                type="text"
-                value={bloco}
-                onChange={(e) => setBloco(e.target.value)}
-                required
-                className="w-full border p-2 rounded"
-                placeholder="Ex: Bloco de Aulas 01"
-              />
-            </div>
-          )}
-
-          {/* Área Externa */}
-          <div className="flex items-center gap-2">
+          <div>
+            <label className="block text-sm font-medium">Bloco</label>
             <input
-              type="checkbox"
-              checked={areaExterna}
-              onChange={(e) => setAreaExterna(e.target.checked)}
-              id="areaExterna"
-              className="h-4 w-4"
+              type="text"
+              className="w-full border p-2 rounded"
+              value={bloco}
+              onChange={(e) => setBloco(e.target.value)}
+              placeholder="Ex: Bloco A"
             />
-            <label htmlFor="areaExterna" className="text-sm font-medium">
-              Área Externa
-            </label>
           </div>
 
-          {/* Botões */}
           <div className="flex justify-end gap-2 mt-4">
             <button
               type="button"
@@ -131,6 +117,4 @@ const EditEspacoModal: React.FC<EditEspacoModalProps> = ({
       </div>
     </div>
   );
-};
-
-export default EditEspacoModal;
+}
