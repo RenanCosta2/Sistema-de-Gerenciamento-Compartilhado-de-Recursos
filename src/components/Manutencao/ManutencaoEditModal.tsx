@@ -71,7 +71,7 @@ export default function ManutencaoEditModal({
   if (!open || !manutencao) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-[450px]">
         <h2 className="text-lg font-semibold mb-4">Editar Manutenção</h2>
 
