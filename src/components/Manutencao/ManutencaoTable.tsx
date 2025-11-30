@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-import type Manutencao from "../../pages/Manutencao";
+import type { Manutencao } from "../../services/manutencoes";
 
 interface ManutencaoTableProps {
   data: Manutencao[];
