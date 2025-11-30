@@ -1,45 +1,36 @@
 import React, { useState } from "react";
-
-// Interface que define os dados do formulário
-export interface EspacoFormValues {
-  nome: string;
-  tipo: string;
-  bloco?: string;
-  areaExterna: boolean;
-}
+import { createEspaco } from "../../services/espaco";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSubmit?: (dados: EspacoFormValues) => void;
 };
 
-const EspacoAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
+const EspacoAddModal: React.FC<Props> = ({ open, onClose }) => {
   const [nome, setNome] = useState("");
   const [tipo, setTipo] = useState(""); // Sala, Laboratório, Auditório etc.
   const [bloco, setBloco] = useState("");
-  const [areaExterna, setAreaExterna] = useState(false);
+
+  
 
   if (!open) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const dadosEspaco: EspacoFormValues = {
-      nome,
-      tipo,
-      bloco: areaExterna ? undefined : bloco,
-      areaExterna,
-    };
+    const payload = {
+        nome,
+        tipo,
+        bloco
+      };
 
-    onSubmit?.(dadosEspaco);
+    await createEspaco(payload)
     onClose();
 
     // Resetar campos
     setNome("");
     setTipo("");
     setBloco("");
-    setAreaExterna(false);
   };
 
   return (
@@ -64,19 +55,17 @@ const EspacoAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
           </div>
 
           {/* Bloco / Área externa */}
-          {!areaExterna && (
-            <div>
-              <label className="block font-medium text-sm mb-1">Bloco</label>
-              <input
-                type="text"
-                value={bloco}
-                required
-                onChange={(e) => setBloco(e.target.value)}
-                placeholder="Ex: Bloco de Aulas 01"
-                className="w-full border rounded-lg p-2"
-              />
-            </div>
-          )}
+          <div>
+            <label className="block font-medium text-sm mb-1">Bloco</label>
+            <input
+              type="text"
+              value={bloco}
+              required
+              onChange={(e) => setBloco(e.target.value)}
+              placeholder="Ex: Bloco de Aulas 01"
+              className="w-full border rounded-lg p-2"
+            />
+          </div>
 
           {/* Tipo */}
           <div>
@@ -88,13 +77,13 @@ const EspacoAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
               className="w-full border rounded-lg p-2"
             >
               <option value="">Selecione...</option>
-              <option value="sala_aula">Sala de Aula</option>
-              <option value="laboratorio">Laboratório</option>
-              <option value="auditorio">Auditório</option>
-              <option value="professores">Sala de Professor / Projeto</option>
-              <option value="ginásio">Ginásio / Quadra</option>
-              <option value="administrativo">Sala Administrativa / Reunião</option>
-              <option value="externo">Área Externa</option>
+              <option value="Sala de Aula">Sala de Aula</option>
+              <option value="Laboratório">Laboratório</option>
+              <option value="Auditório">Auditório</option>
+              <option value="Sala de Professor / Projeto">Sala de Professor / Projeto</option>
+              <option value="Ginásio">Ginásio / Quadra</option>
+              <option value="Sala Administrativa">Sala Administrativa / Reunião</option>
+              <option value="Área Externa">Área Externa</option>
             </select>
           </div>
 

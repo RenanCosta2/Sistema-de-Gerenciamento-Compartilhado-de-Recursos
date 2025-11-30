@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import EspacoAddModal, { type EspacoFormValues } from "../components/Espacos/EspacoAddModal";
+import EspacoAddModal from "../components/Espacos/EspacoAddModal";
 import EspacoFilters from "../components/Espacos/EspacoFilters";
 import EspacoTable from "../components/Espacos/EspacoTable";
 interface Espaco {
@@ -20,19 +20,6 @@ const Espacos: React.FC = () => {
   });
 
   const [showCreateModal, setShowCreateModal] = useState(false);
-
-  const handleCreateEspaco = (dados: EspacoFormValues) => {
-    const novoEspaco: Espaco = {
-      id: espacos.length + 1, // só para exemplo
-      nome: dados.nome,
-      tipo: dados.tipo,
-      bloco: dados.bloco,
-      areaExterna: dados.areaExterna,
-    };
-    setEspacos((prev) => [...prev, novoEspaco]);
-    setShowCreateModal(false);
-    console.log("Novo espaço criado:", dados);
-  };
 
   // Filtragem
   const filteredEspacos = useMemo(() => {
@@ -78,7 +65,6 @@ const Espacos: React.FC = () => {
           <EspacoAddModal
             open={showCreateModal}
             onClose={() => setShowCreateModal(false)}
-            onSubmit={handleCreateEspaco}
           />
         )}
 

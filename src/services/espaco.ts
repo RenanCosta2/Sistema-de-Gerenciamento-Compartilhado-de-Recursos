@@ -3,6 +3,8 @@ import api from "./api";
 export interface Espaco {
   id: number;
   nome: string;
+  bloco: string;
+  tipo: string;
 }
 
 export async function getEspacos() {
@@ -11,6 +13,16 @@ export async function getEspacos() {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar espaços físicos:", error);
+    throw error;
+  }
+}
+
+export async function createEspaco(payload: Omit<Espaco, "id">) {
+  try {
+    const response = await api.post("localizacoes/", payload);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar espaço físico:", error);
     throw error;
   }
 }
