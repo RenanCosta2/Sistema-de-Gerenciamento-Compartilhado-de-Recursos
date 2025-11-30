@@ -172,12 +172,12 @@ const Espacos: React.FC = () => {
       />
 
       {/* DELETE */}
-      {/* <EspacoDeleteModal
+      <EspacoDeleteModal
         open={deleteOpen}
         espaco={selected}
         onClose={() => setDeleteOpen(false)}
         onDeleted={handleDeleted}
-      /> */}
+      />
     </section>
   );
 };

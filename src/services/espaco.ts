@@ -36,3 +36,13 @@ export async function updateEspaco(id: number, payload: Omit<Espaco, "id">) {
     throw error;
   }
 }
+
+export async function deleteEspaco(id: number) {
+  try {
+    const response = await api.delete(`localizacoes/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar espaço físico:", error);
+    throw error;
+  }
+}
