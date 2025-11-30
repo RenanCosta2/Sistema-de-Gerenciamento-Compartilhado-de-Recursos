@@ -66,7 +66,6 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
               <th className="py-3 px-4 font-semibold">Código</th>
               <th className="py-3 px-4 font-semibold">Item</th>
               <th className="py-3 px-4 font-semibold">Data de Início</th>
-              <th className="py-3 px-4 font-semibold">Responsável</th>
               <th className="py-3 px-4 font-semibold">Status</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
@@ -111,7 +110,6 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
                   <td className="py-3 px-4">{manutencao.id}</td>
                   <td className="py-3 px-4">{manutencao.patrimonio_nome}</td>
                   <td className="py-3 px-4">{formatDate(manutencao.data_inicio)}</td>
-                  <td className="py-3 px-4">{manutencao.usuario}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}

@@ -65,7 +65,6 @@ const ItensTable: React.FC<ItensTableProps> = ({
               <th className="py-3 px-4 font-semibold">Número do Tombo</th>
               <th className="py-3 px-4 font-semibold">Localização</th>
               <th className="py-3 px-4 font-semibold">Status</th>
-              <th className="py-3 px-4 font-semibold">Responsável</th>
               <th className="py-3 px-4 font-semibold">Data de Aquisição</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
@@ -114,7 +113,6 @@ const ItensTable: React.FC<ItensTableProps> = ({
                       {status ? formatTitleCase(status) : '-'}
                     </span>
                   </td>
-                  <td className="py-3 px-4">{item.responsavel !== undefined && item.responsavel !== null ? item.responsavel : '-'}</td>
                   <td className="py-3 px-4">{item.data_aquisicao ? formatDate(item.data_aquisicao) : '-'}</td>
                   <td className="py-3 px-4 flex justify-center gap-2">
                     <button
