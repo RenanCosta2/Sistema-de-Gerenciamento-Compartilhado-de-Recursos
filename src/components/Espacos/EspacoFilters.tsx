@@ -3,13 +3,11 @@ import { Search } from "lucide-react";
 import MultiFilterDropdown from "../Utils/MultiFilterDropdown";
 import SearchBar from "../Utils/SearchBar";
 
-
 interface Espaco {
   id: number;
   nome: string;
   tipo: string;
   bloco?: string;
-  areaExterna: boolean;
 }
 
 interface EspacoFiltersProps {
@@ -19,13 +17,11 @@ interface EspacoFiltersProps {
   filters: {
     tipos: string[];
     blocos: string[];
-    areaExterna: boolean | null;
   };
   setFilters: React.Dispatch<
     React.SetStateAction<{
       tipos: string[];
       blocos: string[];
-      areaExterna: boolean | null;
     }>
   >;
 }
@@ -43,7 +39,14 @@ const EspacoFilters: React.FC<EspacoFiltersProps> = ({
   );
 
   const blocos = useMemo(
-    () => Array.from(new Set(data.filter(i => !i.areaExterna).map(i => i.bloco || ""))),
+    () =>
+      Array.from(
+        new Set(
+          data
+            .filter((i) => i.bloco && i.bloco.trim() !== "")
+            .map((i) => i.bloco as string)
+        )
+      ),
     [data]
   );
 
@@ -52,7 +55,7 @@ const EspacoFilters: React.FC<EspacoFiltersProps> = ({
   };
 
   const clearFilters = () => {
-    setFilters({ tipos: [], blocos: [], areaExterna: null });
+    setFilters({ tipos: [], blocos: [] });
     setSearchTerm("");
   };
 
@@ -62,6 +65,7 @@ const EspacoFilters: React.FC<EspacoFiltersProps> = ({
         size={18}
         className="absolute left-3 text-gray-500 pointer-events-none"
       />
+
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -71,7 +75,7 @@ const EspacoFilters: React.FC<EspacoFiltersProps> = ({
 
       <MultiFilterDropdown
         label="Tipo"
-        options={tipos.map((c) => ({ value: c, label: c }))}
+        options={tipos.map((t) => ({ value: t, label: t }))}
         selected={filters.tipos}
         onChange={(v) => updateFilter("tipos", v)}
       />
@@ -81,20 +85,6 @@ const EspacoFilters: React.FC<EspacoFiltersProps> = ({
         options={blocos.map((b) => ({ value: b, label: b }))}
         selected={filters.blocos}
         onChange={(v) => updateFilter("blocos", v)}
-      />
-
-      <MultiFilterDropdown
-        label="Área"
-        options={[
-          { value: "true", label: "Área Externa" },
-          { value: "false", label: "Área Interna" },
-        ]}
-        selected={
-          filters.areaExterna === null
-            ? []
-            : [filters.areaExterna ? "true" : "false"]
-        }
-        onChange={(v) => updateFilter("areaExterna", v.length ? v[0] === "true" : null)}
       />
 
       <button

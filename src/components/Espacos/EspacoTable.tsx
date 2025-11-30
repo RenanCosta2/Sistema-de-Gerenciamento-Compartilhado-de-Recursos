@@ -1,10 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
-import type { EspacoFormValues } from "./EspacoAddModal";
-
-interface Espaco extends EspacoFormValues {
-  id: number;
-}
+import type { Espaco } from "../../services/espaco";
 
 interface EspacosTableProps {
   data: Espaco[];
@@ -68,7 +64,6 @@ const EspacosTable: React.FC<EspacosTableProps> = ({
               <th className="py-3 px-4 font-semibold">Nome</th>
               <th className="py-3 px-4 font-semibold">Tipo</th>
               <th className="py-3 px-4 font-semibold">Bloco</th>
-              <th className="py-3 px-4 font-semibold">Área Externa</th>
               <th className="py-3 px-4 font-semibold text-center">Ações</th>
             </tr>
           </thead>
@@ -82,17 +77,6 @@ const EspacosTable: React.FC<EspacosTableProps> = ({
                 <td className="py-3 px-4">{espaco.nome}</td>
                 <td className="py-3 px-4">{espaco.tipo}</td>
                 <td className="py-3 px-4">{espaco.bloco || "-"}</td>
-                <td className="py-3 px-4">
-                  <span
-                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                      espaco.areaExterna
-                        ? "text-green-700 border border-green-400 bg-green-50"
-                        : "text-blue-700 border border-blue-400 bg-blue-50"
-                    }`}
-                  >
-                    {espaco.areaExterna ? "Externa" : "Interna"}
-                  </span>
-                </td>
                 <td className="py-3 px-4 flex justify-center gap-2">
                   <button
                     onClick={() => onView?.(espaco)}
