@@ -2,6 +2,7 @@ import api from "./api";
 
 export interface Chamado {
   id: number;
+  titulo: string;
   tipo: string;
   descricao: string;
   data_registro?: Date;
@@ -9,6 +10,7 @@ export interface Chamado {
   data_criacao?: string;
   usuario?: number;
   patrimonio: number;
+  patrimonio_nome: string;
 }
 
 export async function getChamados() {
@@ -21,7 +23,7 @@ export async function getChamados() {
   }
 }
 
-export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status">) {
+export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome">) {
   try {
     const response = await api.post("solicitacoes/", payload);
     return response.data;

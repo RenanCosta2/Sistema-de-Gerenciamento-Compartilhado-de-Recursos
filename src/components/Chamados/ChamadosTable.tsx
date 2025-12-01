@@ -106,7 +106,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                   className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
                 >
                   <td className="py-3 px-4">{chamado.id}</td>
-                  <td className="py-3 px-4">{chamado.descricao}</td>
+                  <td className="py-3 px-4">{chamado.titulo}</td>
                   <td className="py-3 px-4">{chamado.patrimonio}</td>
                   <td className="py-3 px-4">{data}</td>
                   <td className="py-3 px-4">

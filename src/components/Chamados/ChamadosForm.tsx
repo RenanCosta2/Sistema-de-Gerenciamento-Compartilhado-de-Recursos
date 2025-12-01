@@ -66,6 +66,7 @@ const ChamadosForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
     e.preventDefault();
     try {
       const payload = {
+        titulo,
         tipo: tipoChamado,
         descricao,
         patrimonio: Number(itemPrimordial),
