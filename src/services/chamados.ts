@@ -40,3 +40,13 @@ export async function deleteChamado(id: number) {
     throw error;
   }
 }
+
+export async function updateChamado(id: number, payload: Omit<Chamado, "id">) {
+  try {
+    const response = await api.patch(`solicitacoes/${id}/`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar solicitação:", error);
+    throw error;
+  }
+}

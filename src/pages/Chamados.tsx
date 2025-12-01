@@ -1,80 +1,103 @@
 import React, { useState, useMemo, useEffect } from "react";
+
 import ChamadosFilters from "../components/Chamados/ChamadosFilters";
 import ChamadosTable from "../components/Chamados/ChamadosTable";
 import ChamadosForm from "../components/Chamados/ChamadosForm";
+
+import ChamadoViewModal from "../components/Chamados/ChamadoViewModal";
+import ChamadoDeleteModal from "../components/Chamados/ChamadoDeleteModal";
+import ChamadoEditModal from "../components/Chamados/ChamadoEditModal";
+
 import { getChamados } from "../services/chamados";
 import type { Chamado } from "../services/chamados";
-import ChamadoDeleteModal from "../components/Chamados/ChamadoDeleteModal";
+import { getItens } from "../services/itens";
+import type { Item } from "../services/itens";
 
 const Chamados: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const [chamados, setChamados] = useState<Chamado[]>([]);
-    const [loading, setLoading] = useState(true); // controle de carregamento
+  const [chamados, setChamados] = useState<Chamado[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function fetchData() {
-          try {
-            const data = await getChamados();
-            setChamados(data);
-          } catch (error) {
-            console.error("Erro ao carregar chamados:", error);
-          } finally {
-            setLoading(false);
-          }
-        }
-        fetchData();
-      }, []);
+  const [itens, setItens] = useState<Item[]>([]);
 
-    useEffect(() => {
-      fetchChamados();
+  const fetchChamados = async () => {
+    const data = await getChamados();
+    setChamados(data);
+  };
+
+  useEffect(() => {
+      getItens().then(setItens).catch(console.error);
+      fetchChamados().finally(() => setLoading(false));
     }, []);
 
-    async function fetchChamados() {
-      const data = await getChamados();
-      setChamados(data);
-    }
+  useEffect(() => {
+    fetchChamados().finally(() => setLoading(false));
+  }, []);
 
-    const [deleteOpen, setDeleteOpen] = useState(false);
-    
-    const [selected, setSelected] = useState<Chamado | null>(null);
+  // --------------------------
+  // Modal States
+  // --------------------------
+  const [viewOpen, setViewOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
-    const handleDelete = (registro: Chamado) => {
-        setSelected(registro);
-        setDeleteOpen(true);
-      };
+  const [selected, setSelected] = useState<Chamado | null>(null);
 
-    const handleDeleted = async () => {
-      setDeleteOpen(false);
-      setSelected(null);
-      await fetchChamados();
-    };
+  // --------------------------
+  // Handlers
+  // --------------------------
+  const handleView = (registro: Chamado) => {
+    setSelected(registro);
+    setViewOpen(true);
+  };
 
-    const filteredChamados = useMemo(() => {
+  const handleEdit = (registro: Chamado) => {
+    setSelected(registro);
+    setEditOpen(true);
+  };
+
+  const handleDelete = (registro: Chamado) => {
+    setSelected(registro);
+    setDeleteOpen(true);
+  };
+
+  const handleUpdated = async () => {
+    setEditOpen(false);
+    setSelected(null);
+    await fetchChamados();
+  };
+
+  const handleDeleted = async () => {
+    setDeleteOpen(false);
+    setSelected(null);
+    await fetchChamados();
+  };
+
+  // --------------------------
+  // Filtro e busca
+  // --------------------------
+  const filteredChamados = useMemo(() => {
     const term = searchTerm.toLowerCase();
 
-    return chamados.filter((chamado) => {
+    return chamados.filter((c) => {
       const matchesSearch =
-        chamado.id.toString().toLowerCase().includes(term) ||
-        chamado.descricao.toLowerCase().includes(term);
+        c.id.toString().includes(term) ||
+        c.descricao.toLowerCase().includes(term);
 
-        return matchesSearch
+      return matchesSearch;
     });
   }, [searchTerm, chamados]);
 
+  // --------------------------
+  // Loading
+  // --------------------------
   if (loading) {
     return (
       <section className="pt-4 px-4">
         <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
-            Central de Chamados e Solicitações
+          Central de Chamados e Solicitações
         </h2>
-
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
-            <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">
-                Abrir um Novo Chamado
-            </h2>
-            <ChamadosForm />
-        </div>
 
         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
           <p>Carregando dados...</p>
@@ -83,43 +106,65 @@ const Chamados: React.FC = () => {
     );
   }
 
+  // --------------------------
+  // Render
+  // --------------------------
   return (
     <section className="pt-4 px-4">
-        <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
-            Central de Chamados e Solicitações
+      <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
+        Central de Chamados e Solicitações
+      </h2>
+
+      {/* ABRIR NOVO CHAMADO */}
+      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
+        <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">
+          Abrir um Novo Chamado
         </h2>
-
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
-            <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">
-                Abrir um Novo Chamado
-            </h2>
-            <ChamadosForm onCreated={fetchChamados} />
-        </div>
-        
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">
-                    Chamados
-                </h2>
-                <ChamadosFilters
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                />
-            </div>
-
-            <ChamadosTable 
-            key={filteredChamados.length} 
-            data={filteredChamados}
-            onDelete={handleDelete} />
-
-            {/* DELETE */}
-            <ChamadoDeleteModal
-              open={deleteOpen}
-              chamado={selected}
-              onClose={() => setDeleteOpen(false)}
-              onDeleted={handleDeleted}
-            />
+        <ChamadosForm onCreated={fetchChamados} />
       </div>
+
+      {/* LISTA */}
+      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold mb-6 text-[#2E3A59]">Chamados</h2>
+
+          <ChamadosFilters
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        </div>
+
+        <ChamadosTable
+          data={filteredChamados}
+          onView={handleView}
+          onEdit={handleEdit}   // <-- adicionado
+          onDelete={handleDelete}
+        />
+      </div>
+
+      {/* VIEW */}
+      <ChamadoViewModal
+        open={viewOpen}
+        data={selected}
+        onClose={() => setViewOpen(false)}
+      />
+
+      {/* EDIT */}
+      <ChamadoEditModal
+        open={editOpen}
+        chamado={selected}
+        patrimonios={itens}
+        onClose={() => setEditOpen(false)}
+        onUpdated={handleUpdated}
+      />
+
+      {/* DELETE */}
+      <ChamadoDeleteModal
+        open={deleteOpen}
+        chamado={selected}
+        onClose={() => setDeleteOpen(false)}
+        onDeleted={handleDeleted}
+      />
     </section>
   );
 };
