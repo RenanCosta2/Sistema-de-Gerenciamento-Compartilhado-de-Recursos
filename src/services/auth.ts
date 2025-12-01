@@ -22,13 +22,11 @@ export interface LoginResponse {
 }
 
 export interface RegisterPayload {
-  nome: string;
+  nome_completo: string;
   email: string;
   username: string;
   siape?: string | "";
   password: string;
-  departamento: string;
-  cargo: string;
 }
 
 export function getUser() {
@@ -62,7 +60,7 @@ export async function login(user: UserLoginRequest): Promise<LoginResponse> {
   }
 }
 
-export async function createUser(payload: Omit<RegisterPayload, "nome" | "siape" | "departamento" | "cargo">) {
+export async function createUser(payload: Omit<RegisterPayload, "siape">) {
   try {
     const response = await api.post("users/register/", payload);
     return response.data;

@@ -8,13 +8,11 @@ export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   const [showConfirma, setShowConfirma] = useState(false);
 
   const [form, setForm] = useState<RegisterPayload & { confirmar: string }>({
-    nome: "",
+    nome_completo: "",
     email: "",
     username: "",
     siape: "",
     password: "",
-    departamento: "",
-    cargo: "",
     confirmar: ""
   });
 
@@ -33,6 +31,7 @@ export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
     }
 
     const payload = {
+      nome_completo: form.nome_completo,
       username: form.username,
       email: form.email,
       password: form.password,
@@ -72,13 +71,13 @@ export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
             Nome Completo *
           </label>
           <input
-            name="nome"
+            name="nome_completo"
             type="text"
             className="w-full px-4 py-2 rounded-lg bg-[#E6E9F2] border border-gray-300
             focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700"
             placeholder="Digite seu nome completo"
             onChange={handleChange}
-            value={form.nome}
+            value={form.nome_completo}
           />
         </div>
 
