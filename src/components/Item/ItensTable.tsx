@@ -105,7 +105,7 @@ const ItensTable: React.FC<ItensTableProps> = ({
                   <td className="py-3 px-4">{item.id ? item.id : '-'}</td>
                   <td className="py-3 px-4">{item.nome ? item.nome : '-'}</td>
                   <td className="py-3 px-4">{item.numero_tombo ? item.numero_tombo : '-'}</td>
-                  <td className="py-3 px-4">{item.localizacao ? item.localizacao : '-'}</td>
+                  <td className="py-3 px-4">{item.localizacao_nome_bloco ? item.localizacao_nome_bloco : '-'}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-sm font-semibold ${statusClasses}`}

@@ -6,6 +6,7 @@ export interface Item {
   descricao: string;
   numero_tombo: string;
   localizacao: string;
+  localizacao_nome_bloco: string;
   status: string;
   data_aquisicao: string;
   responsavel?: number;
