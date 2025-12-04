@@ -43,15 +43,11 @@ const ViewItemModal: React.FC<Props> = ({ open, onClose, data }) => {
           </div>
 
           <div>
-            <strong>Localização:</strong> {data.localizacao}
+            <strong>Localização:</strong> {data.localizacao_nome_bloco}
           </div>
 
           <div>
             <strong>Status:</strong> {data.status}
-          </div>
-
-          <div>
-            <strong>Responsável:</strong> {data.responsavel ?? "-"}
           </div>
 
           <div>
