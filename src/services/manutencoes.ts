@@ -6,7 +6,7 @@ export interface Manutencao {
   descricao: string;
   data_inicio: string;
   data_fim: string | null;
-  status: "pendente" | "em_andamento" | "concluida";
+  status: "pendente" | "em_andamento" | "concluido";
   patrimonio: number;
   usuario: number;
 }

@@ -21,8 +21,8 @@ const ManutencaoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
         return "Pendente";
         case "em_andamento":
         return "Em andamento";
-        case "concluida":
-        return "Concluída";
+        case "concluido":
+        return "Concluído";
         default:
         return "-";
     }

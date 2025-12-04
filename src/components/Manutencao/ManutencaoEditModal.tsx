@@ -8,7 +8,7 @@ interface Manutencao {
   descricao: string;
   data_inicio: string;
   data_fim: string | null;
-  status: "pendente" | "em_andamento" | "concluida";
+  status: "pendente" | "em_andamento" | "concluido";
   patrimonio: number;
 }
 
@@ -30,7 +30,7 @@ export default function ManutencaoEditModal({
   const [descricao, setDescricao] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
-  const [status, setStatus] = useState<"pendente" | "em_andamento" | "concluida">(
+  const [status, setStatus] = useState<"pendente" | "em_andamento" | "concluido">(
     "pendente"
   );
   const [patrimonio, setPatrimonio] = useState<number | "">("");
@@ -55,7 +55,7 @@ export default function ManutencaoEditModal({
       if (!user) {
         throw new Error("Usuário não autenticado.");
       }
-      
+
       const payload = {
         descricao,
         data_inicio: dataInicio,
@@ -138,14 +138,14 @@ export default function ManutencaoEditModal({
               value={status}
               onChange={(e) =>
                 setStatus(
-                  e.target.value as "pendente" | "em_andamento" | "concluida"
+                  e.target.value as "pendente" | "em_andamento" | "concluido"
                 )
               }
               required
             >
               <option value="pendente">Pendente</option>
               <option value="em_andamento">Em andamento</option>
-              <option value="concluida">Concluída</option>
+              <option value="concluido">Concluído</option>
             </select>
           </div>
 

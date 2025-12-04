@@ -23,14 +23,14 @@ const ManutencaoAddModal: React.FC<Props> = ({
   const [status, setStatus] = useState("Pendente");
   const [itemPrimordial, setItemPrimordial] = useState("");
 
-  const mapStatus = (value: string): "pendente" | "em_andamento" | "concluida" => {
+  const mapStatus = (value: string): "pendente" | "em_andamento" | "concluido" => {
     switch (value) {
         case "Pendente":
         return "pendente";
         case "Em andamento":
         return "em_andamento";
-        case "Concluída":
-        return "concluida";
+        case "Concluído":
+        return "concluido";
         default:
         return "pendente";
     }
@@ -146,7 +146,7 @@ const ManutencaoAddModal: React.FC<Props> = ({
             >
               <option value="Pendente">Pendente</option>
               <option value="Em andamento">Em andamento</option>
-              <option value="Concluída">Concluída</option>
+              <option value="Concluído">Concluído</option>
             </select>
           </div>
 

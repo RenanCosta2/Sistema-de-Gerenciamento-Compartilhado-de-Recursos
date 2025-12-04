@@ -76,12 +76,12 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
               const status =
                 rawStatus === "em_andamento"
                   ? "em andamento"
-                  : rawStatus === "concluida"
-                  ? "concluída"
+                  : rawStatus === "concluido"
+                  ? "concluído"
                   : rawStatus;
 
               const statusClasses =
-                status === "concluída"
+                status === "concluído"
                   ? "text-green-700 border border-green-400 bg-green-50"
                   : status === "em andamento"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
