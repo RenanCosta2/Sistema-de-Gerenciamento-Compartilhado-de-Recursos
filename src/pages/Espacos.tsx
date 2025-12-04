@@ -136,7 +136,7 @@ const Espacos: React.FC = () => {
             onClick={() => setOpenAddModal(true)}
             className="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition cursor-pointer"
           >
-            Adicionar novo Espaço Físico
+            Adicionar Novo Espaço Físico
           </button>
         </div>
 
