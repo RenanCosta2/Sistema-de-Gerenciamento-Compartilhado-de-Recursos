@@ -81,7 +81,7 @@ const ItensPatrimoniais: React.FC = () => {
 
       const matchesLocalizacao =
         filters.localizacoes.length === 0 ||
-        filters.localizacoes.includes(item.localizacao);
+        filters.localizacoes.includes(item.localizacao_nome_bloco);
 
       return matchesSearch && matchesStatus && matchesLocalizacao;
     });
@@ -132,7 +132,7 @@ const ItensPatrimoniais: React.FC = () => {
             nome: editingItem.nome,
             descricao: editingItem.descricao,
             numero_tombo: editingItem.numero_tombo,
-            localizacao: editingItem.localizacao,
+            localizacao: editingItem.localizacao_nome_bloco,
             status: editingItem.status,
             data_aquisicao: editingItem.data_aquisicao,
             responsavel: editingItem.responsavel,

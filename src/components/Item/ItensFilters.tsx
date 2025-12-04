@@ -44,7 +44,7 @@ const ItensFilters: React.FC<ItensFiltersProps> = ({
   }, [data]);
 
   const localizacoes = useMemo(
-    () => Array.from(new Set(data.map((i) => i.localizacao))),
+    () => Array.from(new Set(data.map((i) => i.localizacao_nome_bloco))),
     [data]
   );
 
