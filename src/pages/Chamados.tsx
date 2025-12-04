@@ -83,7 +83,7 @@ const Chamados: React.FC = () => {
     return chamados.filter((c) => {
       const matchesSearch =
         c.id.toString().includes(term) ||
-        c.descricao.toLowerCase().includes(term);
+        c.titulo.toLowerCase().includes(term);
 
       return matchesSearch;
     });
