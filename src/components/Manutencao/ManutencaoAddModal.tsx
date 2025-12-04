@@ -50,7 +50,7 @@ const ManutencaoAddModal: React.FC<Props> = ({
       const payload = {
         descricao,
         data_inicio: dataInicio,
-        data_fim: dataFim || null,
+        data_fim: status === "Concluído" ? dataFim : null,
         status: mapStatus(status),
         patrimonio: Number(itemPrimordial),
         usuario: user.id,
@@ -126,15 +126,18 @@ const ManutencaoAddModal: React.FC<Props> = ({
           </div>
 
           {/* data fim */}
-          <div>
-            <label className="block font-medium text-sm mb-1">Data de fim</label>
-            <input
-              type="date"
-              value={dataFim}
-              onChange={(e) => setDataFim(e.target.value)}
-              className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-200"
-            />
-          </div>
+          {status === "Concluído" && (
+            <div>
+              <label className="block font-medium text-sm mb-1">Data de fim *</label>
+              <input
+                type="date"
+                required
+                value={dataFim}
+                onChange={(e) => setDataFim(e.target.value)}
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+          )}
 
           {/* status */}
           <div>
