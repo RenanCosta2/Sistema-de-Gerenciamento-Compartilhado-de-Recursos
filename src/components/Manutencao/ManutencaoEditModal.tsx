@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { updateManutencao } from "../../services/manutencoes";
 import type { Item } from "../../services/itens";
+import { useAuth } from "../Auth/AuthContext";
 
 interface Manutencao {
   id: number;
@@ -33,6 +34,7 @@ export default function ManutencaoEditModal({
     "pendente"
   );
   const [patrimonio, setPatrimonio] = useState<number | "">("");
+  const { user } = useAuth();
 
   // Preenche os campos quando abrir
   useEffect(() => {
@@ -50,13 +52,17 @@ export default function ManutencaoEditModal({
     e.preventDefault();
 
     try {
+      if (!user) {
+        throw new Error("Usuário não autenticado.");
+      }
+      
       const payload = {
         descricao,
         data_inicio: dataInicio,
         data_fim: dataFim || null,
         status,
         patrimonio: Number(patrimonio),
-        usuario: 1
+        usuario: user.id
       };
 
       await updateManutencao(manutencao!.id, payload);
