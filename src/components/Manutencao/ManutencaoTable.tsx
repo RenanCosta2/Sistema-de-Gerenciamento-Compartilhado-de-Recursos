@@ -86,7 +86,7 @@ const ManutencaoTable: React.FC<ManutencaoTableProps> = ({
                   : status === "em andamento"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
                   : status === "pendente"
-                  ? "text-red-700 border border-red-400 bg-red-50"
+                  ? "text-blue-700 border border-blue-400 bg-blue-50"
                   : "text-gray-700 border border-gray-300 bg-gray-50";
 
               // Converte todas as palavras para Title Case
