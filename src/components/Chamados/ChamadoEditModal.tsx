@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Item } from "../../services/itens";
 import { updateChamado, type Chamado } from "../../services/chamados";
+import { useAuth } from "../Auth/AuthContext";
 
 interface ChamadoEditModalProps {
   open: boolean;
@@ -17,16 +18,19 @@ export default function ChamadoEditModal({
   patrimonios,
   onUpdated,
 }: ChamadoEditModalProps) {
+  const [titulo, setTitulo] = useState("");
   const [tipo, setTipo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [dataRegistro, setDataRegistro] = useState("");
   const [status, setStatus] = useState("");
   const [patrimonio, setPatrimonio] = useState<number | "">("");
+  const { user } = useAuth();
 
   // Preenche ao abrir
   useEffect(() => {
     if (!chamado) return;
 
+    setTitulo(chamado.titulo);
     setTipo(chamado.tipo);
     setDescricao(chamado.descricao);
     setDataRegistro(
@@ -43,12 +47,13 @@ export default function ChamadoEditModal({
 
     try {
       const payload = {
+        titulo,
         tipo,
         descricao,
         data_registro: dataRegistro ? new Date(dataRegistro) : undefined,
         status,
         patrimonio: Number(patrimonio),
-        usuario: 1,
+        usuario: user!.id,
       };
 
       await updateChamado(chamado!.id, payload);
@@ -68,6 +73,16 @@ export default function ChamadoEditModal({
         <h2 className="text-lg font-semibold mb-4">Editar Chamado</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+
+          <div>
+            <label className="block text-sm font-medium">Título*</label>
+            <input
+              required
+              className="w-full border p-2 rounded"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+            />
+          </div>
 
           <div>
             <label className="block text-sm font-medium">Tipo de Chamado*</label>
@@ -122,8 +137,8 @@ export default function ChamadoEditModal({
             >
               <option value="aberta">Aberta</option>
               <option value="em_analise">Em análise</option>
-              <option value="resolvida">Resolvida</option>
-              <option value="cancelada">Cancelada</option>
+              <option value="resolvido">Resolvido</option>
+              <option value="cancelado">Cancelado</option>
             </select>
           </div>
 

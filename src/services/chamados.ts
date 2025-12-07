@@ -43,7 +43,7 @@ export async function deleteChamado(id: number) {
   }
 }
 
-export async function updateChamado(id: number, payload: Omit<Chamado, "id">) {
+export async function updateChamado(id: number, payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome">) {
   try {
     const response = await api.patch(`solicitacoes/${id}/`, payload);
     return response.data;
