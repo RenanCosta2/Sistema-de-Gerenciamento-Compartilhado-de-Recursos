@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Edit, Trash2, Eye } from "lucide-react";
 import type { Chamado } from "../../services/chamados";
+import { useAuth } from "../Auth/AuthContext";
 
 interface ChamadosTableProps {
   data: Chamado[];
@@ -17,7 +18,9 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
   onDelete,
   onView,
 }) => {
+  const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
+  const isPrivileged = user?.tipo_usuario === "admin" || user?.tipo_usuario === "servidor";
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
@@ -124,20 +127,25 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                     >
                       <Eye size={16} className="text-gray-700" />
                     </button>
-                    <button
-                      onClick={() => onEdit?.(chamado)}
-                      className="p-1 rounded hover:bg-blue-100 transition-colors cursor-pointer"
-                      title="Editar"
-                    >
-                      <Edit size={16} className="text-blue-500" />
-                    </button>
-                    <button
-                      onClick={() => onDelete?.(chamado)}
-                      className="p-1 rounded hover:bg-red-100 transition-colors cursor-pointer"
-                      title="Excluir"
-                    >
-                      <Trash2 size={16} className="text-red-500" />
-                    </button>
+                    {isPrivileged && (
+                      <button
+                        onClick={() => onEdit?.(chamado)}
+                        className="p-1 rounded hover:bg-blue-100 transition-colors cursor-pointer"
+                        title="Editar"
+                      >
+                        <Edit size={16} className="text-blue-500" />
+                      </button>
+                    )}
+                    
+                    {isPrivileged && (
+                      <button
+                        onClick={() => onDelete?.(chamado)}
+                        className="p-1 rounded hover:bg-red-100 transition-colors cursor-pointer"
+                        title="Excluir"
+                      >
+                        <Trash2 size={16} className="text-red-500" />
+                      </button>
+                    )}
                   </td>
                 </tr>
               );
