@@ -121,15 +121,19 @@ export default function ManutencaoEditModal({
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium">Data fim</label>
-            <input
-              type="date"
-              className="w-full border p-2 rounded"
-              value={dataFim}
-              onChange={(e) => setDataFim(e.target.value)}
-            />
-          </div>
+          {/* data fim */}
+          {status === "concluido" && (
+            <div>
+              <label className="block font-medium text-sm mb-1">Data de fim *</label>
+              <input
+                type="date"
+                required
+                value={dataFim}
+                onChange={(e) => setDataFim(e.target.value)}
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium">Status*</label>
