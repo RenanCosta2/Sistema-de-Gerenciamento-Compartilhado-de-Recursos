@@ -23,7 +23,7 @@ const ColumnChart: React.FC<ColumnChartProps> = ({ data, titulo }) => {
         <h2 className="text-lg font-semibold">{titulo}</h2>
       </div>
 
-      <div className="w-full h-64">
+      <div className="w-full h-80">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
