@@ -135,7 +135,7 @@ export default function ChamadoEditModal({
               onChange={(e) => setStatus(e.target.value)}
               required
             >
-              <option value="aberta">Aberta</option>
+              <option value="aberto">Aberto</option>
               <option value="em_analise">Em análise</option>
               <option value="resolvido">Resolvido</option>
               <option value="cancelado">Cancelado</option>
