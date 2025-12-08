@@ -88,7 +88,18 @@ const ItensPatrimoniais: React.FC = () => {
   }, [searchTerm, filters, itens]);
 
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) {
+    return (
+      <section className="pt-4 px-4">
+        <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
+          Gerenciamento de Itens Patrimoniais
+        </h2>
+        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+          <p>Carregando dados...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="pt-4 px-4">
