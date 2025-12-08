@@ -23,6 +23,16 @@ export async function getChamados() {
   }
 }
 
+export async function getMeusChamados() {
+  try {
+    const response = await api.get("solicitacoes/minhas/");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar solicitações:", error);
+    throw error;
+  }
+}
+
 export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome">) {
   try {
     const response = await api.post("solicitacoes/", payload);

@@ -7,13 +7,16 @@ import ChamadosForm from "../components/Chamados/ChamadosForm";
 import ChamadoViewModal from "../components/Chamados/ChamadoViewModal";
 import ChamadoDeleteModal from "../components/Chamados/ChamadoDeleteModal";
 import ChamadoEditModal from "../components/Chamados/ChamadoEditModal";
+import { useAuth } from "../components/Auth/AuthContext";
 
 import { getChamados } from "../services/chamados";
+import { getMeusChamados } from "../services/chamados";
 import type { Chamado } from "../services/chamados";
 import { getItens } from "../services/itens";
 import type { Item } from "../services/itens";
 
 const Chamados: React.FC = () => {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
 
   const [chamados, setChamados] = useState<Chamado[]>([]);
@@ -22,8 +25,13 @@ const Chamados: React.FC = () => {
   const [itens, setItens] = useState<Item[]>([]);
 
   const fetchChamados = async () => {
-    const data = await getChamados();
-    setChamados(data);
+    if (user?.tipo_usuario != "admin" && user?.tipo_usuario != "servidor") {
+      const data = await getMeusChamados();
+      setChamados(data);
+    } else{
+      const data = await getChamados();
+      setChamados(data);
+    }
   };
 
   useEffect(() => {
