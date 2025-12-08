@@ -8,6 +8,7 @@ import ItensPatrimoniais from "./pages/ItensPatrimoniais";
 import Manutencao from "./pages/Manutencao";
 import Chamados from "./pages/Chamados";
 import Espacos from "./pages/Espacos";
+import Historico from "./pages/Historico";
 import AuthPage from "./pages/AuthPage";
 import { GlobalToast } from "./components/Utils/GlobalToast";
 
@@ -47,6 +48,9 @@ const AppLayout: React.FC = () => {
             } />
             <Route path="/espacos" element={
               <RequireAuth roles={["admin", "servidor"]}><Espacos /></RequireAuth>
+            } />
+            <Route path="/historico" element={
+              <RequireAuth roles={["admin", "servidor"]}><Historico /></RequireAuth>
             } />
           </Routes>
 

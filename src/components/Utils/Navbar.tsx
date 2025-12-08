@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Boxes, Home, Wrench, MessageSquare, LogOut, Building } from "lucide-react";
+import { Boxes, Home, Wrench, MessageSquare, LogOut, Building, Archive } from "lucide-react";
 import { logout } from "../../services/auth";
 import clsx from "clsx";
 import ConfirmLogout from "./ConfirmLogout";
@@ -15,6 +15,7 @@ const Navbar = () => {
     { path: "/itens", label: "Itens Patrimoniais", icon: Boxes, roles: ["admin", "servidor"]},
     { path: "/manutencao", label: "Manutenção", icon: Wrench, roles: ["admin", "servidor"] },
     { path: "/chamados", label: "Chamados", icon: MessageSquare },
+    { path: "/historico", label: "Histórico", icon: Archive, roles: ["admin", "servidor"] },
     { path: "/espacos", label: "Espaços Físicos", icon: Building, roles: ["admin", "servidor"] },
   ];
 
