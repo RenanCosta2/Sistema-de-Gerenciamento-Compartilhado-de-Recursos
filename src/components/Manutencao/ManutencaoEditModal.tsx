@@ -59,7 +59,7 @@ export default function ManutencaoEditModal({
       const payload = {
         descricao,
         data_inicio: dataInicio,
-        data_fim: dataFim || null,
+        data_fim: status !== "concluido" ? null : dataFim || null,
         status,
         patrimonio: Number(patrimonio),
         usuario: user.id
