@@ -38,7 +38,7 @@ const Chamados: React.FC = () => {
         ? await getMeusChamados()
         : await getChamados();
 
-    const mapped = data.map((c) => ({
+    const mapped = data.map((c: Chamado) => ({
       ...c,
       tipo: tipoMap[c.tipo] ?? c.tipo,
     }));
