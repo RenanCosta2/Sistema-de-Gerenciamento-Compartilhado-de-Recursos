@@ -69,6 +69,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
             <tr className="text-[#2E3A59]">
               <th className="py-3 px-4 font-semibold">Código</th>
               <th className="py-3 px-4 font-semibold">Título</th>
+              <th className="py-3 px-4 font-semibold">Tipo</th>
               <th className="py-3 px-4 font-semibold">Item Patrimonial</th>
               <th className="py-3 px-4 font-semibold">Data de Abertura</th>
               <th className="py-3 px-4 font-semibold">Status</th>
@@ -110,6 +111,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                 >
                   <td className="py-3 px-4">{chamado.id}</td>
                   <td className="py-3 px-4">{chamado.titulo}</td>
+                  <td className="py-3 px-4">{chamado.tipo}</td>
                   <td className="py-3 px-4">{chamado.patrimonio}</td>
                   <td className="py-3 px-4">{data}</td>
                   <td className="py-3 px-4">

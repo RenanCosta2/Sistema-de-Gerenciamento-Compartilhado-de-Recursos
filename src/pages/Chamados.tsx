@@ -24,14 +24,26 @@ const Chamados: React.FC = () => {
 
   const [itens, setItens] = useState<Item[]>([]);
 
+  const tipoMap: Record<string, string> = {
+    falta: "Falta",
+    dano: "Dano",
+    manutencao: "Manutenção",
+    substituicao: "Substituição",
+  };
+
+
   const fetchChamados = async () => {
-    if (user?.tipo_usuario != "admin" && user?.tipo_usuario != "servidor") {
-      const data = await getMeusChamados();
-      setChamados(data);
-    } else{
-      const data = await getChamados();
-      setChamados(data);
-    }
+    const data =
+      user?.tipo_usuario !== "admin" && user?.tipo_usuario !== "servidor"
+        ? await getMeusChamados()
+        : await getChamados();
+
+    const mapped = data.map((c) => ({
+      ...c,
+      tipo: tipoMap[c.tipo] ?? c.tipo,
+    }));
+
+    setChamados(mapped);
   };
 
   useEffect(() => {
