@@ -17,13 +17,14 @@ const ChamadoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
 
   const mapStatus = (value: string) => {
     switch (value) {
-      case "pendente":
-        return "Pendente";
-      case "em_andamento":
-        return "Em andamento";
-      case "concluido":
-      case "concluida":
-        return "Concluído";
+      case "aberto":
+        return "Aberto";
+      case "em_analise":
+        return "Em Análise";
+      case "resolvido":
+        return "Resolvido";
+      case "cancelado":
+        return "Cancelado";
       default:
         return "-";
     }
@@ -70,10 +71,6 @@ const ChamadoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
 
           <div>
             <strong>Status:</strong> {mapStatus(data.status)}
-          </div>
-
-          <div>
-            <strong>Usuário:</strong> {data.usuario ?? "-"}
           </div>
 
           <div>
