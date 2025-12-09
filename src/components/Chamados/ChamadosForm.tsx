@@ -127,7 +127,7 @@ const ChamadosForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
           <option value="">Selecione...</option>
           {itens.map((item) =>{
             return (
-              <option value={item.id}>{item.nome}</option>
+              <option value={item.id}>{item.nome} | {item.localizacao_nome_bloco}</option>
             )
           })}
         </select>
