@@ -152,11 +152,25 @@ const Home: React.FC = () => {
       
       {/* SOMENTE admin/servidor veem cards */}
       {isPrivileged && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-4">
-          <Card title="Total de Itens" value={itens.length} icon={<Boxes size={36} />} iconColor="text-blue-600" />
-          <Card title="Chamados Pendentes" value={chamadosList.length} icon={<MessageSquare size={36} />} iconColor="text-green-500" />
-          <Card title="Manutenções Ativas" value={12} icon={<Wrench size={36} />} iconColor="text-orange-500" />
-          <Card title="Itens em Manutenção" value={34} icon={<AlertTriangle size={36} />} iconColor="text-red-500" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+          <Card 
+            title="Total de Itens" 
+            value={itens.length} 
+            icon={<Boxes size={36} />} 
+            iconColor="text-blue-600" 
+          />
+          <Card 
+            title="Chamados Pendentes" 
+            value={chamadosList.length} 
+            icon={<MessageSquare size={36} />} 
+            iconColor="text-green-500" 
+          />
+          <Card 
+            title="Manutenções Ativas" 
+            value={manutencoes.filter((m) => m.status.toLowerCase() === "em_andamento").length} 
+            icon={<Wrench size={36} />} 
+            iconColor="text-orange-500" 
+          />
         </div>
       )}
 
