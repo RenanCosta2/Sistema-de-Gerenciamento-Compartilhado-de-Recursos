@@ -28,7 +28,7 @@ const ManutencaoFilters: React.FC<ManutencaoFiltersProps> = ({
   const statusMap: Record<string, string> = {
     pendente: "Pendente",
     em_andamento: "Em Andamento",
-    concluida: "Concluída",
+    concluido: "Concluído",
   };
 
   const statusList = useMemo(() => {
