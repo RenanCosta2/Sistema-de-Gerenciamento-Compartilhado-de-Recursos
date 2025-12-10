@@ -1,52 +1,68 @@
 import React, { useState, useMemo, useEffect } from "react";
 
-import ManutencaoTable from "../components/Manutencao/ManutencaoTable";
-import ManutencaoFilters from "../components/Manutencao/ManutencaoFilters";
-import { getManutencoes } from "../services/manutencoes";
-import type { Manutencao as ManutencaoModel } from "../services/manutencoes";
+import HistoricoTable from "../components/Historico/HistoricoTable";
+import HistoricoFilters from "../components/Historico/HistoricoFilters";
+import { getHistorico } from "../services/historico";
+import type { Historico } from "../services/historico";
 
-import { getItens } from "../services/itens";
-import type { Item } from "../services/itens";
+import ManutencaoViewModal from "../components/Manutencao/ManutencaoViewModal";
 
 const Historico: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [filters, setFilters] = useState({ status: [] as string[] });
-    const [itens, setItens] = useState<Item[]>([]);
+    const [filters, setFilters] = useState({ 
+      status: [] as string[],
+      tipo: [] as string[],
+      localizacao: [] as string[],
+    });
 
-
-    const [manutencoes, setManutencoes] = useState<ManutencaoModel[]>([]);
+    const [historico, setHistorico] = useState<Historico[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchManutencoes = async () => {
-        const data = await getManutencoes();
-        setManutencoes(data);
+        const data = await getHistorico();
+        setHistorico(data);
       };
     
       useEffect(() => {
-        getItens().then(setItens).catch(console.error);
         fetchManutencoes().finally(() => setLoading(false));
       }, []);
 
-    const filteredManutencao = useMemo(() => {
+    const [viewOpen, setViewOpen] = useState(false);
+
+    const [selected, setSelected] = useState<Historico | null>(null);
+
+    const handleView = (registro: Historico) => {
+        setSelected(registro);
+        setViewOpen(true);
+      };
+    
+
+    const filteredHistorico = useMemo(() => {
         const term = searchTerm.toLowerCase();
     
-        return manutencoes.filter((m) => {
+        return historico.filter((h) => {
           const matchesSearch =
-            m.id.toString().includes(term) ||
-            m.patrimonio_nome.toLowerCase().includes(term);
+            h.numero_tombo.toString().includes(term) ||
+            h.nome_item.toLowerCase().includes(term);
     
           const matchesStatus =
-            filters.status.length === 0 || filters.status.includes(m.status);
+            filters.status.length === 0 || filters.status.includes(h.status);
     
-          return matchesSearch && matchesStatus;
+          const matchesTipo =
+            filters.tipo.length === 0 || filters.tipo.includes(h.tipo);
+    
+          const matchesLocalizacao =
+            filters.localizacao.length === 0 || filters.localizacao.includes(h.localizacao);
+    
+          return matchesSearch && matchesStatus && matchesTipo && matchesLocalizacao;
         });
-      }, [searchTerm, filters, manutencoes]);
+      }, [searchTerm, filters, historico]);
 
     if (loading) {
         return (
         <section className="pt-4 px-4">
             <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
-            Gerenciamento de Manutenções
+            Histórico de Ações
             </h2>
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
             <p>Carregando dados...</p>
@@ -60,12 +76,12 @@ const Historico: React.FC = () => {
 
     <section className="pt-4 px-4">
         <h2 className="text-3xl font-bold mb-6 text-[#2E3A59]">
-            Gerenciamento de Manutenções
+            Histórico de Ações
           </h2>
           <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
             {/* filtros */}
-            <ManutencaoFilters
-              data={manutencoes}
+            <HistoricoFilters
+              data={historico}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               filters={filters}
@@ -74,21 +90,18 @@ const Historico: React.FC = () => {
             {/* botão */}
             <div className="mt-4 mb-4">
             </div>
-            <ManutencaoTable
-              data={filteredManutencao}
+            <HistoricoTable
+              data={filteredHistorico}
+              onView={handleView}
             />
           </div>
-        
-        <div>
-            <p>código</p>
-            <p>nome do item</p>
-            <p>número do tombo</p>
-            <p>localização</p>
-            <p>status</p>
-            <p>tipo (chamado ou manutencao)</p>
-            <p>data de abertura</p>
-            <p>data de atualização</p>
-        </div>
+
+          {/* VIEW */}
+          <ManutencaoViewModal
+            open={viewOpen}
+            data={selected}
+            onClose={() => setViewOpen(false)}
+          />
     </section>
   );
 };
