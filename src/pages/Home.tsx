@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Boxes, Wrench, MessageSquare, AlertTriangle } from "lucide-react";
+import { Boxes, Wrench, MessageSquare, Clock, CheckCircle } from "lucide-react";
 import Card from "../components/Dashboard/Card";
 import ListPanel from "../components/Dashboard/ListPanel";
 import ColumnChart from "../components/Dashboard/ColumnChart";
@@ -87,6 +87,20 @@ const Home: React.FC = () => {
     status: formatStatus(c.status),
   }));
 
+  const chamadosResolvidos = chamados
+  .filter((c) => {
+    const s = c.status.toLowerCase();
+    return s === "resolvido";
+  })
+  .map((c) => ({
+    id: c.id,
+    name: c.titulo + " - " + c.patrimonio_nome,
+    date: c.data_criacao
+      ? new Date(c.data_criacao).toLocaleString("pt-BR")
+      : "Sem data",
+    status: formatStatus(c.status),
+  }));
+
   const manutencoesList = manutencoes
   .filter((m) => {
     const s = m.status.toLowerCase();
@@ -126,7 +140,6 @@ const Home: React.FC = () => {
     return acc;
   }, {} as Record<string, number>);
 
-
   // Garante todos os status com mínimo 0
   const chamStatusCountData = CHAM_STATUS.map((s) => {
     const rawLabel = s.replace(/_/g, " ");
@@ -150,8 +163,8 @@ const Home: React.FC = () => {
   return (
     <section className="pt-4 px-4">
       
-      {/* SOMENTE admin/servidor veem cards */}
-      {isPrivileged && (
+      {isPrivileged ? (
+        // SE for admin/servidor
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
           <Card 
             title="Total de Itens" 
@@ -172,40 +185,64 @@ const Home: React.FC = () => {
             iconColor="text-orange-500" 
           />
         </div>
-      )}
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
-  
-      {/* === BLOCO CHAMADOS === */}
-      <div className="flex flex-col gap-8">
-        <ColumnChart 
-          data={chamStatusCountData} 
-          titulo="Chamados por Status"
-        />
-
-        <ListPanel
-          title="Chamados Pendentes"
-          items={chamadosList.slice(0, 5)}
-        />
-      </div>
-
-      {/* === BLOCO MANUTENÇÕES (somente admin) === */}
-      {isPrivileged && (
-        <div className="flex flex-col gap-8">
-          <ColumnChart 
-            data={manutStatusCountData} 
-            titulo="Manutenções por Status"
+      ) : (
+        // SENÃO (não é admin)
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 py-4">
+          <Card 
+            title="Chamados Pendentes" 
+            value={chamadosList.length} 
+            icon={<Clock size={36} />} 
+            iconColor="text-blue-500" 
           />
 
-          <ListPanel
-            title="Manutenções Pendentes"
-            items={manutencoesList.slice(0, 5)}
+          <Card 
+            title="Chamados Resolvidos" 
+            value={chamadosResolvidos.length} 
+            icon={<CheckCircle size={36} />} 
+            iconColor="text-green-500" 
           />
         </div>
       )}
 
-    </div>
+      {isPrivileged ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
+          <div className="flex flex-col gap-8">
+            <ColumnChart 
+              data={chamStatusCountData} 
+              titulo="Chamados por Status"
+            />
 
+            <ListPanel
+              title="Chamados Pendentes"
+              items={chamadosList.slice(0, 5)}
+            />
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <ColumnChart 
+              data={manutStatusCountData} 
+              titulo="Manutenções por Status"
+            />
+
+            <ListPanel
+              title="Manutenções Pendentes"
+              items={manutencoesList.slice(0, 5)}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
+          <ColumnChart 
+            data={chamStatusCountData} 
+            titulo="Chamados por Status"
+          />
+
+          <ListPanel
+            title="Chamados Pendentes"
+            items={chamadosList.slice(0, 5)}
+          />
+        </div>
+      )}
 
     </section>
   );
