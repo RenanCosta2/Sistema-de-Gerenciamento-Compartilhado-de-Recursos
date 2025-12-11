@@ -125,11 +125,18 @@ const ChamadosForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
           required
         >
           <option value="">Selecione...</option>
-          {itens.map((item) =>{
-            return (
-              <option value={item.id}>{item.nome} | {item.localizacao_nome_bloco}</option>
-            )
-          })}
+
+          {Array.from(new Set(itens.map(i => i.localizacao_nome_bloco))).map((bloco) => (
+            <optgroup key={bloco} label={bloco}>
+              {itens
+                .filter(i => i.localizacao_nome_bloco === bloco)
+                .map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.nome}
+                  </option>
+                ))}
+            </optgroup>
+          ))}
         </select>
       </div>
 
