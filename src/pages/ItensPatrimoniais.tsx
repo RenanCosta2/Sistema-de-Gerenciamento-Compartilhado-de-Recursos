@@ -143,7 +143,7 @@ const ItensPatrimoniais: React.FC = () => {
             nome: editingItem.nome,
             descricao: editingItem.descricao,
             numero_tombo: editingItem.numero_tombo,
-            localizacao: editingItem.localizacao_nome_bloco,
+            localizacao: editingItem.localizacao,
             status: editingItem.status,
             data_aquisicao: editingItem.data_aquisicao,
             responsavel: editingItem.responsavel,
