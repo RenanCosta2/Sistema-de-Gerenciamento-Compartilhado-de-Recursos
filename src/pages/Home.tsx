@@ -81,6 +81,7 @@ const Home: React.FC = () => {
   .map((c) => ({
     id: c.id,
     name: c.titulo + " - " + c.patrimonio_nome,
+    tipo: c.tipo,
     date: c.data_criacao
       ? new Date(c.data_criacao).toLocaleString("pt-BR")
       : "Sem data",

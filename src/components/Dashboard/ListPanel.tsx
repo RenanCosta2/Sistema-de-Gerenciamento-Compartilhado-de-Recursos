@@ -5,6 +5,7 @@ interface Item {
   name: string;
   date: string;
   status?: string;
+  tipo?: string;
 }
 
 interface ListPanelProps {
@@ -21,6 +22,20 @@ const mapStatusForColor = (raw?: string): string => {
 
   return s;
 };
+
+const tipoMap: Record<string, string> = {
+  falta: "Falta",
+  dano: "Dano",
+  manutencao: "Manutenção",
+  substituicao: "Substituição",
+};
+
+const mapTipo = (raw?: string): string => {
+  if (!raw) return "Não informado";
+  const key = raw.toLowerCase();
+  return tipoMap[key] || raw;
+};
+
 
 const getStatusClasses = (status: string): string => {
   switch (status) {
@@ -46,8 +61,8 @@ const ListPanel: React.FC<ListPanelProps> = ({ title, items }) => {
 
       <ul>
         {items.map((item, index) => {
-          const colorKey = mapStatusForColor(item.status);
-          const statusClasses = item.status ? getStatusClasses(colorKey) : "";
+          const normalizedStatus = mapStatusForColor(item.status);
+          const statusClasses = item.status ? getStatusClasses(normalizedStatus) : "";
 
           return (
             <li
@@ -56,18 +71,26 @@ const ListPanel: React.FC<ListPanelProps> = ({ title, items }) => {
                 index !== items.length - 1 ? "border-b border-gray-200" : ""
               }`}
             >
-              <div className="flex justify-between items-center">
-                
-                {/* Bloco nome + data */}
-                <div className="flex flex-col">
-                  <p className="font-medium">{item.name}</p>
+              <div className="flex justify-between items-start">
+
+                <div className="flex flex-col gap-1">
+                  {/* Nome */}
+                  <p className="font-semibold text-gray-800">{item.name}</p>
+
+                  {/* Tipo */}
+                  {item.tipo && (
+                    <span className="text-xs text-gray-600 italic">
+                      Tipo: {mapTipo(item.tipo)}
+                    </span>
+                  )}
+
+                  {/* Data */}
                   <p className="text-sm text-gray-500">{item.date}</p>
                 </div>
 
-                {/* Status centralizado verticalmente */}
                 {item.status && (
                   <span
-                    className={`text-sm px-2 py-1 rounded-md font-semibold capitalize ${statusClasses}`}
+                    className={`text-sm px-2 py-1 rounded-md font-medium capitalize whitespace-nowrap ${statusClasses}`}
                   >
                     {item.status}
                   </span>
