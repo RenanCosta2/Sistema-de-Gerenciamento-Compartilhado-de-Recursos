@@ -24,12 +24,7 @@ const Chamados: React.FC = () => {
 
   const [itens, setItens] = useState<Item[]>([]);
 
-  const tipoMap: Record<string, string> = {
-    falta: "Falta",
-    dano: "Dano",
-    manutencao: "Manutenção",
-    substituicao: "Substituição",
-  };
+  
 
 
   const fetchChamados = async () => {
@@ -38,12 +33,7 @@ const Chamados: React.FC = () => {
         ? await getMeusChamados()
         : await getChamados();
 
-    const mapped = data.map((c: Chamado) => ({
-      ...c,
-      tipo: tipoMap[c.tipo] ?? c.tipo,
-    }));
-
-    setChamados(mapped);
+    setChamados(data);
   };
 
   useEffect(() => {

@@ -11,6 +11,13 @@ interface ChamadosTableProps {
   onView?: (chamado: Chamado) => void;
 }
 
+const tipoMap: Record<string, string> = {
+  falta: "Falta",
+  dano: "Dano",
+  manutencao: "Manutenção",
+  substituicao: "Substituição",
+};
+
 const ChamadosTable: React.FC<ChamadosTableProps> = ({
   data,
   rowsPerPage = 5,
@@ -111,7 +118,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                 >
                   <td className="py-3 px-4">{chamado.id}</td>
                   <td className="py-3 px-4">{chamado.titulo}</td>
-                  <td className="py-3 px-4">{chamado.tipo}</td>
+                  <td className="py-3 px-4">{tipoMap[chamado.tipo] || "—"}</td>
                   <td className="py-3 px-4">{chamado.patrimonio}</td>
                   <td className="py-3 px-4">{data}</td>
                   <td className="py-3 px-4">
