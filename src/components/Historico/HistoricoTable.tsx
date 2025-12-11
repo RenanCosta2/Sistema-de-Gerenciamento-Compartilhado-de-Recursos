@@ -83,7 +83,7 @@ const HistoricoTable: React.FC<HistoricoTableProps> = ({
                   : rawStatus;
 
               const statusClasses =
-                status === "concluído"
+                status === "concluído" || status === "resolvido"
                   ? "text-green-700 border border-green-400 bg-green-50"
                   : status === "em andamento" || status === "em análise"
                   ? "text-yellow-700 border border-yellow-400 bg-yellow-50"
