@@ -74,7 +74,7 @@ const ChamadoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
           </div>
 
           <div>
-            <strong>Patrimônio:</strong> {data.patrimonio}
+            <strong>Patrimônio:</strong> {data.patrimonio_nome}
           </div>
 
         </div>

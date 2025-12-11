@@ -119,7 +119,7 @@ const ChamadosTable: React.FC<ChamadosTableProps> = ({
                   <td className="py-3 px-4">{chamado.id}</td>
                   <td className="py-3 px-4">{chamado.titulo}</td>
                   <td className="py-3 px-4">{tipoMap[chamado.tipo] || "—"}</td>
-                  <td className="py-3 px-4">{chamado.patrimonio}</td>
+                  <td className="py-3 px-4">{chamado.patrimonio_nome}</td>
                   <td className="py-3 px-4">{data}</td>
                   <td className="py-3 px-4">
                     <span

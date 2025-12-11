@@ -38,7 +38,7 @@ export default function ChamadoDeleteModal({
         <p className="mb-6">
           Tem certeza de que deseja excluir o chamado{" "}
           <strong>#{chamado.id}</strong> referente ao item{" "}
-          <strong>{chamado.patrimonio}</strong>?
+          <strong>{chamado.patrimonio_nome}</strong>?
         </p>
 
         <div className="flex justify-end gap-2">
