@@ -5,7 +5,7 @@ import HistoricoFilters from "../components/Historico/HistoricoFilters";
 import { getHistorico } from "../services/historico";
 import type { Historico } from "../services/historico";
 
-import ManutencaoViewModal from "../components/Manutencao/ManutencaoViewModal";
+import HistoricoViewModal from "../components/Historico/HistoricoViewModal";
 
 const Historico: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -97,7 +97,7 @@ const Historico: React.FC = () => {
           </div>
 
           {/* VIEW */}
-          <ManutencaoViewModal
+          <HistoricoViewModal
             open={viewOpen}
             data={selected}
             onClose={() => setViewOpen(false)}
