@@ -61,10 +61,6 @@ const ManutencaoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
           <div>
             <strong>Status:</strong> {mapStatus(data.status)}
           </div>
-
-          <div>
-            <strong>Responsável:</strong> {data.usuario}
-          </div>
         </div>
 
         <div className="flex justify-end mt-6">
