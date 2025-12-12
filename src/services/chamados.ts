@@ -11,6 +11,8 @@ export interface Chamado {
   usuario?: number;
   patrimonio: number;
   patrimonio_nome: string;
+  localizacao_bloco: string;
+  localizacao_sala: string;
 }
 
 export async function getChamados() {
@@ -33,7 +35,7 @@ export async function getMeusChamados() {
   }
 }
 
-export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome">) {
+export async function createChamado(payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome" | "localizacao_bloco" | "localizacao_sala">) {
   try {
     const response = await api.post("solicitacoes/", payload);
     return response.data;
@@ -53,7 +55,7 @@ export async function deleteChamado(id: number) {
   }
 }
 
-export async function updateChamado(id: number, payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome">) {
+export async function updateChamado(id: number, payload: Omit<Chamado, "id" | "data_registro" | "status" | "patrimonio_nome" | "localizacao_bloco" | "localizacao_sala">) {
   try {
     const response = await api.patch(`solicitacoes/${id}/`, payload);
     return response.data;

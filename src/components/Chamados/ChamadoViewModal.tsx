@@ -77,6 +77,14 @@ const ChamadoViewModal: React.FC<Props> = ({ open, onClose, data }) => {
             <strong>Patrimônio:</strong> {data.patrimonio_nome}
           </div>
 
+          <div>
+            <strong>Bloco:</strong> {data.localizacao_bloco}
+          </div>
+
+          <div>
+            <strong>Sala:</strong> {data.localizacao_sala}
+          </div>
+
         </div>
 
         <div className="flex justify-end mt-6">
