@@ -132,10 +132,16 @@ const ItemAddModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
             >
               <option value="">Selecione...</option>
 
-              {espacos.map((loc) => (
-                <option key={loc.id} value={loc.id}>
-                  {loc.nome}
-                </option>
+              {Array.from(new Set(espacos.map(e => e.bloco))).map((bloco) => (
+                <optgroup key={bloco} label={bloco}>
+                  {espacos
+                    .filter(e => e.bloco === bloco)
+                    .map((loc) => (
+                      <option key={loc.id} value={loc.id}>
+                        {loc.nome}
+                      </option>
+                    ))}
+                </optgroup>
               ))}
             </select>
           </div>
